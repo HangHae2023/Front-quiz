@@ -1,0 +1,21 @@
+{
+  "quiz": [
+    {
+      "postId": "2",
+      "UserId": "1",
+      "nickname": "tester1",
+      "title": " 2번째 퀴즈 제목입니다.",
+      "createdAt": "2022-07-25T07:45:56.000Z",
+      "updatedAt": "2022-07-25T07:45:56.000Z"
+    },
+
+    {
+      "postId": 1,
+      "UserId": 1,
+      "nickname": "tester1",
+      "title": "퀴즈 제목입니다.",
+      "createdAt": "2022-07-25T07:45:15.000Z",
+      "updatedAt": "2022-07-25T07:45:15.000Z"
+    }
+  ]
+}
