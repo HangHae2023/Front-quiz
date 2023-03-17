@@ -3,7 +3,7 @@ import quizSlice from '../modules/quizSlice';
 
 const store = configureStore({
   reducer: {
-    quiz: quizSlice,
+    quizSlice,
   },
 });
 export default store;
