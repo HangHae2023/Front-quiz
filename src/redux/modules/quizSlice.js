@@ -75,7 +75,7 @@ export const quizSlice = createSlice({
     [__editQuiz.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      state.comment = action.payload;
+//       state.comment = action.payload;
     },
     [__editQuiz.rejected]: (state, action) => {
       state.isError = true;
