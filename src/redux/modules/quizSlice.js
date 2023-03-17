@@ -11,7 +11,7 @@ const initialState = {
 };
 export const __getQuiz = createAsyncThunk('getQuiz', async (payload, thunkAPI) => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_HOUSE_URL}${QUIZ_URL}`);
+    const response = await axios.get(`${process.env.REACT_APP_QUIZ_URL}${QUIZ_URL}`);
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
