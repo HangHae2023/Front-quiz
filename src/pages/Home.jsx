@@ -1,10 +1,12 @@
 import React from "react";
-import { Price } from "../components/Input";
+import styled from "styled-components";
+import Layout from "../components/Layout";
+
 function Home() {
   return (
-    <div>
-      <Price />
-    </div>
+    <Layout>
+      <button>퀴즈 추가하기</button>
+    </Layout>
   );
 }
 
