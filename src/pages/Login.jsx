@@ -1,10 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { cookies } from '../components/cookie';
 
 const Login = () => {
   const [login, setLogin] = useState({
-    id: '',
+    userId: '',
     password: '',
   });
 
@@ -15,10 +14,11 @@ const Login = () => {
 
   const submitHandler = async () => {
     try {
-      const data = await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, login);
-      cookies.set('mytoken', data.data.token, { path: '/' });
+      // await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, login);
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/auth/login`, login);
     } catch (error) {
       alert(JSON.parse(error.request.response).message);
+      console.log(error);
     }
   };
   return (
@@ -31,14 +31,14 @@ const Login = () => {
       <h1>Login</h1>
       <input
         type="text"
-        name="id"
-        value={login.id}
+        name="userId"
+        value={login.userId}
         onChange={(e) => changeInputHandler(e)}
       />
       <input
         type="password"
-        name="pw"
-        value={login.pw}
+        name="password"
+        value={login.password}
         onChange={(e) => changeInputHandler(e)}
       />
       <button>로그인</button>

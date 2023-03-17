@@ -1,4 +1,3 @@
-import React, { Children } from 'react';
 import styled from 'styled-components';
 
 export const Nav = () => {
@@ -18,7 +17,9 @@ export const Header = ({ children }) => {
 const QuizHeader = styled.div`
   font-size: 20px;
   display: flex;
-  justify-content: space-around;
+  padding: 10px 30px;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const QuizTitle = ({ children }) => {
@@ -32,8 +33,6 @@ const Title = styled.div`
   justify-content: center;
   height: 300px;
   padding-top: 50px;
-
-  /* border: 1px solid black; */
 `;
 
 export const QuizAnswer = ({ children }) => {
@@ -44,4 +43,12 @@ const Answer = styled.div`
   display: flex;
   justify-content: center;
   font-size: 25px;
+`;
+
+export const Flexdiv = ({ children, ...rest }) => {
+  return <Div style={{ ...rest }}>{children}</Div>;
+};
+
+const Div = styled.div`
+  display: flex;
 `;
