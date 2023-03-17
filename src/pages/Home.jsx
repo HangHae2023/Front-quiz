@@ -1,7 +1,11 @@
-import React from 'react';
-
+import React from "react";
+import { Price } from "../components/Input";
 function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Price />
+    </div>
+  );
 }
 
 export default Home;

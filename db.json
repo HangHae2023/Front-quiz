@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": "iamuser",
+      "nickname": "testuser",
+      "password": "1234",
+      "passwordCheck": "1234"
+    }
+  ],
+  "quizs": [
+    {
+      "title": "string",
+      "answer": "string",
+      "explain": "string",
+      "img": "string"
+    }
+  ],
+  "comments": [
+    {
+      "comment": "test comment",
+      "nickname": "닉네임"
+    }
+  ]
+}
