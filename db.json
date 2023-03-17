@@ -1,24 +1,25 @@
 {
-  "users": [
+  "quiz": [
     {
-      "id": "iamuser",
-      "nickname": "testuser",
-      "password": "1234",
-      "passwordCheck": "1234"
-    }
-  ],
-  "quizs": [
+      "postId": "2",
+      "UserId": "1",
+      "nickname": "tester1",
+      "title": " 1번째 퀴즈 제목입니다.",
+      "answer":"1번째 답입니다",
+      "explain" : "1번째 퀴즈 설명",
+      "createdAt": "2022-07-25T07:45:56.000Z",
+      "updatedAt": "2022-07-25T07:45:56.000Z"
+    },
+
     {
-      "title": "string",
-      "answer": "string",
-      "explain": "string",
-      "img": "string"
-    }
-  ],
-  "comments": [
-    {
-      "comment": "test comment",
-      "nickname": "닉네임"
+      "postId": 1,
+      "UserId": 1,
+      "nickname": "tester1",
+      "title": "퀴즈 제목입니다.",
+      "answer":"2번째 답입니다",
+      "explain" : "2번째 퀴즈 설명",
+      "createdAt": "2022-07-25T07:45:15.000Z",
+      "updatedAt": "2022-07-25T07:45:15.000Z"
     }
   ]
 }
