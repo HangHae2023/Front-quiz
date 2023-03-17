@@ -44,3 +44,11 @@ const Answer = styled.div`
   justify-content: center;
   font-size: 25px;
 `;
+
+export const Flexdiv = ({ children, ...rest }) => {
+  return <Div style={{ ...rest }}>{children}</Div>;
+};
+
+const Div = styled.div`
+  display: flex;
+`;

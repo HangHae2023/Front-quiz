@@ -2,9 +2,16 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Header, Nav, QuizAnswer, QuizTitle } from '../components/page';
+import {
+  ModalBackground,
+  ModalContent,
+  ModalOpenTrigger,
+  ModalRoot,
+} from '../components/Modal';
+import { Flexdiv, Header, Nav, QuizAnswer, QuizTitle } from '../components/page';
 import { __getQuiz } from '../redux/modules/quizSlice';
 import Comment from './Comment';
+import Edit from './Edit';
 
 function Detail() {
   const param = useParams();
@@ -19,14 +26,24 @@ function Detail() {
   return (
     <div>
       <Nav />
+      <Flexdiv>
+        <ModalRoot>
+          <ModalOpenTrigger>
+            <ModalBackground />
+            <button>수정</button>
+          </ModalOpenTrigger>
+
+          <ModalContent>
+            <Edit item={postData} />
+          </ModalContent>
+        </ModalRoot>
+        <button>삭제</button>
+      </Flexdiv>
+
       <Header>
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           <span>{postData?.nickname}</span>
           <span style={{ color: 'gray', fontSize: '16px' }}>{postData?.createdAt}</span>
-        </div>
-        <div>
-          <button>수정</button>
-          <button>삭제</button>
         </div>
       </Header>
       <QuizTitle>{postData?.title}</QuizTitle>
