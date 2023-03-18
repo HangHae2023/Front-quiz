@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navi = useNavigate();
   const [login, setLogin] = useState({
     userId: '',
     password: '',
@@ -12,7 +14,9 @@ const Login = () => {
     setLogin({ ...login, [name]: value });
   };
 
-  const submitHandler = async () => {
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
     try {
       // await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, login);
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/auth/login`, login);
@@ -22,26 +26,26 @@ const Login = () => {
     }
   };
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        submitHandler();
-      }}
-    >
+    <form onSubmit={submitHandler}>
       <h1>Login</h1>
       <input
         type="text"
         name="userId"
+        placeholder="아이디를 입력하세요"
         value={login.userId}
         onChange={(e) => changeInputHandler(e)}
+        required
       />
       <input
         type="password"
         name="password"
+        placeholder="비밀번호를 입력하세요"
         value={login.password}
         onChange={(e) => changeInputHandler(e)}
+        required
       />
       <button>로그인</button>
+      <button onClick={() => navi('/Register')}>회원가입</button>
     </form>
   );
 };
