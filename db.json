@@ -52,7 +52,9 @@
       "nickname": "testuser1",
       "content": "2번째 댓글입니다.",
       "createdAt": "2022년 7월25일",
-      "updatedAt": "2022년 7월25일"
+      "updatedAt": "2022년 7월25일",
+      "commentId": 2,
+      "editContent": "2번째 ㅎ"
     },
     {
       "id": 1,

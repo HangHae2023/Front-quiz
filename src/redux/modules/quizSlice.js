@@ -81,6 +81,20 @@ export const __deleteComment = createAsyncThunk(
   }
 );
 
+export const __addQuiz = createAsyncThunk(
+  'ADD_QUIZ',
+  async (payload, thunkAPI) => {
+    try {
+      console.log(payload);
+      await axios.delete(`${process.env.REACT_APP_QUIZ_URL}/comment/${payload}`);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue('error');
+    }
+  }
+);
+
+
 export const quizSlice = createSlice({
   name: 'quiz',
   initialState,
