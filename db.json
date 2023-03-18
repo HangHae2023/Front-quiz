@@ -1,8 +1,8 @@
 {
   "quiz": [
     {
-      "postId": "2",
-      "UserId": "1",
+      "id": 2,
+      "UserId": 1,
       "nickname": "tester1",
       "title": " 1번째 퀴즈 제목입니다.",
       "answer": "1번째 답입니다",
@@ -10,34 +10,35 @@
       "createdAt": "2022년 7월 25일",
       "updatedAt": "2022년 7월 25일"
     },
-
     {
-      "postId": 1,
+      "id": 1,
+      "title": " 1번째 퀴즈 제목입니다.",
+      "answer": "1번째 답입니다zz",
+      "explain": "1번째 퀴즈 설명ㄴㅇㄹㄴㅁ",
+      "createdAt": "2022년 7월 25일",
+      "updatedAt": "2022년 7월 25일",
       "UserId": 1,
       "nickname": "tester1",
-      "title": "퀴즈 제목입니다.",
-      "answer": "2번째 답입니다",
-      "explain": "2번째 퀴즈 설명",
-      "createdAt": "2022년 7월 25일",
-      "updatedAt": "2022년 7월 25일"
+      "formData": {},
+      "resourceUrl": null
     }
   ],
   "comment": [
     {
-      "commentId": 2,
-      "postId": 1,
+      "id": 2,
+      "quizId": 1,
       "nickname": "testuser1",
-      "comment": "2번째 댓글입니다.",
-      "createdAt": "2022년 7월 25일",
-      "updatedAt": "2022년 7월 25일"
+      "content": "2번째 댓글입니다.",
+      "createdAt": "2022년 7월25일",
+      "updatedAt": "2022년 7월25일"
     },
     {
-      "commentId": 1,
-      "postId": 1,
+      "id": 1,
+      "quizId": 1,
       "nickname": "testuser1",
-      "comment": "댓글 입니다.",
-      "createdAt": "2022년 7월 25일",
-      "updatedAt": "2022년 7월 25일"
+      "content": "댓글 입니다.",
+      "createdAt": "2022년 7월25일",
+      "updatedAt": "2022년 7월25일"
     }
   ]
 }
