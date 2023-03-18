@@ -73,6 +73,18 @@ export const __deleteComment = createAsyncThunk(
   'deleteComment',
   async (payload, thunkAPI) => {
     try {
+      await axios.delete(`${process.env.REACT_APP_QUIZ_URL}/comment/${payload}`);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue('error');
+    }
+  }
+);
+
+export const __addQuiz = createAsyncThunk(
+  'ADD_QUIZ',
+  async (payload, thunkAPI) => {
+    try {
       console.log(payload);
       await axios.delete(`${process.env.REACT_APP_QUIZ_URL}/comment/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
@@ -81,6 +93,7 @@ export const __deleteComment = createAsyncThunk(
     }
   }
 );
+
 
 export const quizSlice = createSlice({
   name: 'quiz',
@@ -170,7 +183,7 @@ export const quizSlice = createSlice({
     [__deleteQuiz.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      state.quiz = state.quiz.filter((item) => item.id !== action.payload.quizId);
+      state.quiz = state.quiz.filter((item) => item.id !== action.payload);
     },
     [__deleteQuiz.rejected]: (state, action) => {
       state.isError = true;
@@ -184,9 +197,7 @@ export const quizSlice = createSlice({
     [__deleteComment.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      state.comment = state.comment.filter(
-        (item) => item.id !== action.payload.commentId
-      );
+      state.comment = state.comment.filter((item) => item.id !== action.payload);
     },
     [__deleteComment.rejected]: (state, action) => {
       state.isError = true;

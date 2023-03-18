@@ -1,7 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Layout from '../components/Layout';
+import { Nav } from '../components/page';
+import { MainButton } from '../components/style/Button';
+import * as style from '../components/style/Register';
 
 const Login = () => {
+  const navi = useNavigate();
   const [login, setLogin] = useState({
     userId: '',
     password: '',
@@ -12,7 +18,9 @@ const Login = () => {
     setLogin({ ...login, [name]: value });
   };
 
-  const submitHandler = async () => {
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
     try {
       // await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, login);
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/auth/login`, login);
@@ -22,27 +30,48 @@ const Login = () => {
     }
   };
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        submitHandler();
-      }}
-    >
-      <h1>Login</h1>
-      <input
-        type="text"
-        name="userId"
-        value={login.userId}
-        onChange={(e) => changeInputHandler(e)}
-      />
-      <input
-        type="password"
-        name="password"
-        value={login.password}
-        onChange={(e) => changeInputHandler(e)}
-      />
-      <button>로그인</button>
-    </form>
+    <>
+      <Nav />
+      <Layout>
+        <h2
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '50px',
+          }}
+        >
+          로 그 인
+        </h2>
+        <style.StSignupForm onSubmit={submitHandler}>
+          <style.HeaderLetter>어서오세요 ! 오늘도 한번 놀아봅시다 !</style.HeaderLetter>
+
+          <style.StSignUpGroup>
+            <style.StSignupInput
+              type="text"
+              name="userId"
+              placeholder="아이디를 입력하세요"
+              value={login.userId}
+              onChange={changeInputHandler}
+              required
+            />
+            &nbsp;
+            <style.StSignupInput
+              type="password"
+              name="password"
+              placeholder="비밀번호를 입력하세요"
+              value={login.password}
+              onChange={changeInputHandler}
+              required
+            />
+            <MainButton type="login">로그인</MainButton>
+            <style.StSignupButton onClick={() => navi('/Register')}>
+              아직 회원이 아니신가요?
+              <span style={{ color: 'red' }}>회원가입</span>
+            </style.StSignupButton>
+          </style.StSignUpGroup>
+        </style.StSignupForm>
+      </Layout>
+    </>
   );
 };
 
