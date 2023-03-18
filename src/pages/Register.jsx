@@ -5,7 +5,7 @@ import { Nav } from "../components/page";
 import { AiFillHome } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { __isSameNickname } from "../redux/modules/signUpSlice";
+import { __isSameNickname, __signUpId } from "../redux/modules/signUpSlice";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -18,17 +18,25 @@ const Register = () => {
     passwordCheck: "",
   });
 
+  const [wrongPw, setWrongPw] = useState("");
+
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setNewUsers({ ...newUsers, [name]: value });
   };
 
-  // const onSubmitButtonHandler = (e)=>{
-  //   e.preventDefault();
+  const onSubmitButtonHandler = (e) => {
+    e.preventDefault();
 
-  // }
+    if (newUsers.password !== newUsers.passwordCheck) {
+      setWrongPw("비밀번호가 일치하지 않습니다!");
+    } else {
+      dispatch(__signUpId({ ...newUsers }));
+    }
+  };
+
   const isNicknameSameButtonHandler = (nickname) => {
-    dispatch(__isSameNickname(newUsers.nickname))
+    dispatch(__isSameNickname(newUsers.nickname));
   };
 
   return (
@@ -44,7 +52,7 @@ const Register = () => {
         >
           회 원 가 입
         </h2>
-        <StSignupForm>
+        <StSignupForm onSubmit={onSubmitButtonHandler}>
           <StSignUpGroup>
             <StSignUpId>
               <StSignupInput
@@ -74,19 +82,20 @@ const Register = () => {
               <StSignupButton type="button">중복확인</StSignupButton>
             </StSignUpId>
             <StSignupInput
-              type="text"
+              type="password"
               name="password"
               placeholder="비밀번호를 입력하세요"
               value={newUsers.password}
               onChange={onChangeHandler}
             />
             <StSignupInput
-              type="text"
+              type="password"
               name="passwordCheck"
               placeholder="비밀번호를 재입력하세요"
               value={newUsers.passwordCheck}
               onChange={onChangeHandler}
             />
+            {wrongPw}
             <div
               style={{
                 display: "flex",
