@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
-import styled from "styled-components";
 import { Nav } from "../components/page";
 import { AiFillHome } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __isSameNickname, __signUpId } from "../redux/modules/signUpSlice";
+import * as style from "../components/style/Register";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -52,10 +52,10 @@ const Register = () => {
         >
           회 원 가 입
         </h2>
-        <StSignupForm onSubmit={onSubmitButtonHandler}>
-          <StSignUpGroup>
-            <StSignUpId>
-              <StSignupInput
+        <style.StSignupForm onSubmit={onSubmitButtonHandler}>
+          <style.StSignUpGroup>
+            <style.StSignUpId>
+              <style.StSignupInput
                 type="text"
                 name="nickname"
                 placeholder="닉네임을 입력하세요"
@@ -63,15 +63,15 @@ const Register = () => {
                 onChange={onChangeHandler}
               />
               &nbsp;
-              <StSignupButton
+              <style.StSignupButton
                 type="button"
                 onClick={() => isNicknameSameButtonHandler(newUsers.nickname)}
               >
                 중복확인
-              </StSignupButton>
-            </StSignUpId>
-            <StSignUpId>
-              <StSignupInput
+              </style.StSignupButton>
+            </style.StSignUpId>
+            <style.StSignUpId>
+              <style.StSignupInput
                 type="text"
                 name="userId"
                 placeholder="아이디를 입력하세요"
@@ -79,16 +79,16 @@ const Register = () => {
                 onChange={onChangeHandler}
               />
               &nbsp;
-              <StSignupButton type="button">중복확인</StSignupButton>
-            </StSignUpId>
-            <StSignupInput
+              <style.StSignupButton type="button">중복확인</style.StSignupButton>
+            </style.StSignUpId>
+            <style.StSignupInput
               type="password"
               name="password"
               placeholder="비밀번호를 입력하세요"
               value={newUsers.password}
               onChange={onChangeHandler}
             />
-            <StSignupInput
+            <style.StSignupInput
               type="password"
               name="passwordCheck"
               placeholder="비밀번호를 재입력하세요"
@@ -102,7 +102,7 @@ const Register = () => {
                 alignItems: "center",
               }}
             >
-              <StSignupButton>회원가입하기!</StSignupButton>
+              <style.StSignupButton>회원가입하기!</style.StSignupButton>
               <AiFillHome
                 type="button"
                 onClick={() => {
@@ -114,8 +114,8 @@ const Register = () => {
                 size="30px"
               />
             </div>
-          </StSignUpGroup>
-        </StSignupForm>
+          </style.StSignUpGroup>
+        </style.StSignupForm>
       </Layout>
     </>
   );
@@ -123,45 +123,3 @@ const Register = () => {
 
 export default Register;
 
-const StSignupForm = styled.form`
-  background-color: #eee;
-  border-radius: 12px;
-  margin: 0 auto;
-  margin-top: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-items: center;
-  padding: 30px;
-  gap: 20px;
-`;
-
-const StSignUpGroup = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-`;
-
-const StSignUpId = styled.div`
-  gap: 20px;
-`;
-
-const StSignupInput = styled.input`
-  height: 40px;
-  width: 240px;
-  border: 1px solid black;
-  border-radius: 12px;
-  padding: 0 12px;
-`;
-
-const StSignupButton = styled.button`
-  border: 1px solid black;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 10px;
-  width: 140px;
-
-  font-weight: 700;
-`;
