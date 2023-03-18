@@ -20,10 +20,11 @@ function EditComment({ item }) {
   const deleteCommentHandler = (id) => {
     dispatch(__deleteComment(id));
   };
+
   return (
-    <div onSubmit={submitInputHandler}>
+    <div>
       {edit ? (
-        <form>
+        <form onSubmit={submitInputHandler}>
           <input
             type="text"
             value={editComment.editContent}

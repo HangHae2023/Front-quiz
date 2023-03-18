@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/Modal';
 import { Flexdiv, Header, Nav, QuizAnswer, QuizTitle } from '../components/page';
-import { __getQuiz } from '../redux/modules/quizSlice';
+import { __deleteQuiz, __getQuiz } from '../redux/modules/quizSlice';
 import Comment from './Comment';
 import Edit from './Edit';
 
 function Detail() {
+  const navi = useNavigate();
   const param = useParams();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.quizSlice);
@@ -19,6 +21,10 @@ function Detail() {
     dispatch(__getQuiz());
   }, [JSON.stringify(data.quiz, data.comment)]);
 
+  const deleteQuizHandler = (id) => {
+    dispatch(__deleteQuiz(id));
+    navi('/');
+  };
   return (
     <div>
       <Nav />
@@ -32,7 +38,7 @@ function Detail() {
           <Edit item={postData} />
         </ModalContent>
 
-        <button>삭제</button>
+        <button onClick={() => deleteQuizHandler(postData?.id)}>삭제</button>
       </Flexdiv>
 
       <Header>
