@@ -2,11 +2,16 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
-import { Nav } from "../components/page";
+import { Flexdiv, Nav } from "../components/page";
 import { __getQuiz } from "../redux/modules/quizSlice";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import * as style from "../components/style/Home";
-
+import {
+  ModalBackground,
+  ModalContent,
+  ModalOpenTrigger,
+} from "../components/Modal";
+import Quiz from "./Quiz";
 
 function Home() {
   const dispatch = useDispatch();
@@ -43,7 +48,15 @@ function Home() {
               size="40px"
               // onClick={}
             />
-            <style.StAddButton>퀴즈 추가하기</style.StAddButton>
+            <Flexdiv>
+              <ModalOpenTrigger>
+                <ModalBackground />
+                <style.StAddButton>퀴즈 추가하기</style.StAddButton>
+              </ModalOpenTrigger>
+              <ModalContent>
+                <Quiz />
+              </ModalContent>
+            </Flexdiv>
           </span>
           <br />
           <br />
@@ -66,6 +79,5 @@ function Home() {
     </>
   );
 }
-
 
 export default Home;
