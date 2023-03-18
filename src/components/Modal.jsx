@@ -1,26 +1,21 @@
-import React, { createContext, useContext, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-
-const Context = createContext();
-
-export const ModalRoot = ({ children }) => {
-  const [open, setOpen] = useState(false);
-  return <Context.Provider value={{ open, setOpen }}>{children}</Context.Provider>;
-};
+import { modalOnOff } from '../redux/modules/quizSlice';
 
 export const ModalOpenTrigger = ({ children }) => {
-  const { setOpen } = useContext(Context);
+  const dispatch = useDispatch();
+  const modalState = useSelector((state) => state.quizSlice.modal);
   return (
-    <div style={{ display: 'block' }} onClick={() => setOpen((open) => !open)}>
+    <div style={{ display: 'block' }} onClick={() => dispatch(modalOnOff(modalState))}>
       {children}
     </div>
   );
 };
 
 export const ModalBackground = () => {
-  const { open } = useContext(Context);
-
-  return open && <Background />;
+  const modalState = useSelector((state) => state.quizSlice.modal);
+  return modalState && <Background />;
 };
 
 const Background = styled.div`
@@ -34,9 +29,8 @@ const Background = styled.div`
 `;
 
 export const ModalContent = ({ children }) => {
-  const { open } = useContext(Context);
-
-  return open && <Body>{children}</Body>;
+  const modalState = useSelector((state) => state.quizSlice.modal);
+  return modalState && <Body>{children}</Body>;
 };
 
 const Body = styled.div`
