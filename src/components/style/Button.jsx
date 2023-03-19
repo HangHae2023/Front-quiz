@@ -5,17 +5,15 @@ const BasicButton = ({ children, ...rest }) => {
 };
 
 export const MainButton = (props) => {
-  return <BasicButton {...props} bc="#8F82C9" activeBc="	#665C8F" />;
+  return <BasicButton {...props} activeBc="	#665C8F" />;
 };
 
 const BasicBtn = styled.button`
   cursor: pointer;
-  &:active {
-    background-color: ${({ activeBc }) => activeBc};
-  }
+
   color: white;
   border: 0;
-  border-radius: 10px;
+  border-radius: 20px;
   font-weight: bold;
   ${({ type }) => {
     switch (type) {
@@ -31,11 +29,38 @@ const BasicBtn = styled.button`
             background-color: #518edb;
           }
         `;
+      case 'pink':
+        return css`
+          padding: 10px 20px;
+          background-color: #cd75b7;
+          &:hover {
+            background-color: #da99c9;
+          }
+          &:active {
+            background-color: #b23d75;
+          }
+        `;
+      case 'blue':
+        return css`
+          padding: 10px 20px;
+          background-color: #518edb;
+          &:hover {
+            background-color: #90b7e9;
+          }
+          &:active {
+            background-color: #1868cc;
+          }
+        `;
       default:
         return css`
-          height: 40px;
-          width: 100px;
-          background-color: ${({ bc }) => bc};
+          padding: 10px 20px;
+          background-color: #8f82c9;
+          &:hover {
+            background-color: #afa5d8;
+          }
+          &:active {
+            background-color: #665c8f;
+          }
         `;
     }
   }}

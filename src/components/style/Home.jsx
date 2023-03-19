@@ -1,15 +1,4 @@
-import styled from "styled-components";
-
-const StAddButton = styled.button`
-  border: none;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 10px;
-  background-color: teal;
-  width: 140px;
-  color: #fff;
-  font-weight: 700;
-`;
+import styled from 'styled-components';
 
 const StListContainer = styled.div`
   padding: 0 24px;
@@ -18,54 +7,40 @@ const StListContainer = styled.div`
 const StListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 40px;
+  justify-content: flex-start;
+  gap: 30px;
 `;
 
 const StQuizContainer = styled.div`
-  width: 270px;
-  border: 4px solid teal;
+  width: 265px;
+  height: 360px;
+  box-sizing: border-box;
+  border: 1px solid #8f82c9;
   min-height: 150px;
-  border-radius: 12px;
-  padding: 12px 24px 12px 24px;
+  border-radius: 25px;
+  padding: 12px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 `;
 
 const StImageBox = styled.div`
-  width: 250px;
-  height: 150px;
-  border: 1px solid black;
+  width: 230px;
+  height: 200px;
+  background-color: aliceblue;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
 
-const StAnswerButton = styled.button`
-  border: none;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 10px;
-  background-color: teal;
-  width: 140px;
-  color: #fff;
-  font-weight: 700;
-`;
-
 const StNickname = styled.span`
-  margin-left: 200px;
-  margin-top: 10px;
+  margin-left: 150px;
+  margin-top: 40px;
   font-weight: 600;
 `;
 
-export {
-  StAddButton,
-  StListContainer,
-  StListWrapper,
-  StQuizContainer,
-  StImageBox,
-  StAnswerButton,
-  StNickname,
-};
+export { StListContainer, StListWrapper, StQuizContainer, StImageBox, StNickname };

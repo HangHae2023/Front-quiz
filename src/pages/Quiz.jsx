@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { MainButton } from '../components/style/Button';
 import { modalOnOff, __addQuiz } from '../redux/modules/quizSlice';
 
 function Quiz() {
@@ -49,10 +50,9 @@ function Quiz() {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'flex-end',
-          gap: '30px',
-          backgroundColor: 'green',
-          paddingLeft: '1px',
+          alignItems: 'flex-start',
+          gap: '5px',
+          marginTop: '10px',
         }}
       >
         <StAddQuizInput
@@ -79,7 +79,7 @@ function Quiz() {
           onChange={onChangeHandler}
         />
       </div>
-      <button type="submit">퀴즈 추가!</button>
+      <MainButton type="blue">퀴즈 추가!</MainButton>
     </form>
   );
 }

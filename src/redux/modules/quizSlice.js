@@ -103,6 +103,19 @@ export const __addQuiz = createAsyncThunk('ADD_QUIZ', async (payload, thunkAPI) 
   }
 });
 
+export const __addComment = createAsyncThunk('addComment', async (payload, thunkAPI) => {
+  try {
+    console.log(payload);
+    await axios.post(
+      `${process.env.REACT_APP_QUIZ_URL}/api/comment/${payload.postId}`,
+      payload
+    );
+    return thunkAPI.fulfillWithValue(payload);
+  } catch (error) {
+    return thunkAPI.rejectWithValue('error');
+  }
+});
+
 export const quizSlice = createSlice({
   name: 'quiz',
   initialState,
@@ -236,6 +249,21 @@ export const quizSlice = createSlice({
       state.quiz.push(action.payload);
     },
     [__addQuiz.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.error = action.payload;
+    },
+
+    [__addComment.pending]: (state, action) => {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    [__addComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.comment = [...state.comment, action.payload];
+    },
+    [__addComment.rejected]: (state, action) => {
       state.isLoading = false;
       state.isError = true;
       state.error = action.payload;
