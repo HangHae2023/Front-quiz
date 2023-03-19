@@ -47,7 +47,8 @@ export const __getComment = createAsyncThunk('getComment', async (payload, thunk
   } catch (error) {
     return thunkAPI.rejectWithValue('error');
   }
-);
+})
+
 
 export const __editQuiz = createAsyncThunk('editQuiz', async (payload, thunkAPI) => {
   try {
@@ -64,7 +65,7 @@ export const __editQuiz = createAsyncThunk('editQuiz', async (payload, thunkAPI)
   } catch (error) {
     return thunkAPI.rejectWithValue('error');
   }
-);
+});
 
 export const __editComment = createAsyncThunk(
   "editComment",
@@ -92,7 +93,7 @@ export const __deleteQuiz = createAsyncThunk('deleteQuiz', async (payload, thunk
   } catch (error) {
     return thunkAPI.rejectWithValue('error');
   }
-);
+});
 
 export const __deleteComment = createAsyncThunk(
   "deleteComment",

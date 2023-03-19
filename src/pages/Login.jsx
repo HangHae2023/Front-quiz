@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { Nav } from '../components/page';
-import { MainButton } from '../components/style/Button';
-import * as style from '../components/style/Register';
+import { MainButton } from '../components/style/StyleButton';
+import * as style from '../components/style/StyleRegister';
 
 const Login = () => {
   const navi = useNavigate();

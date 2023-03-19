@@ -14,19 +14,20 @@ export const StSignupForm = styled.form`
   height: 700px;
   box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.6);
   border: 2px solid #518edb;
-  gap: 40px;
+  /* gap: 20px; */
 `;
 export const HeaderLetter = styled.div`
   font-size: 33px;
   font-weight: bold;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   margin-top: 30px;
 `;
 export const StSignUpGroup = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
+  
   gap: 15px;
 `;
 
@@ -44,8 +45,10 @@ export const StSignupInput = styled.input`
   box-sizing: border-box;
 `;
 
-export const StSignupButton = styled.div`
+export const StSignupButton = styled.button`
   cursor: pointer;
-  border-radius: 10px;
-  font-weight: 700;
+  border-radius: 5px;
+  border: 2px solid #518edb;
+  font-weight: 500;
+  font-family: 'Jua', sans-serif;
 `;
