@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/Modal';
 import { Flexdiv, Header, Nav, QuizAnswer, QuizTitle } from '../components/page';
-import { __deleteQuiz, __getQuiz } from '../redux/modules/quizSlice';
+import { __deleteQuiz, __getDetailQuiz, __getQuiz } from '../redux/modules/quizSlice';
 import Comment from './Comment';
 import Edit from './Edit';
 
@@ -14,11 +14,11 @@ function Detail() {
   const param = useParams();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.quizSlice);
-  // const postData = data?.quiz.find((item) => item.postId === parseInt(param.id)); // 실제 서버에서 사용
-  const postData = data?.quiz.find((item) => item.id === parseInt(param.id)); // 가상 서버에서 사용
+  const postData = data?.quiz.find((item) => item.quizId === parseInt(param.id)); // 실제 서버에서 사용
+  // const postData = data?.quiz.find((item) => item.id === parseInt(param.id)); // 가상 서버에서 사용
 
   useEffect(() => {
-    dispatch(__getQuiz());
+    dispatch(__getDetailQuiz());
   }, [JSON.stringify(data.quiz, data.comment)]);
 
   const deleteQuizHandler = (id) => {
@@ -49,8 +49,7 @@ function Detail() {
       </Header>
       <QuizTitle>{postData?.title}</QuizTitle>
       <QuizAnswer>정답 : {postData?.answer}</QuizAnswer>
-      {/* <Comment id={postData?.postId} data={data.comment} /> // 실제서버에서 동작 */}
-      <Comment id={postData?.id} data={data.comment} />
+      <Comment id={postData?.quizId} data={data.comment} />
     </div>
   );
 }

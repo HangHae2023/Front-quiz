@@ -6,8 +6,8 @@ function EditComment({ item }) {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
   const [editComment, setEditComment] = useState({
-    // commentId : item.commentId, // 실제서버에서 실행
-    commentId: item.id,
+    commentId: item.commentId, // 실제서버에서 실행
+    // commentId: item.id,
     editContent: item.content,
   });
 
