@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Nav = () => {
-  return <HeaderNav>퀴즈챌린지</HeaderNav>;
+  return <HeaderNav>MZ 퀴즈챌린지</HeaderNav>;
 };
 
 const HeaderNav = styled.div`

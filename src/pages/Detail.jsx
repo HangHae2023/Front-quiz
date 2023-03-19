@@ -49,7 +49,7 @@ function Detail() {
       </Header>
       <QuizTitle>{postData?.title}</QuizTitle>
       <QuizAnswer>정답 : {postData?.answer}</QuizAnswer>
-      <Comment id={postData?.quizId} data={data.comment} />
+      <Comment quizId={postData?.quizId} data={data.comment} />
     </div>
   );
 }

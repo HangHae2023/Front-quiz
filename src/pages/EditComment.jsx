@@ -6,8 +6,7 @@ function EditComment({ item }) {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
   const [editComment, setEditComment] = useState({
-    commentId: item.commentId, // 실제서버에서 실행
-    // commentId: item.id,
+    commentId: item.commentId,
     editContent: item.content,
   });
 
@@ -39,7 +38,7 @@ function EditComment({ item }) {
           {item.nickname} : {item.content}
           <button onClick={() => setEdit(!edit)}>수정</button>
           {/* <button onClick={()=>deleteCommentHandler(item.commentId)}>삭제</button> // 실제서버 */}
-          <button onClick={() => deleteCommentHandler(item.id)}>삭제</button>
+          <button onClick={() => deleteCommentHandler(item.commentId)}>삭제</button>
         </>
       )}
     </div>
