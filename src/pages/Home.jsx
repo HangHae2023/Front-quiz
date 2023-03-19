@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import { Flexdiv, Nav } from "../components/page";
 import { __getQuiz } from "../redux/modules/quizSlice";
 import { RiLogoutBoxFill } from "react-icons/ri";
-import * as style from "../components/style/Home";
+import * as style from "../components/style/StyleHome";
 import {
   ModalBackground,
   ModalContent,
