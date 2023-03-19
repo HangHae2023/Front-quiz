@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-import { MainButton } from '../components/style/Button';
-import * as style from '../components/style/Home';
+import { MainButton } from '../components/style/StyleButton';
+import * as style from '../components/style/StyleHome';
 
 function Answer({ item }) {
   const navigator = useNavigate();

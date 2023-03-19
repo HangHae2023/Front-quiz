@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { MainButton } from './style/Button';
-import { StSignUpId } from './style/Register';
+import { MainButton } from './style/StyleButton';
+import { StSignUpId } from './style/StyleRegister';
 
 export const Nav = ({ login, signup }) => {
   const navi = useNavigate();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { MainButton } from '../components/style/Button';
+import { MainButton } from '../components/style/StyleButton';
 import { modalOnOff, __addQuiz } from '../redux/modules/quizSlice';
 
 function Quiz() {

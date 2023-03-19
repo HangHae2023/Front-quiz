@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../components/Layout';
 import { Flexdiv, Nav } from '../components/page';
 import { __getQuiz } from '../redux/modules/quizSlice';
-import * as style from '../components/style/Home';
+import * as style from '../components/style/StyleHome';
 import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/Modal';
 import Quiz from './Quiz';
 import Answer from './Answer';
-import { MainButton } from '../components/style/Button';
-import { StSignUpId } from '../components/style/Register';
+import { MainButton } from '../components/style/StyleButton';
+import { StSignUpId } from '../components/style/StyleRegister';
 
 function Home() {
   const dispatch = useDispatch();
