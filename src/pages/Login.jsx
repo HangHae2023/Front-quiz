@@ -23,7 +23,7 @@ const Login = () => {
 
     try {
       // await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, login);
-      await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/auth/login`, login);
+      await axios.post(`${process.env.REACT_APP_QUIZ_URL}/api/auth/login`, login);
     } catch (error) {
       alert(JSON.parse(error.request.response).message);
       console.log(error);
