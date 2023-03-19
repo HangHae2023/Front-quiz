@@ -1,6 +1,6 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   quiz: [],
@@ -10,42 +10,55 @@ const initialState = {
   isError: false,
   error: null,
 };
-export const __getQuiz = createAsyncThunk('getQuiz', async (payload, thunkAPI) => {
-  try {
-    const response = await axios.get(`${process.env.REACT_APP_QUIZ_URL}/quiz`);
-    return thunkAPI.fulfillWithValue(response.data);
-  } catch (error) {
-    return thunkAPI.rejectWithValue('error');
+export const __getQuiz = createAsyncThunk(
+  "getQuiz",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_QUIZ_URL}/quiz`
+      );
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue("error");
+    }
   }
-});
+);
 
-export const __getComment = createAsyncThunk('getComment', async (payload, thunkAPI) => {
-  try {
-    const response = await axios.get(`${process.env.REACT_APP_QUIZ_URL}/comment`);
-    return thunkAPI.fulfillWithValue(response.data);
-  } catch (error) {
-    return thunkAPI.rejectWithValue('error');
+export const __getComment = createAsyncThunk(
+  "getComment",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_QUIZ_URL}/comment`
+      );
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue("error");
+    }
   }
-});
+);
 
-export const __editQuiz = createAsyncThunk('editQuiz', async (payload, thunkAPI) => {
-  try {
-    // await axios.put(  // 실제 서버에서 사용
-    //   `${process.env.REACT_APP_QUIZ_URL}/quiz/${payload.edit.id}`,
-    //   payload.resourceUrl
-    // );
-    await axios.patch(
-      `${process.env.REACT_APP_QUIZ_URL}/quiz/${payload.id}`,
-      payload.edit
-    );
-    return thunkAPI.fulfillWithValue(payload);
-  } catch (error) {
-    return thunkAPI.rejectWithValue('error');
+export const __editQuiz = createAsyncThunk(
+  "editQuiz",
+  async (payload, thunkAPI) => {
+    try {
+      // await axios.put(  // 실제 서버에서 사용
+      //   `${process.env.REACT_APP_QUIZ_URL}/quiz/${payload.edit.id}`,
+      //   payload.resourceUrl
+      // );
+      await axios.patch(
+        `${process.env.REACT_APP_QUIZ_URL}/quiz/${payload.id}`,
+        payload.edit
+      );
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue("error");
+    }
   }
-});
+);
 
 export const __editComment = createAsyncThunk(
-  'editComment',
+  "editComment",
   async (payload, thunkAPI) => {
     try {
       // const response = await axios.put(`${process.env.REACT_APP_QUIZ_URL}/comment`, payload.editContent); // 실제서버
@@ -55,48 +68,55 @@ export const __editComment = createAsyncThunk(
       );
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
-      return thunkAPI.rejectWithValue('error');
+      return thunkAPI.rejectWithValue("error");
     }
   }
 );
 
-export const __deleteQuiz = createAsyncThunk('deleteQuiz', async (payload, thunkAPI) => {
-  try {
-    await axios.delete(`${process.env.REACT_APP_QUIZ_URL}/quiz/${payload}`);
-    return thunkAPI.fulfillWithValue(payload);
-  } catch (error) {
-    return thunkAPI.rejectWithValue('error');
-  }
-});
-
-export const __deleteComment = createAsyncThunk(
-  'deleteComment',
+export const __deleteQuiz = createAsyncThunk(
+  "deleteQuiz",
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_QUIZ_URL}/comment/${payload}`);
+      await axios.delete(`${process.env.REACT_APP_QUIZ_URL}/quiz/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
-      return thunkAPI.rejectWithValue('error');
+      return thunkAPI.rejectWithValue("error");
+    }
+  }
+);
+
+export const __deleteComment = createAsyncThunk(
+  "deleteComment",
+  async (payload, thunkAPI) => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_QUIZ_URL}/comment/${payload}`
+      );
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue("error");
     }
   }
 );
 
 export const __addQuiz = createAsyncThunk(
-  'ADD_QUIZ',
+  "ADD_QUIZ",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
-      await axios.delete(`${process.env.REACT_APP_QUIZ_URL}/comment/${payload}`);
-      return thunkAPI.fulfillWithValue(payload);
+      // const { data } = await axios.post(
+      //   `${process.env.REACT_APP_QUIZ_URL}/quiz`,
+      //   payload
+      // );
+      // return thunkAPI.fulfillWithValue(data);
+      console.log('sss' ,payload);
     } catch (error) {
-      return thunkAPI.rejectWithValue('error');
+      return thunkAPI.rejectWithValue("error");
     }
   }
 );
 
-
 export const quizSlice = createSlice({
-  name: 'quiz',
+  name: "quiz",
   initialState,
   reducers: {
     modalOnOff: (state, action) => {
@@ -197,11 +217,27 @@ export const quizSlice = createSlice({
     [__deleteComment.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      state.comment = state.comment.filter((item) => item.id !== action.payload);
+      state.comment = state.comment.filter(
+        (item) => item.id !== action.payload
+      );
     },
     [__deleteComment.rejected]: (state, action) => {
       state.isError = true;
       state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__addQuiz.pending]: (state, action) => {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    [__addQuiz.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.quiz.push(action.payload);
+    },
+    [__addQuiz.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
       state.error = action.payload;
     },
   },

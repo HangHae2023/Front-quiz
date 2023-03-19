@@ -32,7 +32,7 @@ function Quiz() {
     formData.append("explain", newQuiz.explain);
     formData.append("resourceUrl", newQuiz.resourceUrl);
     setNewQuiz({ ...newQuiz, resourceUrl: formData });
-    dispatch(__addQuiz({ ...newQuiz }));
+    dispatch(__addQuiz(newQuiz));
     dispatch(modalOnOff(modalState));
   };
 
@@ -59,18 +59,24 @@ function Quiz() {
           type="text"
           name="title"
           placeholder="질문을 입력하세요"
+          value={newQuiz.title}
+          onChange={onChangeHandler}
         />
         <br />
         <StAddQuizInput
           type="text"
-          name="answer "
+          name="answer"
           placeholder="정답을 입력하세요"
+          value={newQuiz.answer}
+          onChange={onChangeHandler}
         />
         <br />
         <StAddQuizInput
           type="text"
           name="explain"
           placeholder="해설을 입력하세요"
+          value={newQuiz.explain}
+          onChange={onChangeHandler}
         />
       </div>
       <button>퀴즈 추가!</button>

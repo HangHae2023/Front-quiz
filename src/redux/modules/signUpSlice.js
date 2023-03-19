@@ -14,7 +14,7 @@ export const __isSameNickname = createAsyncThunk(
   "IS_SAME_NICKNAME",
   async (payload, thunkAPI) => {
     try {
-      await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/signup/nkck`);
+      await axios.post(`${process.env.REACT_APP_QUIZ_URL}/signup/nkck`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -30,7 +30,7 @@ export const __signUpId = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/user/signup`,
+        `${process.env.REACT_APP_QUIZ_URL}/signup`,
         payload
       );
       return thunkAPI.fulfillWithValue(data);

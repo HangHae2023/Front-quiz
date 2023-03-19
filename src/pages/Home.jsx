@@ -63,8 +63,9 @@ function Home() {
           <style.StListWrapper>
             {quiz.map((quiz) => {
               return (
-                <style.StQuizContainer key={quiz.postId}>
-                  <style.StImageBox>사진공간</style.StImageBox>
+                <style.StQuizContainer key={quiz.Id}>
+                  <style.StImageBox>사진을 어케넣지?</style.StImageBox>
+                  {/* {quiz.resourceUrl} */}
                   <h3>{quiz.title}</h3>
                   <style.StAnswerButton onClick={() => onClickAnswerButton()}>
                     정답 입력하기
