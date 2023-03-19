@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import { modalOnOff, __addQuiz } from "../redux/modules/quizSlice";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { MainButton } from '../components/style/StyleButton';
+import { modalOnOff, __addQuiz } from '../redux/modules/quizSlice';
 
 function Quiz() {
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.quizSlice.modal);
-  
+
   const [newQuiz, setNewQuiz] = useState({
-    title: "",
-    answer: "",
-    explain: "",
+    title: '',
+    answer: '',
+    explain: '',
     resourceUrl: null,
   });
 
@@ -27,10 +28,10 @@ function Quiz() {
   const submitInputHandler = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("title", newQuiz.title);
-    formData.append("answer", newQuiz.answer);
-    formData.append("explain", newQuiz.explain);
-    formData.append("resourceUrl", newQuiz.resourceUrl);
+    formData.append('title', newQuiz.title);
+    formData.append('answer', newQuiz.answer);
+    formData.append('explain', newQuiz.explain);
+    formData.append('resourceUrl', newQuiz.resourceUrl);
     setNewQuiz({ ...newQuiz, resourceUrl: formData });
     dispatch(__addQuiz(newQuiz));
     dispatch(modalOnOff(modalState));
@@ -47,12 +48,11 @@ function Quiz() {
       </div>
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-          gap: "30px",
-          backgroundColor: "green",
-          paddingLeft: "1px",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: '5px',
+          marginTop: '10px',
         }}
       >
         <StAddQuizInput
@@ -79,7 +79,7 @@ function Quiz() {
           onChange={onChangeHandler}
         />
       </div>
-      <button>퀴즈 추가!</button>
+      <MainButton type="blue">퀴즈 추가!</MainButton>
     </form>
   );
 }
