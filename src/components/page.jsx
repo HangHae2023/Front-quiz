@@ -21,7 +21,7 @@ export const Nav = ({ login, signup }) => {
       </NavLogo>
       <StSignUpId>
         {login && (
-          <MainButton type="blue" onClick={clickLogin}>
+          <MainButton type="pink" onClick={clickLogin}>
             로그인
           </MainButton>
         )}
@@ -42,14 +42,19 @@ const NavLogo = styled.div`
 `;
 
 const NavImg = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 65px;
+  height: 53px;
 `;
 
 const HeaderNav = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  /* border: 1px solid black; */
+  /* border-width: 0 0 2px 0; */
+  box-sizing: border-box;
+  box-shadow: 0 2px 6px 3px lightgray;
+  margin-bottom: 10px;
 `;
 
 export const Header = ({ children }) => {
@@ -59,7 +64,7 @@ export const Header = ({ children }) => {
 const QuizHeader = styled.div`
   font-size: 20px;
   display: flex;
-  padding: 10px 30px;
+  padding: 10px 20px;
   justify-content: space-between;
   align-items: center;
 `;
@@ -88,9 +93,25 @@ const Answer = styled.div`
 `;
 
 export const Flexdiv = ({ children, ...rest }) => {
-  return <Div style={{ ...rest }}>{children}</Div>;
+  return <Div {...rest}>{children}</Div>;
 };
 
 const Div = styled.div`
   display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const Layout = ({ children, ...rest }) => {
+  return <StLayout {...rest}>{children}</StLayout>;
+};
+
+export default Layout;
+
+const StLayout = styled.div`
+  max-width: 1200px;
+  min-width: 800px;
+  margin: 0 auto;
+  color: ${({ color }) => color};
 `;

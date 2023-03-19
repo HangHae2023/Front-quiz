@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { MainButton } from '../components/style/StyleButton';
+import { StInput } from '../components/style/StyleHome';
 import { __addComment, __getComment } from '../redux/modules/quizSlice';
-import EditComment from './EditComment';
+import CommentList from './CommentList';
 
-function Comment({ postId, data }) {
+function Comment({ postId }) {
   const dispatch = useDispatch();
   const [commentInput, setCommentInput] = useState('');
+  const data = useSelector((state) => state.quizSlice.comment.comments);
   const commentData = data?.filter((item) => item.quizId === postId);
-  console.log('commentData', commentData);
 
   useEffect(() => {
     dispatch(__getComment(postId));
   }, [JSON.stringify(commentData)]);
-  // commentData,
 
   const submitInputHandler = (e) => {
     e.preventDefault();
@@ -22,19 +24,19 @@ function Comment({ postId, data }) {
   return (
     <div>
       <h2>댓글</h2>
-      <div>댓글 입력</div>
       <form onSubmit={submitInputHandler}>
-        <input
+        <StInput
           type="text"
           value={commentInput}
           onChange={(e) => setCommentInput(e.target.value)}
+          placeholder="댓글을 입력해주세요"
         />
-        <button type="submit">댓글 작성</button>
+        <MainButton type="submit">댓글 작성</MainButton>
       </form>
 
       {commentData?.map((item) => (
         <div key={item.commentId}>
-          <EditComment item={item} />
+          <CommentList item={item} />
         </div>
       ))}
     </div>

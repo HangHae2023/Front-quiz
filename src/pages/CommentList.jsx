@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { MainButton } from '../components/style/StyleButton';
 import { __deleteComment, __editComment } from '../redux/modules/quizSlice';
 
-function EditComment({ item }) {
+function CommentList({ item }) {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
   const [editComment, setEditComment] = useState({
     commentId: item.commentId,
     editContent: item.content,
   });
-
+  const date = item?.createdAt.split('T')[0];
   const submitInputHandler = (e) => {
     e.preventDefault();
     dispatch(__editComment(editComment));
@@ -31,18 +32,20 @@ function EditComment({ item }) {
               setEditComment({ ...editComment, editContent: e.target.value })
             }
           />
-          <button type="submit">수정완료</button>
+          <MainButton type="submit">수정완료</MainButton>
         </form>
       ) : (
         <>
+          <span>작성일 : {date}</span>
           {item.nickname} : {item.content}
-          <button onClick={() => setEdit(!edit)}>수정</button>
-          {/* <button onClick={()=>deleteCommentHandler(item.commentId)}>삭제</button> // 실제서버 */}
-          <button onClick={() => deleteCommentHandler(item.commentId)}>삭제</button>
+          <MainButton onClick={() => setEdit(!edit)}>수정</MainButton>
+          <MainButton type="blue" onClick={() => deleteCommentHandler(item.commentId)}>
+            삭제
+          </MainButton>
         </>
       )}
     </div>
   );
 }
 
-export default EditComment;
+export default CommentList;
