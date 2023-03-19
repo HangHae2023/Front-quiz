@@ -15,6 +15,7 @@ const BasicBtn = styled.button`
   border: 0;
   border-radius: 20px;
   font-weight: bold;
+  
   ${({ type }) => {
     switch (type) {
       case 'login':

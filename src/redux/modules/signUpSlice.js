@@ -14,8 +14,11 @@ export const __isSameNickname = createAsyncThunk(
   "IS_SAME_NICKNAME",
   async (payload, thunkAPI) => {
     try {
-      await axios.post(`${process.env.REACT_APP_QUIZ_URL}/signup/nkck`);
-      return thunkAPI.fulfillWithValue(payload);
+      // const response = await axios.post(
+      //   `${process.env.REACT_APP_QUIZ_URL}/user/signup/nkck`,nickname
+      // );
+      // return thunkAPI.fulfillWithValue(response);
+      console.log(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

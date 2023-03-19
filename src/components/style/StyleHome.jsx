@@ -1,3 +1,4 @@
+
 import styled from 'styled-components';
 
 const StListContainer = styled.div`
@@ -31,11 +32,13 @@ const StImageBox = styled.div`
   background-color: aliceblue;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
+
 
 const StNickname = styled.span`
   margin-left: 150px;

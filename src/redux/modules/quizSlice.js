@@ -45,6 +45,7 @@ export const __getComment = createAsyncThunk('getComment', async (payload, thunk
   }
 });
 
+
 export const __editQuiz = createAsyncThunk('editQuiz', async (payload, thunkAPI) => {
   try {
     await axios.put(
