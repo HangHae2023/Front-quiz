@@ -8,7 +8,7 @@ function CommentList({ item }) {
   const [edit, setEdit] = useState(false);
   const [editComment, setEditComment] = useState({
     commentId: item.commentId,
-    editContent: item.content,
+    content: item.content,
   });
   const date = item?.createdAt.split('T')[0];
   const submitInputHandler = (e) => {
@@ -20,17 +20,15 @@ function CommentList({ item }) {
   const deleteCommentHandler = (id) => {
     dispatch(__deleteComment(id));
   };
-  console.log('item', item);
+
   return (
     <div>
       {edit ? (
         <form onSubmit={submitInputHandler}>
           <input
             type="text"
-            value={editComment.editContent}
-            onChange={(e) =>
-              setEditComment({ ...editComment, editContent: e.target.value })
-            }
+            value={editComment.content}
+            onChange={(e) => setEditComment({ ...editComment, content: e.target.value })}
           />
           <MainButton type="submit">수정완료</MainButton>
         </form>

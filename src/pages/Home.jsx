@@ -8,34 +8,29 @@ import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/M
 import { MainButton } from '../components/style/StyleButton';
 import AddQuiz from './AddQuiz';
 import Card from './Card';
-import { cookies } from '../shared/cookie';
+import { token } from '../shared/cookie';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../axios/api';
 
 function Home() {
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.quizSlice.modal);
   const navi = useNavigate();
 
-  const { isLoading, error, quiz } = useSelector((state) => state.quizSlice);
+  const { quiz } = useSelector((state) => state.quizSlice);
 
   useEffect(() => {
     dispatch(__getQuiz());
-  }, []);
+  }, [dispatch]);
 
   const onClickAddQuiz = async () => {
-    const token = cookies.get('mytoken'); // 유효성검사 추가하기
-    // token ? dispatch(modalOnOff(modalState)) : alert('로그인 후 이용 가능합니다');
     if (token) {
       try {
-        await axios.get(`${process.env.REACT_APP_QUIZ_URL}/user/loginck`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        // await api.get(`/user/loginck`); // 로그인 유효성검사
         dispatch(modalOnOff(modalState));
       } catch (error) {
-        alert('다시 로그인 해주세요');
+        alert('다시 로그인 해주세요!!');
       }
     } else {
       window.confirm('로그인 후 이용해주세요') && navi('/login');
@@ -55,7 +50,7 @@ function Home() {
   // }
   return (
     <>
-      <Nav login={true} signup={true} />
+      <Nav />
       <Layout color="#518edb">
         <style.StListContainer>
           <Flexdiv>
