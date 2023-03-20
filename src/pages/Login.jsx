@@ -1,14 +1,11 @@
-
 import axios from "axios";
-import jwtDecode from "jwt-decode";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
+import Layout from "../components/page";
 import { Nav } from "../components/page";
 import { MainButton } from "../components/style/StyleButton";
 import * as style from "../components/style/StyleRegister";
 import { cookies } from "../shared/cookie";
-
 
 const Login = () => {
   const navi = useNavigate();
@@ -26,24 +23,38 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, login);
-      const  data  = await axios.post(
+      const data = await axios.post(
         `${process.env.REACT_APP_QUIZ_URL}/user/login`,
         login
       );
-      // cookies.set("id", jwtDecode(data.token).id, { path: "/", maxAge: 500 });
-      // cookies.set("accessToken", data.token, { path: "/", maxAge: 500 });
-      console.log(data);
-      navi('/')
+      console.log(data.headers.authorization)
+      // const a = document.cookie;
+      // console.log(document.cookie);
+      // const token = request.headers.get('Authorization');
+      // console.log(token);
+      cookies.set("mytoken", data.headers.authorization.split(' ')[1], {
+        path: "/",
+      });
+      navi("/");
     } catch (error) {
       // alert(JSON.parse(error.response.data).message);
       alert(error.response.data.errorMessage.errorMessage);
     }
   };
+  
+  // 로그인 유효성 검사 
+  // const token = cookies.get('mytoken');
+  // await axios.get(`${process.env.REACT_APP_SIGN_URL}/user`, {
+  // headers: {
+  // authorization: token,
+  // },
+  // });
+
+
   return (
     <>
       <Nav />
-      <Layout style={{ maxWidth: '1000px' }}>
+      <Layout style={{ maxWidth: "1000px" }}>
         <h2
           style={{
             display: "flex",
@@ -55,7 +66,8 @@ const Login = () => {
         </h2>
         <style.StSignupForm onSubmit={submitHandler}>
           <style.HeaderLetter>
-            어서오세요 ! 오늘도 한번 놀아봅시다 !
+            어서오세요 ! <br />
+            우리 한번 놀아봅시다 !
           </style.HeaderLetter>
 
           <style.StSignUpGroup>

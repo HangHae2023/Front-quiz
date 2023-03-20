@@ -19,6 +19,7 @@ export const StSignupForm = styled.form`
 export const HeaderLetter = styled.div`
   font-size: 33px;
   font-weight: bold;
+  color: #518edb;
   margin-bottom: 30px;
   margin-top: 30px;
 `;
