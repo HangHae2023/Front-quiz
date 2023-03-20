@@ -51,6 +51,7 @@ export const __getComment = createAsyncThunk(
       return thunkAPI.rejectWithValue("error");
     }
   }
+
 );
 
 export const __editQuiz = createAsyncThunk(
@@ -65,6 +66,10 @@ export const __editQuiz = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue("error");
     }
+
+});
+
+
   }
 );
 
@@ -111,6 +116,7 @@ export const __deleteComment = createAsyncThunk(
   }
 );
 
+
 export const __addQuiz = createAsyncThunk(
   "ADD_QUIZ",
   async (payload, thunkAPI) => {
@@ -120,6 +126,7 @@ export const __addQuiz = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue("error");
     }
+
   }
 );
 

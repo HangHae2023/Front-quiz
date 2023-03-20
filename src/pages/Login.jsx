@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import React, { useState } from "react";
@@ -7,6 +8,7 @@ import { Nav } from "../components/page";
 import { MainButton } from "../components/style/StyleButton";
 import * as style from "../components/style/StyleRegister";
 import { cookies } from "../shared/cookie";
+
 
 const Login = () => {
   const navi = useNavigate();
@@ -41,7 +43,7 @@ const Login = () => {
   return (
     <>
       <Nav />
-      <Layout>
+      <Layout style={{ maxWidth: '1000px' }}>
         <h2
           style={{
             display: "flex",

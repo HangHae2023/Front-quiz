@@ -15,7 +15,8 @@ const BasicBtn = styled.button`
   border: 0;
   border-radius: 20px;
   font-weight: bold;
-  
+  height: 30px;
+
   ${({ type }) => {
     switch (type) {
       case 'login':
@@ -32,7 +33,7 @@ const BasicBtn = styled.button`
         `;
       case 'pink':
         return css`
-          padding: 10px 20px;
+          padding: 8px 18px;
           background-color: #cd75b7;
           &:hover {
             background-color: #da99c9;
@@ -43,7 +44,7 @@ const BasicBtn = styled.button`
         `;
       case 'blue':
         return css`
-          padding: 10px 20px;
+          padding: 8px 18px;
           background-color: #518edb;
           &:hover {
             background-color: #90b7e9;
@@ -54,7 +55,7 @@ const BasicBtn = styled.button`
         `;
       default:
         return css`
-          padding: 10px 20px;
+          padding: 8px 18px;
           background-color: #8f82c9;
           &:hover {
             background-color: #afa5d8;
