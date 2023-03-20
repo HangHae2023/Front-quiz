@@ -1,18 +1,25 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { MainButton } from './style/StyleButton';
-import { StSignUpId } from './style/StyleRegister';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { cookies } from "../shared/cookie";
+import { MainButton } from "./style/StyleButton";
+import { StSignUpId } from "./style/StyleRegister";
 
 export const Nav = ({ login, signup }) => {
+  const token = cookies.get("mytoken");
+  const [isToken, setIsToken] = useState(token);
   const navi = useNavigate();
   const clickLogo = () => {
-    navi('/');
+    navi("/");
   };
   const clickLogin = () => {
-    navi('/login');
+    navi("/login");
+  };
+  const clickLogout = () => {
+    return setIsToken(cookies.remove("mytoken"));
   };
   const clickSignup = () => {
-    navi('/register');
+    navi("/register");
   };
   return (
     <HeaderNav>
@@ -20,12 +27,16 @@ export const Nav = ({ login, signup }) => {
         <NavImg src="/assets/quizLogo.png" />
       </NavLogo>
       <StSignUpId>
-        {login && (
+        {isToken ? (
+          <MainButton type="pink" onClick={clickLogout}>
+            로그아웃
+          </MainButton>
+        ) : (
           <MainButton type="pink" onClick={clickLogin}>
             로그인
           </MainButton>
         )}
-        {signup && (
+        {isToken ? null : (
           <MainButton type="pupple" onClick={clickSignup}>
             회원가입
           </MainButton>
