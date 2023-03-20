@@ -13,7 +13,6 @@ import { StSignUpId } from '../components/style/StyleRegister';
 function Home() {
   const dispatch = useDispatch();
   const { quiz } = useSelector((state) => state.quizSlice);
-  console.log(quiz?.allQuizs);
   useEffect(() => {
     dispatch(__getQuiz());
   }, []);
