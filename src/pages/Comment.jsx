@@ -8,10 +8,11 @@ import { __addComment, __getComment } from '../redux/modules/quizSlice';
 import { cookies } from '../shared/cookie';
 import CommentList from './CommentList';
 
+
 function Comment({ postId }) {
   const navi = useNavigate();
   const dispatch = useDispatch();
-  const [commentInput, setCommentInput] = useState('');
+  const [commentInput, setCommentInput] = useState("");
   const data = useSelector((state) => state.quizSlice.comment.comments);
   const commentData = data?.filter((item) => item.quizId === postId);
   const isToken = cookies.get('mytoken');
@@ -39,7 +40,10 @@ function Comment({ postId }) {
   return (
     <div>
       <h2>댓글</h2>
-      <form onSubmit={submitInputHandler}>
+      <form
+        onSubmit={submitInputHandler}
+        style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+      >
         <StInput
           onClick={clickInputHandler}
           type="text"

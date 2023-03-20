@@ -16,6 +16,9 @@ const BasicBtn = styled.button`
   border-radius: 20px;
   font-weight: bold;
   height: 30px;
+  display: flex;
+  align-items:center;
+  justify-content: center;
 
   ${({ type }) => {
     switch (type) {

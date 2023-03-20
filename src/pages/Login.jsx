@@ -1,10 +1,11 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Layout from '../components/Layout';
-import { Nav } from '../components/page';
-import { MainButton } from '../components/style/StyleButton';
-import * as style from '../components/style/StyleRegister';
+import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Layout from "../components/page";
+import { Nav } from "../components/page";
+import { MainButton } from "../components/style/StyleButton";
+import * as style from "../components/style/StyleRegister";
+import { cookies } from "../shared/cookie";
 
 const Login = () => {
   const navi = useNavigate();
@@ -22,17 +23,38 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, login);
-      await axios.post(`${process.env.REACT_APP_QUIZ_URL}/api/auth/login`, login);
+      const data = await axios.post(
+        `${process.env.REACT_APP_QUIZ_URL}/user/login`,
+        login
+      );
+      console.log(data.headers.authorization)
+      // const a = document.cookie;
+      // console.log(document.cookie);
+      // const token = request.headers.get('Authorization');
+      // console.log(token);
+      cookies.set("mytoken", data.headers.authorization.split(' ')[1], {
+        path: "/",
+      });
+      navi("/");
     } catch (error) {
       alert(JSON.parse(error.request.response).message);
       console.log(error);
     }
   };
+  
+  // 로그인 유효성 검사 
+  // const token = cookies.get('mytoken');
+  // await axios.get(`${process.env.REACT_APP_SIGN_URL}/user`, {
+  // headers: {
+  // authorization: token,
+  // },
+  // });
+
+
   return (
     <>
       <Nav />
-      <Layout>
+      <Layout style={{ maxWidth: "1000px" }}>
         <h2
           style={{
             display: 'flex',
@@ -43,7 +65,10 @@ const Login = () => {
           로 그 인
         </h2>
         <style.StSignupForm onSubmit={submitHandler}>
-          <style.HeaderLetter>어서오세요 ! 오늘도 한번 놀아봅시다 !</style.HeaderLetter>
+          <style.HeaderLetter>
+            어서오세요 ! <br />
+            우리 한번 놀아봅시다 !
+          </style.HeaderLetter>
 
           <style.StSignUpGroup>
             <style.StSignupInput
