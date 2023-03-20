@@ -32,7 +32,9 @@ const Register = () => {
     if (newUsers.password !== newUsers.passwordCheck) {
       setWrongPw('비밀번호가 일치하지 않습니다!');
     } else {
-      setWrongPw('');
+
+      // setWrongPw("");
+
       dispatch(__signUpId({ ...newUsers }));
     }
   };
@@ -42,6 +44,7 @@ const Register = () => {
     // console.log(newUsers);
   };
 
+  
   return (
     <>
       <Nav />
@@ -69,9 +72,14 @@ const Register = () => {
               value={newUsers.nickname}
               onChange={onChangeHandler}
             />
-            <style.StSignupButton type="button" onClick={isNicknameSameButtonHandler}>
+
+            <style.StSignupSameButton
+              type="button"
+              onClick={isNicknameSameButtonHandler}
+            >
+
               중복확인
-            </style.StSignupButton>
+            </style.StSignupSameButton>
             <style.StSignupInput
               type="text"
               name="userId"
@@ -79,7 +87,9 @@ const Register = () => {
               value={newUsers.userId}
               onChange={onChangeHandler}
             />
-            <style.StSignupButton type="button">중복확인</style.StSignupButton>
+            <style.StSignupSameButton type="button">
+              중복확인
+            </style.StSignupSameButton>
             <style.StSignupInput
               type="password"
               name="password"
@@ -96,19 +106,21 @@ const Register = () => {
             />
             {wrongPw}
             <MainButton type="login">회원가입하기!</MainButton>
-            <AiFillHome
-              type="button"
-              onClick={() => {
-                navigate('/');
-              }}
-              style={{
-                marginLeft: '20px',
-              }}
-              size="30px"
-            />
-            <style.StSignupButton onClick={() => navigate('/login')}>
+
+            <style.StSignupButton onClick={() => navigate("/login")}>
               계정이 이미 있으신가요? &nbsp;
-              <span style={{ color: 'red' }}>로그인</span>
+              <span
+                style={{
+                  color: "red",
+                  border: "1px solid red",
+                  borderRadius: "10px",
+                  // fontSize:"15px"
+                }}
+              >
+                &nbsp;로그인&nbsp;
+              </span>
+
+           
             </style.StSignupButton>
           </style.StSignUpGroup>
         </style.StSignupForm>

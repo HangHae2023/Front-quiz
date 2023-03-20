@@ -1,16 +1,20 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Layout from '../components/page';
-import { Nav } from '../components/page';
-import { MainButton } from '../components/style/StyleButton';
-import * as style from '../components/style/StyleRegister';
+
+import axios from "axios";
+import jwtDecode from "jwt-decode";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Layout from "../components/Layout";
+import { Nav } from "../components/page";
+import { MainButton } from "../components/style/StyleButton";
+import * as style from "../components/style/StyleRegister";
+import { cookies } from "../shared/cookie";
+
 
 const Login = () => {
   const navi = useNavigate();
   const [login, setLogin] = useState({
-    userId: '',
-    password: '',
+    userId: "",
+    password: "",
   });
 
   const changeInputHandler = (e) => {
@@ -23,10 +27,17 @@ const Login = () => {
 
     try {
       // await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, login);
-      await axios.post(`${process.env.REACT_APP_QUIZ_URL}/api/auth/login`, login);
+      const  data  = await axios.post(
+        `${process.env.REACT_APP_QUIZ_URL}/user/login`,
+        login
+      );
+      // cookies.set("id", jwtDecode(data.token).id, { path: "/", maxAge: 500 });
+      // cookies.set("accessToken", data.token, { path: "/", maxAge: 500 });
+      console.log(data);
+      navi('/')
     } catch (error) {
-      alert(JSON.parse(error.request.response).message);
-      console.log(error);
+      // alert(JSON.parse(error.response.data).message);
+      alert(error.response.data.errorMessage.errorMessage);
     }
   };
   return (
@@ -35,15 +46,17 @@ const Login = () => {
       <Layout style={{ maxWidth: '1000px' }}>
         <h2
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '50px',
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "50px",
           }}
         >
           로 그 인
         </h2>
         <style.StSignupForm onSubmit={submitHandler}>
-          <style.HeaderLetter>어서오세요 ! 오늘도 한번 놀아봅시다 !</style.HeaderLetter>
+          <style.HeaderLetter>
+            어서오세요 ! 오늘도 한번 놀아봅시다 !
+          </style.HeaderLetter>
 
           <style.StSignUpGroup>
             <style.StSignupInput
@@ -64,9 +77,9 @@ const Login = () => {
               required
             />
             <MainButton type="login">로그인</MainButton>
-            <style.StSignupButton onClick={() => navi('/Register')}>
-              아직 회원이 아니신가요?
-              <span style={{ color: 'red' }}>회원가입</span>
+            <style.StSignupButton onClick={() => navi("/Register")}>
+              아직 회원이 아니신가요?&nbsp;
+              <span style={{ color: "red" }}>회원가입</span>
             </style.StSignupButton>
           </style.StSignUpGroup>
         </style.StSignupForm>

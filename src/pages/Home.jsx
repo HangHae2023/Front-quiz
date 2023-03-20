@@ -11,9 +11,14 @@ import Card from './Card';
 
 function Home() {
   const dispatch = useDispatch();
+
+  
+
   const { isLoading, error, quiz } = useSelector((state) => state.quizSlice);
+
   useEffect(() => {
-    dispatch(__getQuiz());
+    dispatch(__get
+    ());
   }, []);
 
   if (isLoading) {
