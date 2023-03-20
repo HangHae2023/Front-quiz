@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import api from '../../axios/api';
+import { cookies } from '../../shared/cookie';
 
 const initialState = {
   quiz: [],
@@ -11,9 +13,10 @@ const initialState = {
   isError: false,
   error: null,
 };
+
 export const __getQuiz = createAsyncThunk('getQuiz', async (payload, thunkAPI) => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_QUIZ_URL}/api/quiz`);
+    const response = await api.get(`/api/quiz`);
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     return thunkAPI.rejectWithValue('error');
@@ -24,9 +27,7 @@ export const __getDetailQuiz = createAsyncThunk(
   'getDetailQuiz',
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_QUIZ_URL}/api/quiz/${payload}`
-      );
+      const response = await api.get(`/api/quiz/${payload}`);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue('error');
@@ -36,27 +37,19 @@ export const __getDetailQuiz = createAsyncThunk(
 
 export const __getComment = createAsyncThunk('getComment', async (payload, thunkAPI) => {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_QUIZ_URL}/api/comment/${payload}`
-    );
-    return thunkAPI.fulfillWithValue(response.data);
+    const response = await api.get(`/api/comment/${payload}`);
+    return thunkAPI.fulfillWithValue(response.data.comments);
   } catch (error) {
     return thunkAPI.rejectWithValue('error');
-  }}
-);
+  }
+});
 
-export const __editQuiz = createAsyncThunk(
-  "editQuiz",
-  async (payload, thunkAPI) => {
-    try {
-      await axios.put(
-        `${process.env.REACT_APP_QUIZ_URL}/api/quiz/${payload.edit.id}`,
-        payload.resourceUrl
-      );
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (error) {
-      return thunkAPI.rejectWithValue("error");
-    }
+export const __editQuiz = createAsyncThunk('editQuiz', async (payload, thunkAPI) => {
+  try {
+    await api.put(`/api/quiz/${payload.id}`, payload);
+    return thunkAPI.fulfillWithValue(payload);
+  } catch (error) {
+    return thunkAPI.rejectWithValue('error');
   }
 });
 
@@ -64,10 +57,7 @@ export const __editComment = createAsyncThunk(
   'editComment',
   async (payload, thunkAPI) => {
     try {
-      await axios.put(
-        `${process.env.REACT_APP_QUIZ_URL}/api/comment/${payload.commentId}`,
-        payload.editContent
-      );
+      await api.put(`/api/comment/${payload.commentId}`, payload.editContent);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue('error');
@@ -77,7 +67,7 @@ export const __editComment = createAsyncThunk(
 
 export const __deleteQuiz = createAsyncThunk('deleteQuiz', async (payload, thunkAPI) => {
   try {
-    await axios.delete(`${process.env.REACT_APP_QUIZ_URL}/api/quiz/${payload}`);
+    await api.delete(`/api/quiz/${payload}`);
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
     return thunkAPI.rejectWithValue('error');
@@ -88,7 +78,7 @@ export const __deleteComment = createAsyncThunk(
   'deleteComment',
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_QUIZ_URL}/api/comment/${payload}`);
+      await api.delete(`${process.env.REACT_APP_QUIZ_URL}/api/comment/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue('error');
@@ -96,29 +86,26 @@ export const __deleteComment = createAsyncThunk(
   }
 );
 
-export const __addQuiz = createAsyncThunk(
-  "ADD_QUIZ",
-  async (payload, thunkAPI) => {
-    try {
-      await axios.post(`${process.env.REACT_APP_QUIZ_URL}/api/quiz`, payload);
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (error) {
-      return thunkAPI.rejectWithValue("error");
-    }
+export const __addQuiz = createAsyncThunk('ADD_QUIZ', async (payload, thunkAPI) => {
+  try {
+    await api.post(`/api/quiz`, payload);
+    return thunkAPI.fulfillWithValue(payload);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
   }
 });
 
-export const __addComment = createAsyncThunk('addComment', async (payload, thunkAPI) => {
-  try {
-    await axios.post(
-      `${process.env.REACT_APP_QUIZ_URL}/api/comment/${payload.postId}`,
-      payload
-    );
-    return thunkAPI.fulfillWithValue(payload);
-  } catch (error) {
-    return thunkAPI.rejectWithValue('error');
+export const __addComment = createAsyncThunk(
+  'addComment',
+  async ({ postId, content }, thunkAPI) => {
+    try {
+      await api.post(`/api/comment/${postId}`, { content });
+      return thunkAPI.fulfillWithValue({ postId, content });
+    } catch (error) {
+      return thunkAPI.rejectWithValue('error');
+    }
   }
-});
+);
 
 export const quizSlice = createSlice({
   name: 'quiz',
@@ -250,11 +237,12 @@ export const quizSlice = createSlice({
     [__addQuiz.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      state.quiz.push(action.payload);
+      state.quiz = [...state.quiz, action.payload];
     },
     [__addQuiz.rejected]: (state, action) => {
       state.isLoading = false;
       state.isError = true;
+      console.log(action.payload);
       state.error = action.payload;
     },
 

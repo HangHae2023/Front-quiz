@@ -27,7 +27,7 @@ function Detail() {
   const year = createAt?.split('-')[0];
   const date = createAt?.split('-')[2].split('T')[0];
   const month = createAt?.split('-')[1];
-
+  // console.log(postData);
   useEffect(() => {
     dispatch(__getQuiz());
     dispatch(__getComment(postData?.quizId));
@@ -65,7 +65,7 @@ function Detail() {
             <Edit item={postData} />
           </ModalContent>
 
-          <MainButton type="pink" onClick={() => deleteQuizHandler(postData?.id)}>
+          <MainButton type="pink" onClick={() => deleteQuizHandler(postData?.quizId)}>
             삭제
           </MainButton>
         </Flexdiv>

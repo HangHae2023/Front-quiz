@@ -37,6 +37,7 @@ const StImageBox = styled.div`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin: 0 auto 20px auto;
+  z-index: 3;
 `;
 const StQuizTitle = styled.div`
   font-size: 20px;

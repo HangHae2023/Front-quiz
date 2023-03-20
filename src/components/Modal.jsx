@@ -26,6 +26,7 @@ const Background = styled.div`
   height: 100%;
   top: 0;
   left: 0;
+  z-index: 4;
 `;
 
 export const ModalContent = ({ children }) => {
@@ -44,4 +45,5 @@ const Body = styled.div`
   border-radius: 40px;
   padding: 50px;
   box-sizing: border-box;
+  z-index: 5;
 `;

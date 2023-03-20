@@ -4,8 +4,9 @@ import { StForm, StInput, StLabel } from '../components/style/StyleHome';
 import { __editQuiz } from '../redux/modules/quizSlice';
 
 function Edit({ item }) {
+  // console.log(item);
   const edit = {
-    id: item.postId,
+    id: item.quizId,
     // id: item.id,
     title: item.title,
     answer: item.answer,

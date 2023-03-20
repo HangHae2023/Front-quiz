@@ -18,15 +18,16 @@ export const useInput = (initialValue, action) => {
   const fileInputHandler = (e) => {
     setInputValue({ ...inputValue, resourceUrl: e.target.files[0] });
   };
+  console.log(action);
 
   const submitInputHandler = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('title', inputValue.title);
-    formData.append('answer', inputValue.answer);
-    formData.append('explain', inputValue.explain);
+    // formData.append('title', inputValue.title);
+    // formData.append('answer', inputValue.answer);
+    // formData.append('explain', inputValue.explain);
     formData.append('resourceUrl', inputValue.resourceUrl);
-    setInputValue({ ...inputValue, resourceUrl: formData });
+    // setInputValue({ ...inputValue, resourceUrl: formData });
     dispatch(action(inputValue));
     dispatch(modalOnOff(modalState));
   };
