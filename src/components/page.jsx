@@ -5,7 +5,7 @@ import { cookies } from '../shared/cookie';
 import { MainButton } from './style/StyleButton';
 import { StSignUpId } from './style/StyleRegister';
 
-export const Nav = () => {
+export const Nav = ({ children }) => {
   const token = cookies.get('mytoken');
   const [isToken, setIsToken] = useState(token);
   const navi = useNavigate();
@@ -22,27 +22,30 @@ export const Nav = () => {
     navi('/register');
   };
   return (
-    <HeaderNav>
-      <NavLogo onClick={clickLogo}>
-        <NavImg src="/assets/quizLogo.png" />
-      </NavLogo>
-      <StSignUpId>
-        {isToken ? (
-          <MainButton type="pink" onClick={clickLogout}>
-            로그아웃
-          </MainButton>
-        ) : (
-          <MainButton type="pink" onClick={clickLogin}>
-            로그인
-          </MainButton>
-        )}
-        {isToken ? null : (
-          <MainButton type="pupple" onClick={clickSignup}>
-            회원가입
-          </MainButton>
-        )}
-      </StSignUpId>
-    </HeaderNav>
+    <>
+      <HeaderNav>
+        <NavLogo onClick={clickLogo}>
+          <NavImg src="/assets/quizLogo.png" />
+        </NavLogo>
+        <StSignUpId>
+          {isToken ? (
+            <MainButton type="pink" onClick={clickLogout}>
+              로그아웃
+            </MainButton>
+          ) : (
+            <>
+              <MainButton type="pink" onClick={clickLogin}>
+                로그인
+              </MainButton>
+              <MainButton type="pupple" onClick={clickSignup}>
+                회원가입
+              </MainButton>
+            </>
+          )}
+        </StSignUpId>
+      </HeaderNav>
+      {children}
+    </>
   );
 };
 

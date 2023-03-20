@@ -59,8 +59,7 @@ function Detail() {
     }
   };
   return (
-    <div>
-      <Nav />
+    <Nav>
       <Layout color="#8F82C9">
         <Flexdiv style={{ justifyContent: 'space-between', borderBottom: '3px solid' }}>
           <StHeaderTitle>MZ력 테스트</StHeaderTitle>
@@ -90,7 +89,7 @@ function Detail() {
         <QuizAnswer>정답 : {postData?.answer}</QuizAnswer>
         <Comment postId={postData?.quizId} />
       </Layout>
-    </div>
+    </Nav>
   );
 }
 
