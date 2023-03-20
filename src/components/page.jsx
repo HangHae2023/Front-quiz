@@ -1,25 +1,25 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { cookies } from "../shared/cookie";
-import { MainButton } from "./style/StyleButton";
-import { StSignUpId } from "./style/StyleRegister";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { cookies } from '../shared/cookie';
+import { MainButton } from './style/StyleButton';
+import { StSignUpId } from './style/StyleRegister';
 
-export const Nav = ({ login, signup }) => {
-  const token = cookies.get("mytoken");
+export const Nav = () => {
+  const token = cookies.get('mytoken');
   const [isToken, setIsToken] = useState(token);
   const navi = useNavigate();
   const clickLogo = () => {
-    navi("/");
+    navi('/');
   };
   const clickLogin = () => {
-    navi("/login");
+    navi('/login');
   };
   const clickLogout = () => {
-    return setIsToken(cookies.remove("mytoken"));
+    setIsToken(cookies.remove('mytoken'));
   };
   const clickSignup = () => {
-    navi("/register");
+    navi('/register');
   };
   return (
     <HeaderNav>

@@ -1,8 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
 import api from '../../axios/api';
-import { cookies } from '../../shared/cookie';
 
 const initialState = {
   quiz: [],
@@ -46,18 +44,18 @@ export const __getComment = createAsyncThunk('getComment', async (payload, thunk
 
 export const __editQuiz = createAsyncThunk('editQuiz', async (payload, thunkAPI) => {
   try {
-    await api.put(`/api/quiz/${payload.id}`, payload);
-    return thunkAPI.fulfillWithValue(payload);
+    await api.put(`/api/quiz/${payload.id}`, payload.formData);
+    return thunkAPI.fulfillWithValue();
   } catch (error) {
     return thunkAPI.rejectWithValue('error');
   }
-);
+});
 
 export const __editComment = createAsyncThunk(
   'editComment',
   async (payload, thunkAPI) => {
     try {
-      await api.put(`/api/comment/${payload.commentId}`, payload.editContent);
+      await api.put(`/api/comment/${payload.commentId}`, payload.content);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue('error');
@@ -67,6 +65,7 @@ export const __editComment = createAsyncThunk(
 
 export const __deleteQuiz = createAsyncThunk('deleteQuiz', async (payload, thunkAPI) => {
   try {
+    console.log(payload);
     await api.delete(`/api/quiz/${payload}`);
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
@@ -88,12 +87,12 @@ export const __deleteComment = createAsyncThunk(
 
 export const __addQuiz = createAsyncThunk('ADD_QUIZ', async (payload, thunkAPI) => {
   try {
-    await api.post(`/api/quiz`, payload);
-    return thunkAPI.fulfillWithValue(payload);
+    await api.post(`/api/quiz`, payload.formData);
+    return thunkAPI.fulfillWithValue();
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
-);
+});
 
 export const __addComment = createAsyncThunk(
   'addComment',
@@ -223,7 +222,7 @@ export const quizSlice = createSlice({
     [__deleteComment.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      state.comment = state.comment.filter((item) => item.id !== action.payload);
+      state.comment = state.comment.filter((item) => item.commentId !== action.payload);
     },
     [__deleteComment.rejected]: (state, action) => {
       state.isError = true;
@@ -242,7 +241,6 @@ export const quizSlice = createSlice({
     [__addQuiz.rejected]: (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      console.log(action.payload);
       state.error = action.payload;
     },
 

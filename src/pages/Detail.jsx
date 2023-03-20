@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../components/page';
 import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/Modal';
 import { Flexdiv, Nav, QuizAnswer, QuizTitle } from '../components/page';
 import { MainButton } from '../components/style/StyleButton';
 import { StDetailHeader, StHeaderTitle } from '../components/style/StyleHome';
 import {
+  modalOnOff,
   __deleteQuiz,
   __getComment,
   __getDetailQuiz,
@@ -16,11 +15,14 @@ import {
 } from '../redux/modules/quizSlice';
 import Comment from './Comment';
 import Edit from './Edit';
+import api from '../axios/api';
+import { token } from '../shared/cookie';
 
 function Detail() {
   const navi = useNavigate();
   const param = useParams();
   const dispatch = useDispatch();
+  const modalState = useSelector((state) => state.quizSlice.modal);
   const data = useSelector((state) => state.quizSlice.quiz.allQuizs);
   const postData = data?.find((item) => item.quizId === parseInt(param.id));
   const createAt = postData?.createdAt;
@@ -31,15 +33,30 @@ function Detail() {
   useEffect(() => {
     dispatch(__getQuiz());
     dispatch(__getComment(postData?.quizId));
-  }, [JSON.stringify(postData)]);
+  }, [dispatch, JSON.stringify(postData)]);
 
-  const deleteQuizHandler = (id) => {
-    // try {
-    dispatch(__deleteQuiz(id));
-    navi('/');
-    // } catch (error) {
-    //   alert('권한이 없습니다');
-    // }
+  const clickEditHandler = async (id) => {
+    if (token) {
+      try {
+        // await api.get(`/api/quiz/authChk/${id}`);
+        dispatch(modalOnOff(modalState));
+      } catch (error) {
+        // console.log(error);
+        // alert('다시 로그인 해주세요!!');
+      }
+    }
+  };
+
+  const clickDeleteHandler = async (id) => {
+    if (token) {
+      try {
+        await api.get(`/api/quiz/authChk/${id}`);
+        window.confirm('정말 삭제 하시겠습니까?') && dispatch(__deleteQuiz(id));
+        navi('/');
+      } catch (error) {
+        alert('삭제할 권한이 없습니다.');
+      }
+    }
   };
   return (
     <div>
@@ -58,14 +75,14 @@ function Detail() {
         <Flexdiv style={{ justifyContent: 'flex-end', width: '95%', gap: '7px' }}>
           <ModalOpenTrigger>
             <ModalBackground />
-            <MainButton>수정</MainButton>
           </ModalOpenTrigger>
 
+          <MainButton onClick={() => clickEditHandler(postData?.quizId)}>수정</MainButton>
           <ModalContent>
             <Edit item={postData} />
           </ModalContent>
 
-          <MainButton type="pink" onClick={() => deleteQuizHandler(postData?.quizId)}>
+          <MainButton type="pink" onClick={() => clickDeleteHandler(postData?.quizId)}>
             삭제
           </MainButton>
         </Flexdiv>
