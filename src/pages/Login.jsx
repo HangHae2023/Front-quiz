@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Layout from '../components/page';
+import Layout from '../components/Layout';
 import { Nav } from '../components/page';
 import { MainButton } from '../components/style/StyleButton';
 import * as style from '../components/style/StyleRegister';
-import { cookies } from '../shared/cookie';
 
 const Login = () => {
   const navi = useNavigate();
@@ -24,23 +23,16 @@ const Login = () => {
 
     try {
       // await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, login);
-      const data = await axios.post(
-        `${process.env.REACT_APP_QUIZ_URL}/user/login`,
-        login
-      );
-      // cookies.set("id", jwtDecode(data.token).id, { path: "/", maxAge: 500 });
-      // cookies.set("accessToken", data.token, { path: "/", maxAge: 500 });
-      console.log(data);
-      navi('/');
+      await axios.post(`${process.env.REACT_APP_QUIZ_URL}/api/auth/login`, login);
     } catch (error) {
-      // alert(JSON.parse(error.response.data).message);
-      alert(error.response.data.errorMessage.errorMessage);
+      alert(JSON.parse(error.request.response).message);
+      console.log(error);
     }
   };
   return (
     <>
       <Nav />
-      <Layout style={{ maxWidth: '1000px' }}>
+      <Layout>
         <h2
           style={{
             display: 'flex',
@@ -73,7 +65,7 @@ const Login = () => {
             />
             <MainButton type="login">로그인</MainButton>
             <style.StSignupButton onClick={() => navi('/Register')}>
-              아직 회원이 아니신가요?&nbsp;
+              아직 회원이 아니신가요?
               <span style={{ color: 'red' }}>회원가입</span>
             </style.StSignupButton>
           </style.StSignUpGroup>
