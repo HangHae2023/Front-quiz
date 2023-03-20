@@ -17,7 +17,7 @@ export const Nav = ({ login, signup }) => {
   return (
     <HeaderNav>
       <NavLogo onClick={clickLogo}>
-        <NavImg src="img/quizLogo.png" />
+        <NavImg src="/assets/quizLogo.png" />
       </NavLogo>
       <StSignUpId>
         {login && (

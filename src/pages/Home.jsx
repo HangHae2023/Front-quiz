@@ -25,7 +25,7 @@ function Home() {
     case 403:
     // alert('로그인이 필요합니다');
     default:
-      console.log(error);
+      console.log('error', error);
   }
   return (
     <>
@@ -46,17 +46,15 @@ function Home() {
           </Flexdiv>
           <br />
           <br />
-          <style.StCords>
-            <style.StListWrapper>
-              {quiz.allQuizs?.map((item) => {
-                return (
-                  <div key={item?.quizId}>
-                    <Card item={item} />
-                  </div>
-                );
-              })}
-            </style.StListWrapper>
-          </style.StCords>
+          <style.StListWrapper>
+            {quiz.allQuizs?.map((item) => {
+              return (
+                <div key={item?.quizId}>
+                  <Card item={item} />
+                </div>
+              );
+            })}
+          </style.StListWrapper>
         </style.StListContainer>
       </Layout>
     </>

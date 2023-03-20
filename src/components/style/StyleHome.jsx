@@ -14,36 +14,45 @@ const StListWrapper = styled.div`
 `;
 
 const StQuizContainer = styled.div`
-  width: 265px;
-  height: 360px;
+  width: 360px;
+  height: 380px;
   box-sizing: border-box;
   min-height: 150px;
   border-radius: 25px;
-  padding: 12px 24px;
+  padding: 15px 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   cursor: pointer;
   box-shadow: 1px 2px 5px 1px gray;
 `;
 
 const StImageBox = styled.div`
-  width: 230px;
+  width: 330px;
   height: 200px;
   background-color: aliceblue;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-
+  margin-left: auto;
+  margin-right: auto;
+`;
+const StQuizTitle = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  font-size: 20px;
+  margin-top: 20px;
+  max-width: 400px;
+  max-height: 100px;
+  border: 1px solid;
 `;
-
-const StNickname = styled.span`
-  margin-left: 150px;
-  margin-top: 40px;
+const StNickname = styled.div`
+  margin-right: 10px;
+  margin-top: 80px;
   font-weight: 600;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const StTodayQuiz = styled.div`
@@ -111,4 +120,5 @@ export {
   StHeaderTitle,
   StForm,
   StLabel,
+  StQuizTitle,
 };

@@ -19,11 +19,11 @@ function AddQuiz() {
   return (
     <StForm onSubmit={submitInputHandler}>
       <StLabel>
-        퀴즈는 무엇인가요?
+        어떤 퀴즈를 내볼까요?
         <StInput
           type="text"
           name="title"
-          placeholder="질문을 입력하세요"
+          placeholder="퀴즈를 입력하세요"
           value={inputValue.title}
           onChange={onChangeHandler}
         />

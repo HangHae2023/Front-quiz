@@ -8,28 +8,31 @@ function Card({ item }) {
   const navigator = useNavigate();
 
   const onClickAnswerHandler = () => {
-    const answer = prompt('정답을 입력하세요');
+    const answer = prompt(item.title);
     if (answer === item.answer) {
       alert('MZ가 맞으시군요??!!');
       navigator(`/detail/${item.quizId}`);
-    } else if (answer !== item.answer) {
+    } else if (answer !== '' && answer !== null && answer !== item.answer) {
       alert('MZ가 아니시군요??');
       navigator(`/detail/${item.quizId}`);
     } else {
-      alert('MZ가 아니시군요??');
+      alert('문제 안풀고 어디가세요?');
       // navigator(`/detail/${item.quizId}`);
     }
   };
-
+  const img = item.imgUrl;
   return (
     // <ModalOpenTrigger>
     //   <ModalBackground />
     //   <ModalContent></ModalContent>
     <style.StQuizContainer onClick={onClickAnswerHandler}>
-      <style.StImageBox>사진을 어케넣지?</style.StImageBox>
-      {/* {quiz.resourceUrl} */}
-      <h3>{item?.title}</h3>
-      <style.StNickname>{item?.nickname}</style.StNickname>
+      <style.StImageBox
+        style={{
+          backgroundImage: `url(${item.imgUrl})`,
+        }}
+      ></style.StImageBox>
+      <style.StQuizTitle>{item?.title}</style.StQuizTitle>
+      <style.StNickname>작성자 : {item?.nickname}</style.StNickname>
     </style.StQuizContainer>
     // </ModalOpenTrigger>
   );

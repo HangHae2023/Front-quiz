@@ -21,11 +21,17 @@ function Comment({ postId }) {
     dispatch(__addComment({ postId, commentInput }));
     setCommentInput('');
   };
+
+  const inputRef = () => {
+    // inputRef.current.onClick;
+    // alert('zz');
+  };
   return (
     <div>
       <h2>댓글</h2>
       <form onSubmit={submitInputHandler}>
         <StInput
+          ref={inputRef}
           type="text"
           value={commentInput}
           onChange={(e) => setCommentInput(e.target.value)}
