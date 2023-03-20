@@ -66,13 +66,6 @@ const StTodayQuiz = styled.div`
   font-weight: bold;
 `;
 
-const StCords = styled.div`
-  border-bottom: 3px solid;
-  padding-bottom: 20px;
-  height: 720px;
-  overflow-y: auto;
-`;
-
 const StInput = styled.input`
   width: 300px;
   height: 40px;
@@ -114,7 +107,6 @@ export {
   StImageBox,
   StNickname,
   StTodayQuiz,
-  StCords,
   StInput,
   StDetailHeader,
   StHeaderTitle,
