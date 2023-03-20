@@ -42,7 +42,7 @@ export const __getComment = createAsyncThunk('getComment', async (payload, thunk
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     return thunkAPI.rejectWithValue('error');
-  }
+  }}
 );
 
 export const __editQuiz = createAsyncThunk(
