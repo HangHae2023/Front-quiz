@@ -43,7 +43,7 @@ export const __getComment = createAsyncThunk('getComment', async (payload, thunk
   } catch (error) {
     return thunkAPI.rejectWithValue('error');
   }
-);
+});
 
 export const __editQuiz = createAsyncThunk(
   "editQuiz",
@@ -58,7 +58,7 @@ export const __editQuiz = createAsyncThunk(
       return thunkAPI.rejectWithValue("error");
     }
   }
-});
+);
 
 export const __editComment = createAsyncThunk(
   'editComment',
@@ -106,7 +106,7 @@ export const __addQuiz = createAsyncThunk(
       return thunkAPI.rejectWithValue("error");
     }
   }
-});
+);
 
 export const __addComment = createAsyncThunk('addComment', async (payload, thunkAPI) => {
   try {

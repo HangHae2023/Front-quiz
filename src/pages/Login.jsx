@@ -21,17 +21,13 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    
     try {
       const data = await axios.post(
         `${process.env.REACT_APP_QUIZ_URL}/user/login`,
         login
       );
-      console.log(data.headers.authorization)
-      // const a = document.cookie;
-      // console.log(document.cookie);
-      // const token = request.headers.get('Authorization');
-      // console.log(token);
+      console.log(data)
       cookies.set("mytoken", data.headers.authorization.split(' ')[1], {
         path: "/",
       });
@@ -44,9 +40,9 @@ const Login = () => {
   
   // 로그인 유효성 검사 
   // const token = cookies.get('mytoken');
-  // await axios.get(`${process.env.REACT_APP_SIGN_URL}/user`, {
+  // await axios.get(`${process.env.REACT_APP_SIGN_URL}/user/loginck`, {
   // headers: {
-  // authorization: token,
+  // authorization: `Bearer ${token}`,
   // },
   // });
 
