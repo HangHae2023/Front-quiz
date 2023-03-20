@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import Layout from '../components/page';
 import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/Modal';
-import { Flexdiv, Header, Nav, QuizAnswer, QuizTitle } from '../components/page';
+import { Flexdiv, Nav, QuizAnswer, QuizTitle } from '../components/page';
+import { MainButton } from '../components/style/StyleButton';
+import { StDetailHeader, StHeaderTitle } from '../components/style/StyleHome';
 import {
   __deleteQuiz,
   __getComment,
@@ -19,8 +22,11 @@ function Detail() {
   const param = useParams();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.quizSlice.quiz.allQuizs);
-  const postData = data?.find((item) => item.quizId === parseInt(param.id)); // 실제 서버에서 사용
-  console.log(postData);
+  const postData = data?.find((item) => item.quizId === parseInt(param.id));
+  const createAt = postData?.createdAt;
+  const year = createAt?.split('-')[0];
+  const date = createAt?.split('-')[2].split('T')[0];
+  const month = createAt?.split('-')[1];
 
   useEffect(() => {
     dispatch(__getQuiz());
@@ -28,34 +34,45 @@ function Detail() {
   }, [JSON.stringify(postData)]);
 
   const deleteQuizHandler = (id) => {
+    // try {
     dispatch(__deleteQuiz(id));
     navi('/');
+    // } catch (error) {
+    //   alert('권한이 없습니다');
+    // }
   };
   return (
     <div>
       <Nav />
-      <Flexdiv>
-        <ModalOpenTrigger>
-          <ModalBackground />
-          <button>수정</button>
-        </ModalOpenTrigger>
+      <Layout color="#8F82C9">
+        <Flexdiv style={{ justifyContent: 'space-between', borderBottom: '3px solid' }}>
+          <StHeaderTitle>MZ력 테스트</StHeaderTitle>
+          <StDetailHeader>
+            <div>작성자 : {postData?.nickname}</div>
+            <div style={{ color: 'gray', fontSize: '16px' }}>
+              작성일 : {year}년 {month}월 {date}일
+            </div>
+          </StDetailHeader>
+        </Flexdiv>
 
-        <ModalContent>
-          <Edit item={postData} />
-        </ModalContent>
+        <Flexdiv style={{ justifyContent: 'flex-end', width: '95%', gap: '7px' }}>
+          <ModalOpenTrigger>
+            <ModalBackground />
+            <MainButton>수정</MainButton>
+          </ModalOpenTrigger>
 
-        <button onClick={() => deleteQuizHandler(postData?.id)}>삭제</button>
-      </Flexdiv>
+          <ModalContent>
+            <Edit item={postData} />
+          </ModalContent>
 
-      <Header>
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <span>{postData?.nickname}</span>
-          <span style={{ color: 'gray', fontSize: '16px' }}>{postData?.createdAt}</span>
-        </div>
-      </Header>
-      <QuizTitle>{postData?.title}</QuizTitle>
-      <QuizAnswer>정답 : {postData?.answer}</QuizAnswer>
-      <Comment postId={postData?.quizId} data={data} />
+          <MainButton type="pink" onClick={() => deleteQuizHandler(postData?.id)}>
+            삭제
+          </MainButton>
+        </Flexdiv>
+        <QuizTitle>{postData?.title}</QuizTitle>
+        <QuizAnswer>정답 : {postData?.answer}</QuizAnswer>
+        <Comment postId={postData?.quizId} />
+      </Layout>
     </div>
   );
 }

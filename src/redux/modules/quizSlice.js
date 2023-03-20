@@ -45,7 +45,6 @@ export const __getComment = createAsyncThunk('getComment', async (payload, thunk
   }
 });
 
-
 export const __editQuiz = createAsyncThunk('editQuiz', async (payload, thunkAPI) => {
   try {
     await axios.put(
@@ -100,7 +99,7 @@ export const __addQuiz = createAsyncThunk('ADD_QUIZ', async (payload, thunkAPI) 
     await axios.post(`${process.env.REACT_APP_QUIZ_URL}/api/quiz`, payload);
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
-    return thunkAPI.rejectWithValue('error');
+    return thunkAPI.rejectWithValue(error.request.status);
   }
 });
 

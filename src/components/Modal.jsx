@@ -19,8 +19,8 @@ export const ModalBackground = () => {
 };
 
 const Background = styled.div`
-  background-color: #ded5c2;
-  opacity: 0.8;
+  background-color: #8591ab;
+  opacity: 0.6;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -34,11 +34,10 @@ export const ModalContent = ({ children }) => {
 };
 
 const Body = styled.div`
-  width: 600px;
-  height: 700px;
+  width: 450px;
   position: absolute;
-  background-color: white;
-  top: -20%;
+  background-color: #f8f8fc;
+  top: -10%;
   left: 50%;
   right: 50%;
   transform: translate(-50%, 50%);

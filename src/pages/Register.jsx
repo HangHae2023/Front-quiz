@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import Layout from "../components/Layout";
-import { Nav } from "../components/page";
-import { AiFillHome } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { __isSameNickname, __signUpId } from "../redux/modules/signUpSlice";
-import * as style from "../components/style/StyleRegister";
-import { MainButton } from "../components/style/StyleButton";
+import React, { useState } from 'react';
+import Layout from '../components/page';
+import { Nav } from '../components/page';
+import { AiFillHome } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { __isSameNickname, __signUpId } from '../redux/modules/signUpSlice';
+import * as style from '../components/style/StyleRegister';
+import { MainButton } from '../components/style/StyleButton';
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [newUsers, setNewUsers] = useState({
-    userId: "",
-    nickname: "",
-    password: "",
-    passwordCheck: "",
+    userId: '',
+    nickname: '',
+    password: '',
+    passwordCheck: '',
   });
 
-  const [wrongPw, setWrongPw] = useState("");
+  const [wrongPw, setWrongPw] = useState('');
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -30,9 +30,9 @@ const Register = () => {
     e.preventDefault();
 
     if (newUsers.password !== newUsers.passwordCheck) {
-      setWrongPw("비밀번호가 일치하지 않습니다!");
+      setWrongPw('비밀번호가 일치하지 않습니다!');
     } else {
-      setWrongPw("");
+      setWrongPw('');
       dispatch(__signUpId({ ...newUsers }));
     }
   };
@@ -48,16 +48,17 @@ const Register = () => {
       <Layout>
         <h2
           style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "50px",
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '50px',
           }}
         >
           회 원 가 입
         </h2>
         <style.StSignupForm onSubmit={onSubmitButtonHandler}>
           <style.HeaderLetter>
-            환영합니다 ! <br /><br />
+            환영합니다 ! <br />
+            <br />
             같이 한번 놀아봅시다 !
           </style.HeaderLetter>
           <style.StSignUpGroup>
@@ -68,10 +69,7 @@ const Register = () => {
               value={newUsers.nickname}
               onChange={onChangeHandler}
             />
-            <style.StSignupButton
-              type="button"
-              onClick={isNicknameSameButtonHandler}
-            >
+            <style.StSignupButton type="button" onClick={isNicknameSameButtonHandler}>
               중복확인
             </style.StSignupButton>
             <style.StSignupInput
@@ -101,16 +99,16 @@ const Register = () => {
             <AiFillHome
               type="button"
               onClick={() => {
-                navigate("/");
+                navigate('/');
               }}
               style={{
-                marginLeft: "20px",
+                marginLeft: '20px',
               }}
               size="30px"
             />
-            <style.StSignupButton onClick={() => navigate("/login")}>
+            <style.StSignupButton onClick={() => navigate('/login')}>
               계정이 이미 있으신가요? &nbsp;
-              <span style={{ color: "red" }}>로그인</span>
+              <span style={{ color: 'red' }}>로그인</span>
             </style.StSignupButton>
           </style.StSignUpGroup>
         </style.StSignupForm>
