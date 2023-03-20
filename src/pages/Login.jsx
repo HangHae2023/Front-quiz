@@ -10,8 +10,8 @@ import { cookies } from "../shared/cookie";
 const Login = () => {
   const navi = useNavigate();
   const [login, setLogin] = useState({
-    userId: "",
-    password: "",
+    userId: '',
+    password: '',
   });
 
   const changeInputHandler = (e) => {
@@ -37,8 +37,8 @@ const Login = () => {
       });
       navi("/");
     } catch (error) {
-      // alert(JSON.parse(error.response.data).message);
-      alert(error.response.data.errorMessage.errorMessage);
+      alert(JSON.parse(error.request.response).message);
+      console.log(error);
     }
   };
   
@@ -57,9 +57,9 @@ const Login = () => {
       <Layout style={{ maxWidth: "1000px" }}>
         <h2
           style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "50px",
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '50px',
           }}
         >
           로 그 인
@@ -89,9 +89,9 @@ const Login = () => {
               required
             />
             <MainButton type="login">로그인</MainButton>
-            <style.StSignupButton onClick={() => navi("/Register")}>
-              아직 회원이 아니신가요?&nbsp;
-              <span style={{ color: "red" }}>회원가입</span>
+            <style.StSignupButton onClick={() => navi('/Register')}>
+              아직 회원이 아니신가요?
+              <span style={{ color: 'red' }}>회원가입</span>
             </style.StSignupButton>
           </style.StSignUpGroup>
         </style.StSignupForm>

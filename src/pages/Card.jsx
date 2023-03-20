@@ -20,7 +20,7 @@ function Card({ item }) {
       // navigator(`/detail/${item.quizId}`);
     }
   };
-  const img = item.imgUrl;
+
   return (
     // <ModalOpenTrigger>
     //   <ModalBackground />
@@ -32,7 +32,7 @@ function Card({ item }) {
         }}
       ></style.StImageBox>
       <style.StQuizTitle>{item?.title}</style.StQuizTitle>
-      <style.StNickname>작성자 : {item?.nickname}</style.StNickname>
+      <style.StNickname>{item?.nickname}</style.StNickname>
     </style.StQuizContainer>
     // </ModalOpenTrigger>
   );

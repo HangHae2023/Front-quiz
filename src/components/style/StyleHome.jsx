@@ -15,15 +15,16 @@ const StListWrapper = styled.div`
 
 const StQuizContainer = styled.div`
   width: 360px;
-  height: 380px;
+  height: 390px;
   box-sizing: border-box;
   min-height: 150px;
   border-radius: 25px;
-  padding: 15px 10px;
+  padding: 15px 15px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
   box-shadow: 1px 2px 5px 1px gray;
+  position: relative;
 `;
 
 const StImageBox = styled.div`
@@ -35,22 +36,26 @@ const StImageBox = styled.div`
   background-repeat: no-repeat;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 20px auto;
 `;
 const StQuizTitle = styled.div`
-  display: flex;
-  justify-content: center;
   font-size: 20px;
-  margin-top: 20px;
   max-width: 400px;
-  max-height: 100px;
-  border: 1px solid;
+  max-height: 200px;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 몇줄로 자를건지 결정 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const StNickname = styled.div`
-  margin-right: 10px;
-  margin-top: 80px;
+  width: 200px;
   font-weight: 600;
+  position: absolute;
+  bottom: 15px;
+  right: 25px;
+  overflow: hidden;
   display: flex;
   justify-content: flex-end;
 `;
@@ -64,13 +69,6 @@ const StTodayQuiz = styled.div`
   border-bottom: 3px solid;
   font-size: 1.7em;
   font-weight: bold;
-`;
-
-const StCords = styled.div`
-  border-bottom: 3px solid;
-  padding-bottom: 20px;
-  height: 720px;
-  overflow-y: auto;
 `;
 
 const StInput = styled.input`
@@ -114,7 +112,6 @@ export {
   StImageBox,
   StNickname,
   StTodayQuiz,
-  StCords,
   StInput,
   StDetailHeader,
   StHeaderTitle,
