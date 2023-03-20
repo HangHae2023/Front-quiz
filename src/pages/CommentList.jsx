@@ -20,7 +20,7 @@ function CommentList({ item }) {
   const deleteCommentHandler = (id) => {
     dispatch(__deleteComment(id));
   };
-
+  console.log('item', item);
   return (
     <div>
       {edit ? (
@@ -36,7 +36,7 @@ function CommentList({ item }) {
         </form>
       ) : (
         <>
-          <span>작성일 : {date}</span>
+          <p>작성일 : {date}</p>
           {item.nickname} : {item.content}
           <MainButton onClick={() => setEdit(!edit)}>수정</MainButton>
           <MainButton type="blue" onClick={() => deleteCommentHandler(item.commentId)}>

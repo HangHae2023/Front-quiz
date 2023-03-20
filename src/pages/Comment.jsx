@@ -8,15 +8,16 @@ import { __addComment, __getComment } from '../redux/modules/quizSlice';
 import { cookies } from '../shared/cookie';
 import CommentList from './CommentList';
 
-
 function Comment({ postId }) {
   const navi = useNavigate();
   const dispatch = useDispatch();
-  const [commentInput, setCommentInput] = useState("");
-  const data = useSelector((state) => state.quizSlice.comment.comments);
+  const [content, setContent] = useState('');
+  const data = useSelector((state) => state.quizSlice.comment);
   const commentData = data?.filter((item) => item.quizId === postId);
+  console.log(data);
   const isToken = cookies.get('mytoken');
 
+  console.log(postId);
   useEffect(() => {
     dispatch(__getComment(postId));
   }, [JSON.stringify(commentData)]);
@@ -24,8 +25,8 @@ function Comment({ postId }) {
   const submitInputHandler = (e) => {
     e.preventDefault();
     if (isToken) {
-      dispatch(__addComment({ postId, commentInput }));
-      setCommentInput('');
+      dispatch(__addComment({ postId, content }));
+      setContent('');
     } else {
       alert('로그인이 필요합니다.');
     }
@@ -42,13 +43,13 @@ function Comment({ postId }) {
       <h2>댓글</h2>
       <form
         onSubmit={submitInputHandler}
-        style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
       >
         <StInput
           onClick={clickInputHandler}
           type="text"
-          value={commentInput}
-          onChange={(e) => setCommentInput(e.target.value)}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
           placeholder={isToken ? '댓글을 작성해주세요' : '로그인 후 이용해주세요'}
         />
         <MainButton type="submit">댓글 작성</MainButton>
