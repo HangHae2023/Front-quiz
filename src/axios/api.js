@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { cookies, token } from '../shared/cookie';
+import { cookies } from '../shared/cookie';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_QUIZ_URL,
@@ -9,6 +9,7 @@ const instance = axios.create({
   timeout: 10000,
 });
 
+const token = cookies.get('mytoken');
 instance.interceptors.request.use(
   // 요청을 보내기 전 수행되는 함수
   function (req) {

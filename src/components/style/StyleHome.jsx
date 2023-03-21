@@ -94,17 +94,18 @@ const StHeaderTitle = styled.span`
   font-weight: bold;
 `;
 
-const StForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 15px;
-`;
-
 const StLabel = styled.label`
   font-weight: 600;
   display: flex;
   flex-direction: column;
+`;
+
+const StContent = styled.div`
+  padding-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 80%;
+  border-bottom: 1px solid;
 `;
 export {
   StListContainer,
@@ -116,7 +117,7 @@ export {
   StInput,
   StDetailHeader,
   StHeaderTitle,
-  StForm,
   StLabel,
   StQuizTitle,
+  StContent,
 };
