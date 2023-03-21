@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/page";
 import { Nav } from "../components/page";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { __isSameNickname } from "../redux/modules/signUpSlice";
 import * as style from "../components/style/StyleRegister";
 import { MainButton } from "../components/style/StyleButton";
 import api from "../axios/api";
-import { async } from "q";
+import { cookies } from "../shared/cookie";
 
 const Register = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [newUsers, setNewUsers] = useState({
     userId: "",
@@ -20,7 +17,15 @@ const Register = () => {
     passwordCheck: "",
   });
 
-  const [wrongPw, setWrongPw] = useState("");
+  const [wrongInput, setWrongInput] = useState("");
+
+  useEffect(() => {
+    const mytoken = cookies.get("mytoken");
+    if (mytoken) {
+      alert("이미 로그인 하셨습니다!");
+      navigate("/");
+    }
+  }, []);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -30,43 +35,68 @@ const Register = () => {
     });
   };
 
-  const onSubmitButtonHandler = async (e) => {
-    e.preventDefault();
-
-    if (newUsers.password !== newUsers.passwordCheck) {
-      setWrongPw("비밀번호가 일치하지 않습니다!");
-    } else {
-      try {
-        const { data } = await api.post(`/user/signup`, { ...newUsers });
-        alert(data.message);
-        navigate("/Login");
-      } catch (error) {
-        if (error.response.status === 409) {
-          alert(error.response.data.errorMessage.errorMessage);
-        } else if (error.response.status === 500) {
-          alert(error.response.data.errorMessage.errorMessage);
-        } else {
-          alert(error.response.data.errorMessage.errorMessage);
-        }
+  // 닉네임 중복 확인 버튼
+  const isNicknameSameButtonHandler = async () => {
+    try {
+      await api.post(`/user/signup/nkck`, {
+        nickname: newUsers.nickname,
+      });
+      alert("사용가능한 닉네임입니다.");
+    } catch (error) {
+      if (error.response.status === 409) {
+        alert("중복된 닉네임 입니다");
+      } else if (error.response.status === 500) {
+        alert("서버 에러가 발생했습니다.");
+      } else {
+        alert("알 수 없는 에러가 발생했습니다.");
       }
     }
   };
 
-  const isNicknameSameButtonHandler = async () => {
+  // 아이디 중복 확인 버튼
+  const isUserIdSameButtonHandler = async () => {
     try {
-      await api.post(`/user/signup/nkck`, {
-        ...newUsers,
-        nickname: newUsers.nickname,
+      await api.post(`/user/signup/idck`, {
+        userId: newUsers.userId,
       });
+      alert("사용가능한 아이디입니다.");
     } catch (error) {
-      // if (error.response.status === 409) {
-      //   alert(error.response.data.errorMessage);
-      // } else if (error.response.status === 500) {
-      //   alert(error.response.data.errorMessage);
-      // } else {
-      //   alert(error.response.data.errorMessage);
-      // }
-      console.log(error);
+      if (error.response.status === 409) {
+        alert("중복된 아이디 입니다");
+      } else if (error.response.status === 500) {
+        alert("서버 에러가 발생했습니다.");
+      } else {
+        alert("알 수 없는 에러가 발생했습니다.");
+      }
+    }
+  };
+
+  // 회원가입 버튼
+  const onSubmitButtonHandler = async (e) => {
+    e.preventDefault();
+    if (newUsers.password !== newUsers.passwordCheck) {
+      setWrongInput("비밀번호가 일치하지 않습니다!");
+    } else if (
+      newUsers.nickname === "" ||
+      newUsers.userId === "" ||
+      newUsers.password === "" ||
+      newUsers.passwordCheck === ""
+    ) {
+      setWrongInput("정보를 다 입력해주세요!");
+    } else {
+      try {
+        const data = await api.post(`/user/signup`, newUsers);
+        alert(data.data.message);
+        navigate("/Login");
+      } catch (error) {
+        if ((error.response.status = 409)) {
+          alert("아이디와 닉네임을 확인해주세요");
+        } else if ((error.response.status = 500)) {
+          alert("서버 에러가 발생했습니다.");
+        } else {
+          alert("알 수 없는 에러가 발생했습니다.");
+        }
+      }
     }
   };
 
@@ -110,7 +140,10 @@ const Register = () => {
               value={newUsers.userId}
               onChange={onChangeHandler}
             />
-            <style.StSignupSameButton type="button">
+            <style.StSignupSameButton
+              type="button"
+              onClick={isUserIdSameButtonHandler}
+            >
               중복확인
             </style.StSignupSameButton>
             <style.StSignupInput
@@ -127,7 +160,7 @@ const Register = () => {
               value={newUsers.passwordCheck}
               onChange={onChangeHandler}
             />
-            {wrongPw}
+            <span style={{ color: "red", font: "bold" }}>{wrongInput}</span>
             <MainButton type="login">회원가입하기!</MainButton>
 
             <style.StSignupButton onClick={() => navigate("/login")}>

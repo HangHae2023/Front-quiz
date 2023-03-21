@@ -16,7 +16,8 @@ export const Nav = ({ children }) => {
     navi('/login');
   };
   const clickLogout = () => {
-    setIsToken(cookies.remove('mytoken'));
+    cookies.remove("mytoken", { path: "/" });
+    setIsToken(false);
   };
   const clickSignup = () => {
     navi('/register');

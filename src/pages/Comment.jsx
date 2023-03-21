@@ -14,10 +14,8 @@ function Comment({ postId }) {
   const [content, setContent] = useState('');
   const data = useSelector((state) => state.quizSlice.comment);
   const commentData = data?.filter((item) => item.quizId === postId);
+  const isToken = cookies.get('mytoken');
 
-  const [isToken, setIsToken] = useState(token);
-
-  console.log(isToken);
   useEffect(() => {
     dispatch(__getComment(postId));
   }, [dispatch, JSON.stringify(data)]);

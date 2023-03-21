@@ -11,18 +11,14 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   // 요청을 보내기 전 수행되는 함수
-  function (req) {
-    // 겟 했을때 토큰이 없으면 요청 그대로 리턴
-    if (!token) return req;
-
-    // 토큰이 있으면 헤더에 넣어서 리턴
-    req.headers.Authorization = `Bearer ${token}`;
-    return req;
+  function (config) {
+    // console.log('인터셉터 요청 성공');
+    return config;
   },
 
   // 오류 요청을 보내기 전 수행되는 함수
   function (error) {
-    console.log('인터셉터 요청 오류');
+    // console.log('인터셉터 요청 오류');
     return Promise.reject(error);
   }
 );
@@ -30,7 +26,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   // 응답을 내보내기 전 수행되는 함수
   function (response) {
-    console.log('인터셉터 응답 받았습니다!');
+    // console.log('인터셉터 응답 받았습니다!');
     return response;
   },
 
