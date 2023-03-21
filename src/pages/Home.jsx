@@ -8,13 +8,14 @@ import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/M
 import { MainButton } from '../components/style/StyleButton';
 import AddQuiz from './AddQuiz';
 import Card from './Card';
-import { token } from '../shared/cookie';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import api from '../axios/api';
+import { cookies } from '../shared/cookie';
 
 
 function Home() {
+  const token = cookies.get('mytoken');
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.quizSlice.modal);
   const navi = useNavigate();
@@ -56,7 +57,7 @@ function Home() {
       <Nav />
       <Layout color="#518edb">
         <style.StListContainer>
-          <Flexdiv>
+          <Flexdiv ai="conter">
             <style.StTodayQuiz>
               오늘의 퀴즈는?
               <ModalOpenTrigger>

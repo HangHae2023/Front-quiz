@@ -2,25 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Flexdiv } from '../components/page';
 import { MainButton } from '../components/style/StyleButton';
 import { StInput } from '../components/style/StyleHome';
 import { __addComment, __getComment } from '../redux/modules/quizSlice';
-import { cookies, token } from '../shared/cookie';
+import { cookies } from '../shared/cookie';
 import CommentList from './CommentList';
 
 function Comment({ postId }) {
+  console.log('sssss');
+  const token = cookies.get('mytoken');
   const navi = useNavigate();
   const dispatch = useDispatch();
   const [content, setContent] = useState('');
   const data = useSelector((state) => state.quizSlice.comment);
   const commentData = data?.filter((item) => item.quizId === postId);
 
-  const [isToken, setIsToken] = useState(token);
-
-  console.log(isToken);
   useEffect(() => {
     dispatch(__getComment(postId));
   }, [dispatch, JSON.stringify(data)]);
+
+  useEffect(() => {
+    cookies.get('mytoken');
+  }, [token]);
 
   const submitInputHandler = (e) => {
     e.preventDefault();
