@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { MainButton } from '../components/style/StyleButton';
 import { StInput } from '../components/style/StyleHome';
 import { __addComment, __getComment } from '../redux/modules/quizSlice';
-import { cookies } from '../shared/cookie';
+import { cookies, token } from '../shared/cookie';
 import CommentList from './CommentList';
 
 function Comment({ postId }) {
@@ -14,17 +14,17 @@ function Comment({ postId }) {
   const [content, setContent] = useState('');
   const data = useSelector((state) => state.quizSlice.comment);
   const commentData = data?.filter((item) => item.quizId === postId);
-  console.log(data);
-  const isToken = cookies.get('mytoken');
 
-  console.log(postId);
+  const [isToken, setIsToken] = useState(token);
+
+  console.log(isToken);
   useEffect(() => {
     dispatch(__getComment(postId));
-  }, [JSON.stringify(commentData)]);
+  }, [dispatch, JSON.stringify(data)]);
 
   const submitInputHandler = (e) => {
     e.preventDefault();
-    if (isToken) {
+    if (token) {
       dispatch(__addComment({ postId, content }));
       setContent('');
     } else {
@@ -33,7 +33,7 @@ function Comment({ postId }) {
   };
 
   const clickInputHandler = () => {
-    if (!isToken) {
+    if (!token) {
       window.confirm('로그인이 필요합니다.') && navi('/login');
     }
   };
@@ -50,7 +50,7 @@ function Comment({ postId }) {
           type="text"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder={isToken ? '댓글을 작성해주세요' : '로그인 후 이용해주세요'}
+          placeholder={token ? '댓글을 작성해주세요' : '로그인 후 이용해주세요'}
         />
         <MainButton type="submit">댓글 작성</MainButton>
       </form>

@@ -16,7 +16,8 @@ function Edit({ item }) {
 
   const [inputValue, onChangeHandler, fileInputHandler, submitInputHandler] = useInput(
     edit,
-    __editQuiz
+    __editQuiz,
+    edit.id
   );
   return (
     <StForm onSubmit={submitInputHandler}>

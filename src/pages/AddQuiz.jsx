@@ -13,7 +13,8 @@ function AddQuiz() {
 
   const [inputValue, onChangeHandler, fileInputHandler, submitInputHandler] = useInput(
     newQuiz,
-    __addQuiz
+    __addQuiz,
+    null
   );
 
   return (
