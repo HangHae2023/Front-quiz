@@ -51,7 +51,7 @@ export const __editQuiz = createAsyncThunk('editQuiz', async (payload, thunkAPI)
   } catch (error) {
     return thunkAPI.rejectWithValue('error');
   }
-);
+});
 
 export const __editComment = createAsyncThunk(
   'editComment',
@@ -93,7 +93,7 @@ export const __addQuiz = createAsyncThunk('ADD_QUIZ', async (payload, thunkAPI) 
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
-);
+});
 
 export const __addComment = createAsyncThunk(
   'addComment',

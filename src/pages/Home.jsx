@@ -1,16 +1,20 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Layout from '../components/page';
-import { Flexdiv, Nav } from '../components/page';
-import { modalOnOff, __getQuiz } from '../redux/modules/quizSlice';
-import * as style from '../components/style/StyleHome';
-import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/Modal';
-import { MainButton } from '../components/style/StyleButton';
-import AddQuiz from './AddQuiz';
-import Card from './Card';
-import { cookies } from '../shared/cookie';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Layout from "../components/page";
+import { Flexdiv, Nav } from "../components/page";
+import { modalOnOff, __getQuiz } from "../redux/modules/quizSlice";
+import * as style from "../components/style/StyleHome";
+import {
+  ModalBackground,
+  ModalContent,
+  ModalOpenTrigger,
+} from "../components/Modal";
+import { MainButton } from "../components/style/StyleButton";
+import AddQuiz from "./AddQuiz";
+import Card from "./Card";
+import { cookies } from "../shared/cookie";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const dispatch = useDispatch();
@@ -21,10 +25,10 @@ function Home() {
 
   useEffect(() => {
     dispatch(__getQuiz());
-  }, []);
+  }, [dispatch]);
 
   const onClickAddQuiz = async () => {
-    const token = cookies.get('mytoken'); // 유효성검사 추가하기
+    const token = cookies.get("mytoken"); // 유효성검사 추가하기
     // token ? dispatch(modalOnOff(modalState)) : alert('로그인 후 이용 가능합니다');
     if (token) {
       try {
@@ -35,10 +39,10 @@ function Home() {
         });
         dispatch(modalOnOff(modalState));
       } catch (error) {
-        alert('다시 로그인 해주세요');
+        alert("다시 로그인 해주세요");
       }
     } else {
-      window.confirm('로그인 후 이용해주세요') && navi('/login');
+      window.confirm("로그인 후 이용해주세요") && navi("/login");
     }
   };
 

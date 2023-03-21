@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import api from "../../axios/api";
 
 const initialState = {
   users: [],
@@ -32,20 +32,17 @@ export const __signUpId = createAsyncThunk(
   "SIGN_UP_ID",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_QUIZ_URL}/user/signup`,
-        payload
-      );
-      // return thunkAPI.fulfillWithValue(data);
-      // alert(data.message)
-      alert(data.message);
+      const response = await api.post(`/user/signup`, payload);
+      // alert(data.message);
+      return thunkAPI.fulfillWithValue(payload);
+      // console.log("payload", payload);
+      // console.log("response", response);
     } catch (error) {
       if (error.response.status === 412) {
         // return thunkAPI.rejectWithValue(error);
-        
+
         alert(error.response.data.errorMessage.errorMessage);
       }
-      
     }
   }
 );
@@ -68,22 +65,6 @@ export const signUpSlice = createSlice({
       //   }
     },
     [__isSameNickname.rejected]: (state, action) => {
-      state.isError = true;
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    // 아이디 중복 확인
-
-    // 회원가입
-    [__signUpId.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [__signUpId.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.isError = false;
-      // state.users =
-    },
-    [__signUpId.rejected]: (state, action) => {
       state.isError = true;
       state.isLoading = false;
       state.error = action.payload;
