@@ -10,25 +10,27 @@ import { cookies } from "../shared/cookie";
 const Login = () => {
   const navi = useNavigate();
   const [login, setLogin] = useState({
-    userId: '',
-    password: '',
+    userId: "",
+    password: "",
   });
 
   const changeInputHandler = (e) => {
     const { name, value } = e.target;
-    setLogin({ ...login, [name]: value });
+    setLogin({
+      ...login,
+      [name]: value.replace(/[^a-zA-Z0-9]/gi, "").substring(0, 30),
+    });
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    
+
     try {
       const data = await axios.post(
         `${process.env.REACT_APP_QUIZ_URL}/user/login`,
         login
       );
-      console.log(data)
-      cookies.set("mytoken", data.headers.authorization.split(' ')[1], {
+      cookies.set("mytoken", data.headers.authorization.split(" ")[1], {
         path: "/",
       });
       navi("/");
@@ -37,8 +39,8 @@ const Login = () => {
       console.log(error);
     }
   };
-  
-  // 로그인 유효성 검사 
+
+  // 로그인 유효성 검사
   // const token = cookies.get('mytoken');
   // await axios.get(`${process.env.REACT_APP_SIGN_URL}/user/loginck`, {
   // headers: {
@@ -46,16 +48,15 @@ const Login = () => {
   // },
   // });
 
-
   return (
     <>
       <Nav />
       <Layout style={{ maxWidth: "1000px" }}>
         <h2
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '50px',
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "50px",
           }}
         >
           로 그 인
@@ -85,9 +86,9 @@ const Login = () => {
               required
             />
             <MainButton type="login">로그인</MainButton>
-            <style.StSignupButton onClick={() => navi('/Register')}>
+            <style.StSignupButton onClick={() => navi("/Register")}>
               아직 회원이 아니신가요?
-              <span style={{ color: 'red' }}>회원가입</span>
+              <span style={{ color: "red" }}>회원가입</span>
             </style.StSignupButton>
           </style.StSignUpGroup>
         </style.StSignupForm>

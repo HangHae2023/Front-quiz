@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import api from '../axios/api';
 
+
 function Home() {
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.quizSlice.modal);
@@ -30,10 +31,12 @@ function Home() {
         // await api.get(`/user/loginck`); // 로그인 유효성검사
         dispatch(modalOnOff(modalState));
       } catch (error) {
+
         alert('다시 로그인 해주세요!!');
+
       }
     } else {
-      window.confirm('로그인 후 이용해주세요') && navi('/login');
+      window.confirm("로그인 후 이용해주세요") && navi("/login");
     }
   };
 
