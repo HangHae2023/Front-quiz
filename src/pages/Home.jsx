@@ -19,16 +19,16 @@ function Home() {
   const modalState = useSelector((state) => state.quizSlice.modal);
   const navi = useNavigate();
 
-  const { quiz } = useSelector((state) => state.quizSlice);
+  const quiz = useSelector((state) => state.quizSlice.quiz);
 
   useEffect(() => {
     dispatch(__getQuiz());
-  }, [dispatch]);
+  }, [JSON.stringify(quiz)]);
 
   const onClickAddQuiz = async () => {
     if (token) {
       try {
-        // await api.get(`/user/loginck`); // 로그인 유효성검사
+        await api.get(`/user/loginck`); // 로그인 유효성검사
         dispatch(modalOnOff(modalState));
       } catch (error) {
         alert('다시 로그인 해주세요!!');
@@ -69,7 +69,7 @@ function Home() {
           <br />
           <br />
           <style.StListWrapper>
-            {quiz.allQuizs?.map((item) => {
+            {quiz?.map((item) => {
               return (
                 <div key={item?.quizId}>
                   <Card item={item} />

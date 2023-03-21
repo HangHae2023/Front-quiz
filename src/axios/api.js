@@ -9,15 +9,16 @@ const instance = axios.create({
   timeout: 10000,
 });
 
-const token = cookies.get('mytoken');
 instance.interceptors.request.use(
   // 요청을 보내기 전 수행되는 함수
   function (req) {
+    const token = cookies.get('mytoken');
     // 겟 했을때 토큰이 없으면 요청 그대로 리턴
-    if (!token) return req;
+    // if (!token) return req;
 
     // 토큰이 있으면 헤더에 넣어서 리턴
     req.headers.Authorization = `Bearer ${token}`;
+    // console.log(req.headers.Authorization);
     return req;
   },
 

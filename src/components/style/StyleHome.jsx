@@ -98,6 +98,30 @@ const StLabel = styled.label`
   font-weight: 600;
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
+`;
+
+const StImgLabel = styled.label`
+  color: white;
+  border: 0;
+  border-radius: 20px;
+  font-weight: bold;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  width: 53px;
+  height: 13px;
+  background-color: #cd75b7;
+  &:hover {
+    background-color: #da99c9;
+  }
+  &:active {
+    background-color: #b23d75;
+  }
 `;
 
 const StContent = styled.div`
@@ -120,4 +144,5 @@ export {
   StLabel,
   StQuizTitle,
   StContent,
+  StImgLabel,
 };

@@ -16,7 +16,8 @@ export const Nav = ({ children }) => {
     navi('/login');
   };
   const clickLogout = () => {
-    setIsToken(cookies.remove('mytoken'));
+    cookies.remove('mytoken', { path: '/' });
+    setIsToken(false);
   };
   const clickSignup = () => {
     navi('/register');
@@ -115,8 +116,6 @@ const Div = styled.div`
   align-items: ${({ ai }) => ai};
   justify-content: ${({ jc }) => jc};
   flex-direction: ${({ fd }) => fd};
-  margin-top: 10px;
-  margin-bottom: 10px;
 `;
 
 const Layout = ({ children, ...rest }) => {
