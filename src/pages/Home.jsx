@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 import api from '../axios/api';
 import { cookies } from '../shared/cookie';
 
-
 function Home() {
   const token = cookies.get('mytoken');
   const dispatch = useDispatch();
@@ -32,12 +31,10 @@ function Home() {
         // await api.get(`/user/loginck`); // 로그인 유효성검사
         dispatch(modalOnOff(modalState));
       } catch (error) {
-
         alert('다시 로그인 해주세요!!');
-
       }
     } else {
-      window.confirm("로그인 후 이용해주세요") && navi("/login");
+      window.confirm('로그인 후 이용해주세요') && navi('/login');
     }
   };
 
@@ -55,7 +52,7 @@ function Home() {
   return (
     <>
       <Nav />
-      <Layout color="#518edb">
+      <Layout color="#8F82C9">
         <style.StListContainer>
           <Flexdiv ai="conter">
             <style.StTodayQuiz>
@@ -63,9 +60,7 @@ function Home() {
               <ModalOpenTrigger>
                 <ModalBackground />
               </ModalOpenTrigger>
-              <MainButton type="blue" onClick={onClickAddQuiz}>
-                퀴즈 추가하기
-              </MainButton>
+              <MainButton onClick={onClickAddQuiz}>퀴즈 추가하기</MainButton>
             </style.StTodayQuiz>
             <ModalContent>
               <AddQuiz />

@@ -39,11 +39,19 @@ instance.interceptors.response.use(
   function (error) {
     const navi = useNavigate();
 
-    console.log(error.request.status);
+    // console.log(error.request.status);
     // return Promise.reject(error);
 
     switch (error.request.status) {
+      case 500:
+        return Promise.reject(alert('다시 시도해주세요'));
+      case 412:
+        return Promise.reject(alert('내용을 입력해주세요'));
+      case 404:
+        return Promise.reject(alert('게시글이 존재하지 않습니다'));
       case 403:
+        return Promise.reject(alert('권한이 없습니다'));
+      case 401:
         return Promise.reject(alert('다시 로그인 해주세요'));
       case 200:
         return Promise.reject(alert('로그인후 이용해주세요'));

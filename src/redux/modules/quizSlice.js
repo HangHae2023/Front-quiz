@@ -35,6 +35,7 @@ export const __getDetailQuiz = createAsyncThunk(
 
 export const __getComment = createAsyncThunk('getComment', async (payload, thunkAPI) => {
   try {
+    console.log('댓글조회', payload);
     const response = await api.get(`/api/comment/${payload}`);
     return thunkAPI.fulfillWithValue(response.data.comments);
   } catch (error) {

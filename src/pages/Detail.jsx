@@ -29,13 +29,13 @@ function Detail() {
   const year = createAt?.split('-')[0];
   const date = createAt?.split('-')[2].split('T')[0];
   const month = createAt?.split('-')[1];
-  // console.log(postData);
   useEffect(() => {
     // dispatch(__getQuiz());
     dispatch(__getDetailQuiz(param.id));
     dispatch(__getComment(data?.quizId));
-  }, [dispatch, JSON.stringify(data)]);
-
+  }, [JSON.stringify(data)]);
+  //
+  console.log(data?.quizId);
   const clickEditHandler = async (id) => {
     if (token) {
       try {
@@ -61,7 +61,7 @@ function Detail() {
   };
   return (
     <Nav>
-      <Layout color="#8F82C9">
+      <Layout color="#AE7BC0">
         <Flexdiv ai="center" jc="space-between" style={{ borderBottom: '3px solid' }}>
           <StHeaderTitle>MZ력 테스트</StHeaderTitle>
           <StDetailHeader>

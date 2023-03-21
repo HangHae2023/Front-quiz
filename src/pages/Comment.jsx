@@ -19,8 +19,8 @@ function Comment({ postId }) {
   const commentData = data?.filter((item) => item.quizId === postId);
 
   useEffect(() => {
-    dispatch(__getComment(postId));
-  }, [dispatch, JSON.stringify(data)]);
+    // dispatch(__getComment(postId));
+  }, [JSON.stringify(data)]);
 
   useEffect(() => {
     cookies.get('mytoken');
@@ -35,7 +35,7 @@ function Comment({ postId }) {
       alert('로그인이 필요합니다.');
     }
   };
-
+  // console.log(postId, content);
   const clickInputHandler = () => {
     if (!token) {
       window.confirm('로그인이 필요합니다.') && navi('/login');
@@ -56,7 +56,7 @@ function Comment({ postId }) {
           onChange={(e) => setContent(e.target.value)}
           placeholder={token ? '댓글을 작성해주세요' : '로그인 후 이용해주세요'}
         />
-        <MainButton type="submit">댓글 작성</MainButton>
+        <MainButton type="pupple">댓글 작성</MainButton>
       </form>
 
       {commentData?.map((item) => (
