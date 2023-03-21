@@ -7,11 +7,12 @@ import { MainButton } from "../components/style/StyleButton";
 import * as style from "../components/style/StyleRegister";
 import { cookies } from "../shared/cookie";
 
+
 const Login = () => {
   const navi = useNavigate();
   const [login, setLogin] = useState({
-    userId: "",
-    password: "",
+    userId: '',
+    password: '',
   });
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const Login = () => {
     const { name, value } = e.target;
     setLogin({
       ...login,
-      [name]: value.replace(/[^a-zA-Z0-9]/gi, "").substring(0, 30),
+      [name]: value.replace(/[^a-zA-Z0-9]/gi, '').substring(0, 30),
     });
   };
 
@@ -37,8 +38,8 @@ const Login = () => {
         `${process.env.REACT_APP_QUIZ_URL}/user/login`,
         login
       );
-      cookies.set("mytoken", data.headers.authorization.split(" ")[1], {
-        path: "/",
+      cookies.set('mytoken', data.headers.authorization.split(' ')[1], {
+        path: '/',
       });
       navi(-1);
       alert(data.data.message);
@@ -56,12 +57,12 @@ const Login = () => {
   return (
     <>
       <Nav />
-      <Layout style={{ maxWidth: "1000px" }}>
+      <Layout style={{ maxWidth: '1000px' }}>
         <h2
           style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "50px",
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '50px',
           }}
         >
           로 그 인
@@ -91,9 +92,9 @@ const Login = () => {
               required
             />
             <MainButton type="login">로그인</MainButton>
-            <style.StSignupButton onClick={() => navi("/Register")}>
+            <style.StSignupButton onClick={() => navi('/Register')}>
               아직 회원이 아니신가요?
-              <span style={{ color: "red" }}>회원가입</span>
+              <span style={{ color: 'red' }}>회원가입</span>
             </style.StSignupButton>
           </style.StSignUpGroup>
         </style.StSignupForm>

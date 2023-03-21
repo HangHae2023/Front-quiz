@@ -44,8 +44,9 @@ export const __getComment = createAsyncThunk('getComment', async (payload, thunk
 
 export const __editQuiz = createAsyncThunk('editQuiz', async (payload, thunkAPI) => {
   try {
-    await api.put(`/api/quiz/${payload.id}`, payload.formData);
-    return thunkAPI.fulfillWithValue();
+    console.log('thunk editquiz', payload);
+    await api.put(`/api/quiz/${payload.inputValue.id}`, payload.formData);
+    return thunkAPI.fulfillWithValue(payload.inputValue);
   } catch (error) {
     return thunkAPI.rejectWithValue('error');
   }
@@ -55,7 +56,7 @@ export const __editComment = createAsyncThunk(
   'editComment',
   async (payload, thunkAPI) => {
     try {
-      await api.put(`/api/comment/${payload.commentId}`, payload.content);
+      await api.put(`/api/comment/${payload.commentId}`, { content: payload.content });
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue('error');
@@ -65,7 +66,6 @@ export const __editComment = createAsyncThunk(
 
 export const __deleteQuiz = createAsyncThunk('deleteQuiz', async (payload, thunkAPI) => {
   try {
-    console.log(payload);
     await api.delete(`/api/quiz/${payload}`);
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
@@ -87,24 +87,22 @@ export const __deleteComment = createAsyncThunk(
 
 export const __addQuiz = createAsyncThunk('ADD_QUIZ', async (payload, thunkAPI) => {
   try {
+    console.log(payload);
     await api.post(`/api/quiz`, payload.formData);
-    return thunkAPI.fulfillWithValue();
+    return thunkAPI.fulfillWithValue(payload.inputValue);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
 });
 
-export const __addComment = createAsyncThunk(
-  'addComment',
-  async ({ postId, content }, thunkAPI) => {
-    try {
-      await api.post(`/api/comment/${postId}`, { content });
-      return thunkAPI.fulfillWithValue({ postId, content });
-    } catch (error) {
-      return thunkAPI.rejectWithValue('error');
-    }
+export const __addComment = createAsyncThunk('addComment', async (payload, thunkAPI) => {
+  try {
+    await api.post(`/api/comment/${payload.quizId}`, { content: payload.content });
+    return thunkAPI.fulfillWithValue(payload);
+  } catch (error) {
+    return thunkAPI.rejectWithValue('error');
   }
-);
+});
 
 export const quizSlice = createSlice({
   name: 'quiz',
@@ -121,7 +119,7 @@ export const quizSlice = createSlice({
     [__getQuiz.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      state.quiz = action.payload;
+      state.quiz = action.payload.allQuizs;
     },
     [__getQuiz.rejected]: (state, action) => {
       state.isError = true;
@@ -163,17 +161,7 @@ export const quizSlice = createSlice({
     [__editQuiz.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.isError = false;
-      state.quiz = state.quiz.map((item) =>
-        // item.postId === payload.id // 실제 서버에서 사용
-        item.id === payload.id
-          ? {
-              ...item,
-              title: payload.title,
-              answer: payload.answer,
-              explain: payload.explain,
-            }
-          : item
-      );
+      state.dailQuiz.quiz = { ...state.dailQuiz.quiz, payload };
     },
     [__editQuiz.rejected]: (state, action) => {
       state.isError = true;
@@ -188,10 +176,10 @@ export const quizSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
       state.comment = state.comment.map((item) =>
-        item.id === action.payload.commentId
+        item.commentId === action.payload.commentId
           ? {
               ...item,
-              content: action.payload.editContent,
+              content: action.payload.content,
             }
           : item
       );
@@ -233,10 +221,10 @@ export const quizSlice = createSlice({
       state.isLoading = true;
       state.isError = false;
     },
-    [__addQuiz.fulfilled]: (state, action) => {
+    [__addQuiz.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.isError = false;
-      state.quiz = [...state.quiz, action.payload];
+      state.quiz = [...state.quiz, payload];
     },
     [__addQuiz.rejected]: (state, action) => {
       state.isLoading = false;

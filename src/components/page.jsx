@@ -16,7 +16,7 @@ export const Nav = ({ children }) => {
     navi('/login');
   };
   const clickLogout = () => {
-    cookies.remove("mytoken", { path: "/" });
+    cookies.remove('mytoken', { path: '/' });
     setIsToken(false);
   };
   const clickSignup = () => {
@@ -113,9 +113,9 @@ export const Flexdiv = ({ children, ...rest }) => {
 
 const Div = styled.div`
   display: flex;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  align-items: ${({ ai }) => ai};
+  justify-content: ${({ jc }) => jc};
+  flex-direction: ${({ fd }) => fd};
 `;
 
 const Layout = ({ children, ...rest }) => {

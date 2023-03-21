@@ -17,7 +17,7 @@ const BasicBtn = styled.button`
   font-weight: bold;
   height: 30px;
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: center;
 
   ${({ type }) => {
@@ -54,6 +54,17 @@ const BasicBtn = styled.button`
           }
           &:active {
             background-color: #1868cc;
+          }
+        `;
+      case 'pupple':
+        return css`
+          padding: 8px 18px;
+          background-color: #ae7bc0;
+          &:hover {
+            background-color: #c5a0d2;
+          }
+          &:active {
+            background-color: #7c5789;
           }
         `;
       default:

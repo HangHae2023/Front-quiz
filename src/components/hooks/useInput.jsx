@@ -26,7 +26,7 @@ export const useInput = (initialValue, action, id) => {
     formData.append('answer', inputValue.answer);
     formData.append('explain', inputValue.explain);
     formData.append('resourceUrl', inputValue.resourceUrl);
-    dispatch(action({ formData, id }));
+    dispatch(action({ formData, inputValue }));
     dispatch(modalOnOff(modalState));
   };
 

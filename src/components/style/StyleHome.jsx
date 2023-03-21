@@ -94,17 +94,42 @@ const StHeaderTitle = styled.span`
   font-weight: bold;
 `;
 
-const StForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 15px;
-`;
-
 const StLabel = styled.label`
   font-weight: 600;
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
+`;
+
+const StImgLabel = styled.label`
+  color: white;
+  border: 0;
+  border-radius: 20px;
+  font-weight: bold;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  width: 53px;
+  height: 13px;
+  background-color: #cd75b7;
+  &:hover {
+    background-color: #da99c9;
+  }
+  &:active {
+    background-color: #b23d75;
+  }
+`;
+
+const StContent = styled.div`
+  padding-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 80%;
+  border-bottom: 1px solid;
 `;
 export {
   StListContainer,
@@ -116,7 +141,8 @@ export {
   StInput,
   StDetailHeader,
   StHeaderTitle,
-  StForm,
   StLabel,
   StQuizTitle,
+  StContent,
+  StImgLabel,
 };
