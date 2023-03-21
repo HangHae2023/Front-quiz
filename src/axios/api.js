@@ -9,15 +9,16 @@ const instance = axios.create({
   timeout: 10000,
 });
 
-const token = cookies.get('mytoken');
 instance.interceptors.request.use(
   // 요청을 보내기 전 수행되는 함수
   function (req) {
+    const token = cookies.get('mytoken');
     // 겟 했을때 토큰이 없으면 요청 그대로 리턴
-    if (!token) return req;
+    // if (!token) return req;
 
     // 토큰이 있으면 헤더에 넣어서 리턴
     req.headers.Authorization = `Bearer ${token}`;
+    // console.log(req.headers.Authorization);
     return req;
   },
 
@@ -39,11 +40,19 @@ instance.interceptors.response.use(
   function (error) {
     const navi = useNavigate();
 
-    console.log(error.request.status);
+    // console.log(error.request.status);
     // return Promise.reject(error);
 
     switch (error.request.status) {
+      case 500:
+        return Promise.reject(alert('다시 시도해주세요'));
+      case 412:
+        return Promise.reject(alert('내용을 입력해주세요'));
+      case 404:
+        return Promise.reject(alert('게시글이 존재하지 않습니다'));
       case 403:
+        return Promise.reject(alert('권한이 없습니다'));
+      case 401:
         return Promise.reject(alert('다시 로그인 해주세요'));
       case 200:
         return Promise.reject(alert('로그인후 이용해주세요'));

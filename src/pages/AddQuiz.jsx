@@ -1,7 +1,7 @@
 import { useInput } from '../components/hooks/useInput';
 import { Flexdiv } from '../components/page';
 import { MainButton } from '../components/style/StyleButton';
-import { StInput, StLabel } from '../components/style/StyleHome';
+import { StImgLabel, StInput, StLabel } from '../components/style/StyleHome';
 import { __addQuiz } from '../redux/modules/quizSlice';
 
 function AddQuiz() {
@@ -19,7 +19,7 @@ function AddQuiz() {
   );
 
   return (
-    <Flexdiv fd="column" ai="flex-start">
+    <Flexdiv fd="column" ai="flex-start" style={{ gap: '40px' }}>
       <form style={{ gap: '15px' }} onSubmit={submitInputHandler}>
         <StLabel>
           어떤 퀴즈를 내볼까요?
@@ -29,6 +29,7 @@ function AddQuiz() {
             placeholder="퀴즈를 입력하세요"
             value={inputValue.title}
             onChange={onChangeHandler}
+            required
           />
         </StLabel>
 
@@ -40,6 +41,7 @@ function AddQuiz() {
             placeholder="정답을 입력하세요"
             value={inputValue.answer}
             onChange={onChangeHandler}
+            required
           />
         </StLabel>
 
@@ -51,15 +53,18 @@ function AddQuiz() {
             placeholder="해설을 입력하세요"
             value={inputValue.explain}
             onChange={onChangeHandler}
+            required
           />
         </StLabel>
-
+        <StImgLabel>사진 선택</StImgLabel>
         <input
           type="file"
+          name="chooseFile"
           accept="image/png, image/jpeg, image/jpg"
           onChange={fileInputHandler}
+          style={{ display: 'none' }}
         />
-        <MainButton type="blue">퀴즈 추가!</MainButton>
+        <MainButton type="blue">퀴즈 내러가기!</MainButton>
       </form>
     </Flexdiv>
   );

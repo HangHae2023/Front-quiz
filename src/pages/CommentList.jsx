@@ -12,7 +12,7 @@ function CommentList({ item }) {
     commentId: item.commentId,
     content: item.content,
   });
-  const date = item?.createdAt.split('T')[0];
+  const date = item?.createdAt?.split('T')[0];
   const submitInputHandler = (e) => {
     e.preventDefault();
     dispatch(__editComment(editComment));
@@ -44,7 +44,7 @@ function CommentList({ item }) {
                   setEditComment({ ...editComment, content: e.target.value })
                 }
               />
-              <Flexdiv ai="center" jc="space-between">
+              <Flexdiv ai="center" jc="space-between" style={{ margin: '10px 0' }}>
                 <MainButton type="submit">수정완료</MainButton>
               </Flexdiv>
             </form>
@@ -54,7 +54,11 @@ function CommentList({ item }) {
         <StContent>
           <p style={{ fontSize: '13px', marginLeft: '17px' }}>{date}</p>
           <Flexdiv ai="center" jc="space-between">
-            {item.nickname} : {item.content}
+            <div>
+              <p>{item.User.nickname}</p>
+              {item.content}
+            </div>
+
             <Flexdiv ai="center">
               <MainButton onClick={() => setEdit(!edit)}>수정</MainButton>
               <MainButton
