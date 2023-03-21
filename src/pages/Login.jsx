@@ -1,11 +1,12 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Layout from '../components/page';
-import { Nav } from '../components/page';
-import { MainButton } from '../components/style/StyleButton';
-import * as style from '../components/style/StyleRegister';
-import { cookies } from '../shared/cookie';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Layout from "../components/page";
+import { Nav } from "../components/page";
+import { MainButton } from "../components/style/StyleButton";
+import * as style from "../components/style/StyleRegister";
+import { cookies } from "../shared/cookie";
+
 
 const Login = () => {
   const navi = useNavigate();
@@ -13,6 +14,14 @@ const Login = () => {
     userId: '',
     password: '',
   });
+
+  useEffect(() => {
+    const mytoken = cookies.get("mytoken");
+    if (mytoken) {
+      alert("이미 로그인 하셨습니다!");
+      navi("/");
+    }
+  }, []);
 
   const changeInputHandler = (e) => {
     const { name, value } = e.target;
@@ -24,7 +33,6 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
     try {
       const data = await axios.post(
         `${process.env.REACT_APP_QUIZ_URL}/user/login`,
@@ -33,20 +41,18 @@ const Login = () => {
       cookies.set('mytoken', data.headers.authorization.split(' ')[1], {
         path: '/',
       });
-      navi('/');
+      navi(-1);
+      alert(data.data.message);
     } catch (error) {
-      alert(JSON.parse(error.request.response).message);
-      console.log(error);
+      if (error.response.status === 404) {
+        alert("존재하지 않는 사용자입니다.");
+      } else if (error.response.status === 500) {
+        alert("서버 에러가 발생했습니다.");
+      } else {
+        alert("알 수 없는 에러가 발생했습니다.");
+      }
     }
   };
-
-  // 로그인 유효성 검사
-  // const token = cookies.get('mytoken');
-  // await axios.get(`${process.env.REACT_APP_SIGN_URL}/user/loginck`, {
-  // headers: {
-  // authorization: `Bearer ${token}`,
-  // },
-  // });
 
   return (
     <>

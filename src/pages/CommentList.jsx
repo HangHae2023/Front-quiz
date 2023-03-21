@@ -22,7 +22,6 @@ function CommentList({ item }) {
   const deleteCommentHandler = (id) => {
     dispatch(__deleteComment(id));
   };
-
   return (
     <div>
       {edit ? (

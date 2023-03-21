@@ -23,6 +23,7 @@ function Comment() {
     content: '',
   });
   const data = useSelector((state) => state.quizSlice.comment);
+  
   const commentData = data?.filter((item) => item.quizId === parseInt(param.id));
 
   useEffect(() => {

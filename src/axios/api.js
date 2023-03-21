@@ -24,7 +24,7 @@ instance.interceptors.request.use(
 
   // 오류 요청을 보내기 전 수행되는 함수
   function (error) {
-    console.log('인터셉터 요청 오류');
+    // console.log('인터셉터 요청 오류');
     return Promise.reject(error);
   }
 );
@@ -32,7 +32,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   // 응답을 내보내기 전 수행되는 함수
   function (response) {
-    console.log('인터셉터 응답 받았습니다!');
+    // console.log('인터셉터 응답 받았습니다!');
     return response;
   },
 
