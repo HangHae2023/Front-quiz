@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Layout from "../components/page";
 import { Nav } from "../components/page";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,8 @@ import { cookies } from "../shared/cookie";
 
 const Register = () => {
   const navigate = useNavigate();
+
+  const nameInput = useRef();
 
   const [newUsers, setNewUsers] = useState({
     userId: "",
@@ -25,13 +27,14 @@ const Register = () => {
       alert("이미 로그인 하셨습니다!");
       navigate("/");
     }
-  }, []);
+    nameInput.current.focus()
+  }, [cookies]);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setNewUsers({
       ...newUsers,
-      [name]: value.replace(/[^a-zA-Z0-9]/gi, "").substring(0, 30),
+      [name]: value.replace(/[^a-zA-Z0-9]{0,12}$/gi, "").substring(0, 30),
     });
   };
 
@@ -126,6 +129,7 @@ const Register = () => {
               placeholder="닉네임을 입력하세요"
               value={newUsers.nickname}
               onChange={onChangeHandler}
+              ref={nameInput}
             />
             <style.StSignupSameButton
               type="button"
