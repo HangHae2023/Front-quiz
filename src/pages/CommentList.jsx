@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Flexdiv } from '../components/page';
 import { MainButton } from '../components/style/StyleButton';
-import { StContent, StForm, StInput } from '../components/style/StyleHome';
+import { StContent, StInput } from '../components/style/StyleHome';
 import { __deleteComment, __editComment } from '../redux/modules/quizSlice';
+import api from '../axios/api';
 
 function CommentList({ item }) {
   const dispatch = useDispatch();
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState({
+    editModal: false,
+    editAuth: false,
+  });
+
   const [editComment, setEditComment] = useState({
     commentId: item.commentId,
     content: item.content,
@@ -21,6 +26,13 @@ function CommentList({ item }) {
 
   const deleteCommentHandler = (id) => {
     dispatch(__deleteComment(id));
+  };
+
+  const comentAuthCk = async () => {
+    try {
+      await api.get(`/api/comment/authChk/${item.commentId}`);
+      setEdit(!edit.editAuth);
+    } catch (error) {}
   };
   return (
     <div>
@@ -54,12 +66,12 @@ function CommentList({ item }) {
           <p style={{ fontSize: '13px', marginLeft: '17px' }}>{date}</p>
           <Flexdiv ai="center" jc="space-between">
             <div>
-              <p>{item.User.nickname}</p>
+              <p>{item.User?.nickname}</p>
               {item.content}
             </div>
 
             <Flexdiv ai="center">
-              <MainButton onClick={() => setEdit(!edit)}>수정</MainButton>
+              <MainButton onClick={() => setEdit(!edit.editModal)}>수정</MainButton>
               <MainButton
                 type="blue"
                 onClick={() => deleteCommentHandler(item.commentId)}

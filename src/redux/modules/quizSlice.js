@@ -7,6 +7,7 @@ const initialState = {
   comment: [],
   dailQuiz: [],
   modal: false,
+  mytoken: false,
   isLoading: false,
   isError: false,
   error: null,
@@ -42,15 +43,21 @@ export const __getComment = createAsyncThunk('getComment', async (payload, thunk
   }
 });
 
-export const __editQuiz = createAsyncThunk('editQuiz', async (payload, thunkAPI) => {
-  try {
-    console.log('thunk editquiz', payload);
-    await api.put(`/api/quiz/${payload.inputValue.id}`, payload.formData);
-    return thunkAPI.fulfillWithValue(payload.inputValue);
-  } catch (error) {
-    return thunkAPI.rejectWithValue('error');
+export const __editQuiz = createAsyncThunk(
+  'editQuiz',
+  async ({ formData, inputValue }, thunkAPI) => {
+    try {
+      await api.put(`/api/quiz/${inputValue.id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return thunkAPI.fulfillWithValue(inputValue);
+    } catch (error) {
+      return thunkAPI.rejectWithValue('error');
+    }
   }
-});
+);
 
 export const __editComment = createAsyncThunk(
   'editComment',
@@ -85,18 +92,25 @@ export const __deleteComment = createAsyncThunk(
   }
 );
 
-export const __addQuiz = createAsyncThunk('ADD_QUIZ', async (payload, thunkAPI) => {
-  try {
-    console.log(payload);
-    await api.post(`/api/quiz`, payload.formData);
-    return thunkAPI.fulfillWithValue(payload.inputValue);
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+export const __addQuiz = createAsyncThunk(
+  'ADD_QUIZ',
+  async ({ formData, inputValue }, thunkAPI) => {
+    try {
+      await api.post(`/api/quiz`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return thunkAPI.fulfillWithValue(inputValue);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
   }
-});
+);
 
 export const __addComment = createAsyncThunk('addComment', async (payload, thunkAPI) => {
   try {
+    console.log(payload);
     await api.post(`/api/comment/${payload.quizId}`, { content: payload.content });
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
@@ -111,8 +125,12 @@ export const quizSlice = createSlice({
     modalOnOff: (state, action) => {
       state.modal = !action.payload;
     },
+    mytoken: (state, action) => {
+      state.isToken = !action.payload;
+    },
   },
   extraReducers: {
+    /* 퀴즈 불러오기 */
     [__getQuiz.pending]: (state, action) => {
       state.isLoading = true;
     },
@@ -127,6 +145,7 @@ export const quizSlice = createSlice({
       state.error = action.payload;
     },
 
+    /* 상세 퀴즈 불러오기 */
     [__getDetailQuiz.pending]: (state, action) => {
       state.isLoading = true;
     },
@@ -141,6 +160,7 @@ export const quizSlice = createSlice({
       state.error = action.payload;
     },
 
+    /* 댓글 불러오기 */
     [__getComment.pending]: (state, action) => {
       state.isLoading = true;
     },
@@ -155,6 +175,7 @@ export const quizSlice = createSlice({
       state.error = action.payload;
     },
 
+    /* 퀴즈 수정 */
     [__editQuiz.pending]: (state, action) => {
       state.isLoading = true;
     },
@@ -169,6 +190,7 @@ export const quizSlice = createSlice({
       state.error = action.payload;
     },
 
+    /* 댓글 수정 */
     [__editComment.pending]: (state, action) => {
       state.isLoading = true;
     },
@@ -190,6 +212,7 @@ export const quizSlice = createSlice({
       state.error = action.payload;
     },
 
+    /* 퀴즈 삭제 */
     [__deleteQuiz.pending]: (state, action) => {
       state.isLoading = true;
     },
@@ -204,6 +227,7 @@ export const quizSlice = createSlice({
       state.error = action.payload;
     },
 
+    /* 댓글 삭제 */
     [__deleteComment.pending]: (state, action) => {
       state.isLoading = true;
     },
@@ -217,6 +241,8 @@ export const quizSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+
+    /* 퀴즈 추가 */
     [__addQuiz.pending]: (state, action) => {
       state.isLoading = true;
       state.isError = false;
@@ -232,6 +258,7 @@ export const quizSlice = createSlice({
       state.error = action.payload;
     },
 
+    /* 댓글 추가 */
     [__addComment.pending]: (state, action) => {
       state.isLoading = true;
       state.isError = false;
@@ -239,6 +266,7 @@ export const quizSlice = createSlice({
     [__addComment.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isError = false;
+      console.log(action.payload);
       state.comment = [...state.comment, action.payload];
     },
     [__addComment.rejected]: (state, action) => {
@@ -250,4 +278,4 @@ export const quizSlice = createSlice({
 });
 
 export default quizSlice.reducer;
-export const { modalOnOff } = quizSlice.actions;
+export const { modalOnOff, isToken } = quizSlice.actions;

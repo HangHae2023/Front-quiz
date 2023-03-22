@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { cookies } from '../shared/cookie';
 import { MainButton } from './style/StyleButton';
 import { StSignUpId } from './style/StyleRegister';
+import { mytoken } from '../redux/modules/quizSlice';
 
 export const Nav = ({ children }) => {
+  const dispatch = useDispatch();
   const token = cookies.get('mytoken');
-  const [isToken, setIsToken] = useState(token);
+  const [isToken, setIsToken] = useState(false);
   const navi = useNavigate();
   const clickLogo = () => {
     navi('/');
@@ -17,7 +20,8 @@ export const Nav = ({ children }) => {
   };
   const clickLogout = () => {
     cookies.remove('mytoken', { path: '/' });
-    setIsToken(false);
+    setIsToken(!isToken);
+    dispatch(isToken(isToken));
   };
   const clickSignup = () => {
     navi('/register');

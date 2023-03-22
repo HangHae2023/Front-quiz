@@ -8,7 +8,6 @@ import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/M
 import { MainButton } from '../components/style/StyleButton';
 import AddQuiz from './AddQuiz';
 import Card from './Card';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import api from '../axios/api';
 import { cookies } from '../shared/cookie';
@@ -28,7 +27,7 @@ function Home() {
   const onClickAddQuiz = async () => {
     if (token) {
       try {
-        await api.get(`/user/loginck`); // 로그인 유효성검사
+        // await api.get(`/user/loginck`); // 로그인 유효성검사
         dispatch(modalOnOff(modalState));
       } catch (error) {
         alert('다시 로그인 해주세요!!');

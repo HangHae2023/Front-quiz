@@ -22,7 +22,7 @@ function Card({ item }) {
     <style.StQuizContainer onClick={onClickAnswerHandler}>
       <style.StImageBox
         style={{
-          backgroundImage: `url(${item.imgUrl})`,
+          backgroundImage: `url(${item.resourceUrl})`,
         }}
       />
       <style.StQuizTitle>{item?.title}</style.StQuizTitle>
