@@ -62,7 +62,7 @@ function AddQuiz() {
           name="chooseFile"
           accept="image/png, image/jpeg, image/jpg"
           onChange={fileInputHandler}
-          style={{ display: 'none' }}
+          // style={{ display: 'none' }}
         />
         <MainButton type="blue">퀴즈 내러가기!</MainButton>
       </form>

@@ -6,7 +6,6 @@ import { modalOnOff } from '../../redux/modules/quizSlice';
 export const useInput = (initialValue, action, id) => {
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.quizSlice.modal);
-
   const [inputValue, setInputValue] = useState(initialValue);
 
   const onChangeHandler = (e) => {

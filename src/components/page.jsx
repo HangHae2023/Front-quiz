@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { cookies } from '../shared/cookie';
 import { MainButton } from './style/StyleButton';
 import { StSignUpId } from './style/StyleRegister';
+import { mytoken } from '../redux/modules/quizSlice';
 
 export const Nav = ({ children }) => {
+  const dispatch = useDispatch();
   const token = cookies.get('mytoken');
   const [isToken, setIsToken] = useState(token);
   const navi = useNavigate();
+
+  useEffect(() => {
+    token && setIsToken(true);
+  }, [isToken]);
+
   const clickLogo = () => {
     navi('/');
   };
@@ -18,6 +26,7 @@ export const Nav = ({ children }) => {
   const clickLogout = () => {
     cookies.remove('mytoken', { path: '/' });
     setIsToken(false);
+    dispatch(mytoken(false));
   };
   const clickSignup = () => {
     navi('/register');

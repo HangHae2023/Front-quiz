@@ -6,7 +6,7 @@ const instance = axios.create({
   baseURL: process.env.REACT_APP_QUIZ_URL,
 
   // 서버요청 시간을 정해서 이 시간이 지나면 오류를 발생하게 함
-  timeout: 10000,
+  timeout: 5000,
 });
 
 instance.interceptors.request.use(
@@ -18,7 +18,6 @@ instance.interceptors.request.use(
 
     // 토큰이 있으면 헤더에 넣어서 리턴
     req.headers.Authorization = `Bearer ${token}`;
-    // console.log(req.headers.Authorization);
     return req;
   },
 
@@ -32,20 +31,15 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   // 응답을 내보내기 전 수행되는 함수
   function (response) {
-    // console.log('인터셉터 응답 받았습니다!');
     return response;
   },
 
   // 오류응답을 내보내기 전 수행되는 함수
   function (error) {
     const navi = useNavigate();
-
-    // console.log(error.request.status);
-    // return Promise.reject(error);
-
     switch (error.request.status) {
-      case 500:
-        return Promise.reject(alert('다시 시도해주세요'));
+      // case 500:
+      //   return Promise.reject(alert('다시 시도해주세요'));
       case 412:
         return Promise.reject(alert('내용을 입력해주세요'));
       case 404:
@@ -53,7 +47,10 @@ instance.interceptors.response.use(
       case 403:
         return Promise.reject(alert('권한이 없습니다'));
       case 401:
-        return Promise.reject(alert('다시 로그인 해주세요'));
+        cookies.remove('mytoken', { path: '/' });
+        return Promise.reject(
+          window.confirm('다시 로그인이 필요합니다.') && navi('/login')
+        );
       case 200:
         return Promise.reject(alert('로그인후 이용해주세요'));
     }

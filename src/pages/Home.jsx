@@ -8,7 +8,6 @@ import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/M
 import { MainButton } from '../components/style/StyleButton';
 import AddQuiz from './AddQuiz';
 import Card from './Card';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import api from '../axios/api';
 import { cookies } from '../shared/cookie';
