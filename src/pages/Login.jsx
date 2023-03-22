@@ -9,7 +9,7 @@ import { cookies } from "../shared/cookie";
 
 const Login = () => {
   const navi = useNavigate();
-  const nameInput = useRef()
+  const nameInput = useRef();
 
   const [login, setLogin] = useState({
     userId: "",
@@ -19,10 +19,10 @@ const Login = () => {
   useEffect(() => {
     const mytoken = cookies.get("mytoken");
     if (mytoken) {
-      alert("이미 로그인 하셨습니다!");
+      // alert("이미 로그인 하셨습니다!");
       navi("/");
     }
-    nameInput.current.focus()
+    nameInput.current.focus();
   }, [cookies]);
 
   const changeInputHandler = (e) => {
@@ -45,7 +45,9 @@ const Login = () => {
       });
       navi(-1);
     } catch (error) {
-      if (error.response.status === 404) {
+      if (error.response.status === 401) {
+        alert("패스워드를 확인해주세요.");
+      } else if (error.response.status === 404) {
         alert("존재하지 않는 사용자입니다.");
       } else if (error.response.status === 500) {
         alert("서버 에러가 발생했습니다.");

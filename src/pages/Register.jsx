@@ -21,10 +21,11 @@ const Register = () => {
 
   const [wrongInput, setWrongInput] = useState("");
 
+  // 토큰 유무 판단하여 로그인 페이지 막기, 
   useEffect(() => {
     const mytoken = cookies.get("mytoken");
     if (mytoken) {
-      alert("이미 로그인 하셨습니다!");
+      // alert("이미 로그인 하셨습니다!");
       navigate("/");
     }
     nameInput.current.focus()
