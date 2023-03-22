@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import api from '../axios/api';
 import { MainButton } from '../components/style/StyleButton';
 import { StInput } from '../components/style/StyleHome';
-import { __addComment } from '../redux/modules/quizSlice';
+import { mytoken, __addComment } from '../redux/modules/quizSlice';
 import { cookies } from '../shared/cookie';
 
 function AddComment({ param }) {
@@ -16,29 +17,17 @@ function AddComment({ param }) {
     quizId: parseInt(param.id),
     content: '',
   });
-  const [isToken, setIsToken] = useState(false);
+  // const [isToken, setIsToken] = useState(false);
 
-  const onChangeInputHandler = (e) => setComment({ ...comment, content: e.target.value });
-  const submitInputHandler = (e) => {
-    e.preventDefault();
-    if (isToken) {
-      dispatch(__addComment(comment));
-      setComment({
-        commentId: parseInt(param.id),
-        quizId: parseInt(param.id),
-        content: '',
-      });
-    } else {
-      alert('로그인이 필요합니다.');
-    }
-  };
-
+  const isToken = useSelector((state) => state.quizSlice.istoken);
   const loginck = async () => {
     try {
-      // await api.get(`/user/loginck`); // 로그인 유효성검사
-      setIsToken(true);
+      await api.get(`/user/loginck`); // 로그인 유효성검사
+      console.log('로그인 유효');
+      dispatch(mytoken(true));
     } catch (error) {
-      // cookies.remove('mytoken', { path: '/' });
+      dispatch(mytoken(false));
+      cookies.remove('mytoken', { path: '/' });
       // window.confirm('다시 로그인이 필요합니다.') && navi('/login'); // 유효성검사 구현되면 지우기
     }
   };
@@ -47,7 +36,19 @@ function AddComment({ param }) {
     if (token) {
       loginck();
     }
-  }, []);
+  }, [isToken]);
+  // }, []);
+
+  const onChangeInputHandler = (e) => setComment({ ...comment, content: e.target.value });
+  const submitInputHandler = (e) => {
+    e.preventDefault();
+    dispatch(__addComment(comment));
+    setComment({
+      commentId: parseInt(param.id),
+      quizId: parseInt(param.id),
+      content: '',
+    });
+  };
 
   // const clickInputHandler = async () => {
   //   try {

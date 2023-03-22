@@ -7,8 +7,6 @@ import AddComment from './AddComment';
 import CommentList from './CommentList';
 
 function Comment() {
-  console.log('comment rendering');
-
   const param = useParams();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.quizSlice.comment);

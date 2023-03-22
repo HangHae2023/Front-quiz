@@ -47,6 +47,7 @@ instance.interceptors.response.use(
       case 403:
         return Promise.reject(alert('권한이 없습니다'));
       case 401:
+        cookies.remove('mytoken', { path: '/' });
         return Promise.reject(
           window.confirm('다시 로그인이 필요합니다.') && navi('/login')
         );

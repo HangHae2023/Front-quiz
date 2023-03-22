@@ -7,7 +7,7 @@ const initialState = {
   comment: [],
   dailQuiz: [],
   modal: false,
-  mytoken: false,
+  istoken: false,
   isLoading: false,
   isError: false,
   error: null,
@@ -126,7 +126,8 @@ export const quizSlice = createSlice({
       state.modal = !action.payload;
     },
     mytoken: (state, action) => {
-      state.isToken = !action.payload;
+      state.istoken = action.payload;
+      console.log('reducer', state.istoken);
     },
   },
   extraReducers: {
@@ -278,4 +279,4 @@ export const quizSlice = createSlice({
 });
 
 export default quizSlice.reducer;
-export const { modalOnOff, isToken } = quizSlice.actions;
+export const { modalOnOff, mytoken } = quizSlice.actions;

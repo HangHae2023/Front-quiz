@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,8 +10,13 @@ import { mytoken } from '../redux/modules/quizSlice';
 export const Nav = ({ children }) => {
   const dispatch = useDispatch();
   const token = cookies.get('mytoken');
-  const [isToken, setIsToken] = useState(false);
+  const [isToken, setIsToken] = useState(token);
   const navi = useNavigate();
+
+  useEffect(() => {
+    token && setIsToken(true);
+  }, [isToken]);
+
   const clickLogo = () => {
     navi('/');
   };
@@ -20,8 +25,8 @@ export const Nav = ({ children }) => {
   };
   const clickLogout = () => {
     cookies.remove('mytoken', { path: '/' });
-    setIsToken(!isToken);
-    dispatch(isToken(isToken));
+    setIsToken(false);
+    dispatch(mytoken(false));
   };
   const clickSignup = () => {
     navi('/register');

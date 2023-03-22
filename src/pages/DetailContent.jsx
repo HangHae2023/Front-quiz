@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/Modal';
@@ -7,6 +7,7 @@ import { MainButton } from '../components/style/StyleButton';
 import { StDetailHeader, StHeaderTitle } from '../components/style/StyleHome';
 import {
   modalOnOff,
+  mytoken,
   __deleteQuiz,
   __getComment,
   __getDetailQuiz,
@@ -17,8 +18,6 @@ import api from '../axios/api';
 import { cookies } from '../shared/cookie';
 
 function DetailContent() {
-  console.log('detailContent rendering');
-
   const navi = useNavigate();
   const token = cookies.get('mytoken');
   const param = useParams();
@@ -29,39 +28,50 @@ function DetailContent() {
   const year = createAt?.split('-')[0];
   const date = createAt?.split('-')[2].split('T')[0];
   const month = createAt?.split('-')[1];
+  const isToken = useSelector((state) => state.quizSlice.istoken);
+
   // console.log(data);
+
+  const [authChk, setAuthChk] = useState(false);
+
+  const authChkUpdate = async (id) => {
+    if (isToken) {
+      try {
+        await api.get(`/api/quiz/authChk/${id}`);
+        dispatch(mytoken(true));
+        setAuthChk(true);
+      } catch (error) {
+        setAuthChk(false);
+      }
+    }
+  };
   useEffect(() => {
     dispatch(__getDetailQuiz(param.id));
   }, [JSON.stringify(data)]);
 
-  const clickEditHandler = async (id) => {
+  useEffect(() => {
     if (token) {
-      try {
-        // await api.get(`/api/quiz/authChk/${id}`);
-        dispatch(modalOnOff(modalState));
-      } catch (error) {
-        // alert('다시 로그인 해주세요!!');
-      }
+      authChkUpdate(param.id);
+    } else {
+      setAuthChk(false);
     }
+  }, [isToken]);
+
+  console.log('DetailContent >>>', isToken);
+
+  const clickEditHandler = async (id) => {
+    dispatch(modalOnOff(modalState));
   };
 
   const clickDeleteHandler = async (id) => {
-    if (token) {
-      try {
-        await api.get(`/api/quiz/authChk/${id}`);
-        window.confirm('정말 삭제 하시겠습니까?') && dispatch(__deleteQuiz(id));
-        navi('/');
-      } catch (error) {
-        alert('삭제할 권한이 없습니다.');
-      }
-    }
+    window.confirm('정말 삭제 하시겠습니까?') && dispatch(__deleteQuiz(id)) && navi('/');
   };
   return (
     <>
       <Flexdiv
         ai="center"
         jc="space-between"
-        style={{ borderBottom: '3px solid', margin: '10px 0' }}
+        style={{ borderBottom: '3px solid', margin: '10px 0', padding: '0 30px' }}
       >
         <StHeaderTitle>MZ력 테스트</StHeaderTitle>
         <StDetailHeader>
@@ -81,14 +91,18 @@ function DetailContent() {
           <ModalBackground />
         </ModalOpenTrigger>
 
-        <MainButton onClick={() => clickEditHandler(data?.quizId)}>수정</MainButton>
-        <ModalContent>
-          <Edit item={data} />
-        </ModalContent>
+        {authChk && (
+          <>
+            <MainButton onClick={() => clickEditHandler(data?.quizId)}>수정</MainButton>
+            <ModalContent>
+              <Edit item={data} />
+            </ModalContent>
 
-        <MainButton type="pink" onClick={() => clickDeleteHandler(data?.quizId)}>
-          삭제
-        </MainButton>
+            <MainButton type="pink" onClick={() => clickDeleteHandler(data?.quizId)}>
+              삭제
+            </MainButton>
+          </>
+        )}
       </Flexdiv>
       <QuizTitle>{data?.title}</QuizTitle>
       <QuizAnswer>정답 : {data?.answer}</QuizAnswer>

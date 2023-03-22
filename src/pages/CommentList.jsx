@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Flexdiv } from '../components/page';
 import { MainButton } from '../components/style/StyleButton';
 import { StContent, StInput } from '../components/style/StyleHome';
 import { __deleteComment, __editComment } from '../redux/modules/quizSlice';
 import api from '../axios/api';
+import { cookies } from '../shared/cookie';
+import { useSelector } from 'react-redux';
 
 function CommentList({ item }) {
   const dispatch = useDispatch();
+  const token = cookies.get('mytoken');
+  const isToken = useSelector((state) => state.quizSlice.istoken);
   const [edit, setEdit] = useState({
-    editModal: false,
+    editInput: false,
     editAuth: false,
   });
 
@@ -21,7 +25,7 @@ function CommentList({ item }) {
   const submitInputHandler = (e) => {
     e.preventDefault();
     dispatch(__editComment(editComment));
-    setEdit(!edit);
+    setEdit({ ...edit, editInput: false });
   };
 
   const deleteCommentHandler = (id) => {
@@ -31,12 +35,23 @@ function CommentList({ item }) {
   const comentAuthCk = async () => {
     try {
       await api.get(`/api/comment/authChk/${item.commentId}`);
-      setEdit(!edit.editAuth);
-    } catch (error) {}
+      setEdit({ ...edit, editAuth: true });
+    } catch (error) {
+      setEdit({ ...edit, editAuth: false });
+    }
   };
+
+  useEffect(() => {
+    if (token) {
+      comentAuthCk();
+    } else {
+      setEdit({ ...edit, editAuth: false });
+    }
+  }, [isToken]);
+
   return (
     <div>
-      {edit ? (
+      {edit.editInput ? (
         <Flexdiv fd="column" jc="space-between">
           <StContent>
             <form
@@ -63,22 +78,27 @@ function CommentList({ item }) {
         </Flexdiv>
       ) : (
         <StContent>
-          <p style={{ fontSize: '13px', marginLeft: '17px' }}>{date}</p>
+          <Flexdiv jc="flex-end" style={{ fontSize: '13px', paddingTop: '10px' }}>
+            {date}
+          </Flexdiv>
           <Flexdiv ai="center" jc="space-between">
             <div>
               <p>{item.User?.nickname}</p>
               {item.content}
             </div>
-
-            <Flexdiv ai="center">
-              <MainButton onClick={() => setEdit(!edit.editModal)}>수정</MainButton>
-              <MainButton
-                type="blue"
-                onClick={() => deleteCommentHandler(item.commentId)}
-              >
-                삭제
-              </MainButton>
-            </Flexdiv>
+            {edit.editAuth && (
+              <Flexdiv ai="center" style={{ gap: '7px' }}>
+                <MainButton onClick={() => setEdit({ ...edit, editInput: true })}>
+                  수정
+                </MainButton>
+                <MainButton
+                  type="blue"
+                  onClick={() => deleteCommentHandler(item.commentId)}
+                >
+                  삭제
+                </MainButton>
+              </Flexdiv>
+            )}
           </Flexdiv>
         </StContent>
       )}

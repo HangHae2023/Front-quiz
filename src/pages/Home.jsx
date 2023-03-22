@@ -27,7 +27,7 @@ function Home() {
   const onClickAddQuiz = async () => {
     if (token) {
       try {
-        // await api.get(`/user/loginck`); // 로그인 유효성검사
+        await api.get(`/user/loginck`); // 로그인 유효성검사
         dispatch(modalOnOff(modalState));
       } catch (error) {
         alert('다시 로그인 해주세요!!');
