@@ -1,9 +1,9 @@
 import { useInput } from '../components/hooks/useInput';
+import { ModalCloseBtn, ModalOpenTrigger } from '../components/Modal';
 import { Flexdiv } from '../components/page';
 import { MainButton } from '../components/style/StyleButton';
 import { StImgLabel, StInput, StLabel } from '../components/style/StyleHome';
 import { __addQuiz } from '../redux/modules/quizSlice';
-
 function AddQuiz() {
   const newQuiz = {
     title: '',
@@ -20,6 +20,7 @@ function AddQuiz() {
 
   return (
     <Flexdiv fd="column" ai="flex-start" style={{ gap: '40px' }}>
+      <ModalCloseBtn />
       <form style={{ gap: '15px' }} onSubmit={submitInputHandler}>
         <StLabel>
           어떤 퀴즈를 내볼까요?
@@ -56,14 +57,16 @@ function AddQuiz() {
             required
           />
         </StLabel>
-        <StImgLabel>사진 선택</StImgLabel>
-        <input
-          type="file"
-          name="chooseFile"
-          accept="image/png, image/jpeg, image/jpg"
-          onChange={fileInputHandler}
-          // style={{ display: 'none' }}
-        />
+        <StImgLabel>
+          사진 선택
+          <input
+            type="file"
+            name="chooseFile"
+            accept="image/png, image/jpeg, image/jpg"
+            onChange={fileInputHandler}
+            style={{ display: 'none' }}
+          />
+        </StImgLabel>
         <MainButton type="blue">퀴즈 내러가기!</MainButton>
       </form>
     </Flexdiv>

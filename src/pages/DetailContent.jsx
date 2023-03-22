@@ -16,6 +16,7 @@ import {
 import Edit from './Edit';
 import api from '../axios/api';
 import { cookies } from '../shared/cookie';
+import moment from 'moment/moment';
 
 function DetailContent() {
   const navi = useNavigate();
@@ -25,12 +26,24 @@ function DetailContent() {
   const modalState = useSelector((state) => state.quizSlice.modal);
   const data = useSelector((state) => state.quizSlice.dailQuiz.quiz);
   const createAt = data?.createdAt;
-  const year = createAt?.split('-')[0];
-  const date = createAt?.split('-')[2].split('T')[0];
-  const month = createAt?.split('-')[1];
   const isToken = useSelector((state) => state.quizSlice.istoken);
+  console.log(moment(createAt).fromNow());
 
-  // console.log(data);
+  console.log(createAt);
+  const nowTime = () => {
+    const dateNumber = parseInt(moment(createAt).fromNow());
+    if (moment(createAt).fromNow().indexOf('minutes') > 1) {
+      return `${dateNumber}분 전`;
+    } else if (moment(createAt).fromNow().indexOf('hour') > 1) {
+      return `${dateNumber}시간 전`;
+    } else if (moment(createAt).fromNow().indexOf('day') > 1) {
+      return `${dateNumber}일 전`;
+    } else if (moment(createAt).fromNow().indexOf('month') > 1) {
+      return `${dateNumber}개월 전`;
+    } else if (moment(createAt).fromNow().indexOf('year') > 1) {
+      return `${dateNumber}년 전`;
+    }
+  };
 
   const [authChk, setAuthChk] = useState(false);
 
@@ -57,9 +70,7 @@ function DetailContent() {
     }
   }, [isToken]);
 
-  console.log('DetailContent >>>', isToken);
-
-  const clickEditHandler = async (id) => {
+  const clickEditHandler = async () => {
     dispatch(modalOnOff(modalState));
   };
 
@@ -74,11 +85,9 @@ function DetailContent() {
         style={{ borderBottom: '3px solid', margin: '10px 0', padding: '0 30px' }}
       >
         <StHeaderTitle>MZ력 테스트</StHeaderTitle>
-        <StDetailHeader>
+        <StDetailHeader style={{ alignItems: 'flex-end' }}>
           <div>작성자 : {data?.nickname}</div>
-          <div style={{ color: 'gray', fontSize: '16px' }}>
-            작성일 : {year}년 {month}월 {date}일
-          </div>
+          <div style={{ color: 'gray', fontSize: '16px' }}>{nowTime()}</div>
         </StDetailHeader>
       </Flexdiv>
 

@@ -1,7 +1,8 @@
 import { useInput } from '../components/hooks/useInput';
+import { ModalCloseBtn } from '../components/Modal';
 import { Flexdiv } from '../components/page';
 import { MainButton } from '../components/style/StyleButton';
-import { StInput, StLabel } from '../components/style/StyleHome';
+import { StImgLabel, StInput, StLabel } from '../components/style/StyleHome';
 import { __editQuiz } from '../redux/modules/quizSlice';
 
 function Edit({ item }) {
@@ -20,6 +21,7 @@ function Edit({ item }) {
   );
   return (
     <Flexdiv>
+      <ModalCloseBtn />
       <form style={{ gap: '10px' }} onSubmit={submitInputHandler}>
         <StLabel>
           어떤 퀴즈로 바꾸시나요 ?
@@ -51,11 +53,15 @@ function Edit({ item }) {
             required
           />
         </StLabel>
-        <input
-          type="file"
-          accept="image/png, image/jpeg, image/jpg"
-          onChange={fileInputHandler}
-        />
+        <StImgLabel>
+          사진 선택
+          <input
+            type="file"
+            accept="image/png, image/jpeg, image/jpg"
+            onChange={fileInputHandler}
+            style={{ display: 'none' }}
+          />
+        </StImgLabel>
         <MainButton type="submit">수정완료</MainButton>
       </form>
     </Flexdiv>
