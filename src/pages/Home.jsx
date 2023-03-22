@@ -17,7 +17,6 @@ function Home() {
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.quizSlice.modal);
   const navi = useNavigate();
-
   const quiz = useSelector((state) => state.quizSlice.quiz);
 
   useEffect(() => {
@@ -37,17 +36,6 @@ function Home() {
     }
   };
 
-  // if (isLoading) {
-  //   return <div>로딩중</div>;
-  // }
-  // switch (error) {
-  //   case 400:
-  //     alert('다시 로딩해주세요');
-  //   case 403:
-  //     alert('로그인이 필요합니다');
-  //   default:
-  //     console.log('error', error);
-  // }
   return (
     <>
       <Nav />

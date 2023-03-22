@@ -131,6 +131,7 @@ const StContent = styled.div`
   width: 80%;
   border-bottom: 1px solid;
 `;
+
 export {
   StListContainer,
   StListWrapper,
