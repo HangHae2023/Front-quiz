@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 export const Day = (createAt) => {
-  const now = dayjs().add(9, 'hour');
+  const now = dayjs();
   const second = now.diff(createAt, 's');
   const minute = now.diff(createAt, 'm');
   const hour = now.diff(createAt, 'h');

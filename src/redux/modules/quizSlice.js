@@ -219,7 +219,7 @@ export const quizSlice = createSlice({
     [__deleteQuiz.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.isError = false;
-      state.quiz = state.quiz.filter((item) => item.id !== action.payload);
+      state.quiz = state.quiz.filter((item) => item.quizId !== action.payload);
     },
     [__deleteQuiz.rejected]: (state, action) => {
       state.isError = true;

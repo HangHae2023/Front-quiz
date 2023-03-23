@@ -23,6 +23,7 @@ function Home() {
     dispatch(__getQuiz());
   }, [JSON.stringify(quiz)]);
 
+  console.log(quiz);
   const onClickAddQuiz = async () => {
     if (token) {
       try {

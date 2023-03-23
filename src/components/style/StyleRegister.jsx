@@ -14,7 +14,7 @@ export const StSignupForm = styled.form`
   height: 700px;
   box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.6);
   border: 2px solid #518edb;
-  gap: 40px;
+  gap: 20px;
 `;
 export const HeaderLetter = styled.div`
   font-size: 33px;

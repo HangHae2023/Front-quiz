@@ -57,7 +57,8 @@ function DetailContent() {
   };
 
   const clickDeleteHandler = async (id) => {
-    window.confirm('정말 삭제 하시겠습니까?') && dispatch(__deleteQuiz(id)) && navi('/');
+    if (window.confirm('정말 삭제 하시겠습니까?'))
+      return dispatch(__deleteQuiz(id)) && navi('/');
   };
   return (
     <>
