@@ -7,6 +7,8 @@ import { __deleteComment, __editComment } from '../redux/modules/quizSlice';
 import api from '../axios/api';
 import { cookies } from '../shared/cookie';
 import { useSelector } from 'react-redux';
+import { Day } from '../shared/Day';
+// import dayjs from 'dayjs';
 
 function CommentList({ item }) {
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ function CommentList({ item }) {
     commentId: item.commentId,
     content: item.content,
   });
-  const date = item?.createdAt?.split('T')[0];
+
   const submitInputHandler = (e) => {
     e.preventDefault();
     dispatch(__editComment(editComment));
@@ -79,7 +81,7 @@ function CommentList({ item }) {
       ) : (
         <StContent>
           <Flexdiv jc="flex-end" style={{ fontSize: '13px', paddingTop: '10px' }}>
-            {date}
+            {Day(item?.createAt)}
           </Flexdiv>
           <Flexdiv ai="center" jc="space-between">
             <div>

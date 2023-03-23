@@ -39,6 +39,7 @@ const StImageBox = styled.div`
   margin: 0 auto 20px auto;
   z-index: 3;
 `;
+
 const StQuizTitle = styled.div`
   font-size: 20px;
   max-width: 400px;
@@ -50,15 +51,13 @@ const StQuizTitle = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-const StNickname = styled.div`
+const StQuizContent = styled.div`
   width: 200px;
   font-weight: 600;
   position: absolute;
   bottom: 15px;
-  right: 25px;
   overflow: hidden;
   display: flex;
-  justify-content: flex-end;
 `;
 
 const StTodayQuiz = styled.div`
@@ -137,7 +136,7 @@ export {
   StListWrapper,
   StQuizContainer,
   StImageBox,
-  StNickname,
+  StQuizContent,
   StTodayQuiz,
   StInput,
   StDetailHeader,
