@@ -1,5 +1,5 @@
 import { useInput } from '../components/hooks/useInput';
-import { ModalCloseBtn, ModalOpenTrigger } from '../components/Modal';
+import { ModalCloseBtn } from '../components/Modal';
 import { Flexdiv } from '../components/page';
 import { MainButton } from '../components/style/StyleButton';
 import { StImgLabel, StInput, StLabel } from '../components/style/StyleHome';

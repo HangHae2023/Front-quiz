@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ModalBackground, ModalContent, ModalOpenTrigger } from '../components/Modal';
 import { Flexdiv, Nav, QuizAnswer, QuizTitle } from '../components/page';
 import { MainButton } from '../components/style/StyleButton';
-import { StDetailHeader, StHeaderTitle } from '../components/style/StyleHome';
+import * as style from '../components/style/StyleHome';
 import {
   modalOnOff,
   mytoken,
@@ -16,7 +16,7 @@ import {
 import Edit from './Edit';
 import api from '../axios/api';
 import { cookies } from '../shared/cookie';
-import moment from 'moment/moment';
+import { Day } from '../shared/Day';
 
 function DetailContent() {
   const navi = useNavigate();
@@ -25,25 +25,7 @@ function DetailContent() {
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.quizSlice.modal);
   const data = useSelector((state) => state.quizSlice.dailQuiz.quiz);
-  const createAt = data?.createdAt;
   const isToken = useSelector((state) => state.quizSlice.istoken);
-  console.log(moment(createAt).fromNow());
-
-  console.log(createAt);
-  const nowTime = () => {
-    const dateNumber = parseInt(moment(createAt).fromNow());
-    if (moment(createAt).fromNow().indexOf('minutes') > 1) {
-      return `${dateNumber}분 전`;
-    } else if (moment(createAt).fromNow().indexOf('hour') > 1) {
-      return `${dateNumber}시간 전`;
-    } else if (moment(createAt).fromNow().indexOf('day') > 1) {
-      return `${dateNumber}일 전`;
-    } else if (moment(createAt).fromNow().indexOf('month') > 1) {
-      return `${dateNumber}개월 전`;
-    } else if (moment(createAt).fromNow().indexOf('year') > 1) {
-      return `${dateNumber}년 전`;
-    }
-  };
 
   const [authChk, setAuthChk] = useState(false);
 
@@ -84,11 +66,11 @@ function DetailContent() {
         jc="space-between"
         style={{ borderBottom: '3px solid', margin: '10px 0', padding: '0 30px' }}
       >
-        <StHeaderTitle>MZ력 테스트</StHeaderTitle>
-        <StDetailHeader style={{ alignItems: 'flex-end' }}>
+        <style.StHeaderTitle>MZ력 테스트</style.StHeaderTitle>
+        <style.StDetailHeader style={{ alignItems: 'flex-end' }}>
           <div>작성자 : {data?.nickname}</div>
-          <div style={{ color: 'gray', fontSize: '16px' }}>{nowTime()}</div>
-        </StDetailHeader>
+          <div style={{ color: 'gray', fontSize: '16px' }}>{Day(data?.createdAt)}</div>
+        </style.StDetailHeader>
       </Flexdiv>
 
       <Flexdiv
@@ -113,6 +95,7 @@ function DetailContent() {
           </>
         )}
       </Flexdiv>
+
       <QuizTitle>{data?.title}</QuizTitle>
       <QuizAnswer>정답 : {data?.answer}</QuizAnswer>
       <QuizAnswer>해설 : {data?.explain}</QuizAnswer>

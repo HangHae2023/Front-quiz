@@ -127,7 +127,6 @@ export const quizSlice = createSlice({
     },
     mytoken: (state, action) => {
       state.istoken = action.payload;
-      console.log('reducer', state.istoken);
     },
   },
   extraReducers: {

@@ -93,8 +93,8 @@ const QuizHeader = styled.div`
   align-items: center;
 `;
 
-export const QuizTitle = ({ children }) => {
-  return <Title>{children}</Title>;
+export const QuizTitle = ({ children, ...rest }) => {
+  return <Title {...rest}>{children}</Title>;
 };
 
 const Title = styled.div`
@@ -102,8 +102,9 @@ const Title = styled.div`
   font-weight: bold;
   display: flex;
   justify-content: center;
-  height: 300px;
+  height: 400px;
   padding-top: 50px;
+  z-index: 5;
 `;
 
 export const QuizAnswer = ({ children }) => {

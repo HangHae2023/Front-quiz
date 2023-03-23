@@ -53,6 +53,8 @@ instance.interceptors.response.use(
         );
       case 200:
         return Promise.reject(alert('로그인후 이용해주세요'));
+      default:
+        return Promise.reject(error);
     }
   }
 );
