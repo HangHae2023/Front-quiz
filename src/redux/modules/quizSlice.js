@@ -110,7 +110,7 @@ export const __addQuiz = createAsyncThunk(
 
 export const __addComment = createAsyncThunk('addComment', async (payload, thunkAPI) => {
   try {
-    console.log(payload);
+    // console.log(payload);
     await api.post(`/api/comment/${payload.quizId}`, { content: payload.content });
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {

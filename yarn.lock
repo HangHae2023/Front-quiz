@@ -3484,6 +3484,7 @@
   "version" "7.1.0"
   dependencies:
     "@types/parse-json" "^4.0.0"
+
     "import-fresh" "^3.2.1"
     "parse-json" "^5.0.0"
     "path-type" "^4.0.0"
