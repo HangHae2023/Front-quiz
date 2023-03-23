@@ -6,6 +6,7 @@ import * as style from "../components/style/StyleRegister";
 import { MainButton } from "../components/style/StyleButton";
 import api from "../axios/api";
 import { cookies } from "../shared/cookie";
+import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -21,14 +22,14 @@ const Register = () => {
 
   const [wrongInput, setWrongInput] = useState("");
 
-  // 토큰 유무 판단하여 로그인 페이지 막기, 
+  // 토큰 유무 판단하여 로그인 페이지 막기,
   useEffect(() => {
     const mytoken = cookies.get("mytoken");
     if (mytoken) {
       // alert("이미 로그인 하셨습니다!");
       navigate("/");
     }
-    nameInput.current.focus()
+    nameInput.current.focus();
   }, [cookies]);
 
   const onChangeHandler = (e) => {
@@ -42,7 +43,7 @@ const Register = () => {
   // 닉네임 중복 확인 버튼
   const isNicknameSameButtonHandler = async () => {
     try {
-      await api.post(`/user/signup/nkck`, {
+      await axios.post(`${process.env.REACT_APP_QUIZ_URL}/user/signup/nkck`, {
         nickname: newUsers.nickname,
       });
       alert("사용가능한 닉네임입니다.");
@@ -60,7 +61,7 @@ const Register = () => {
   // 아이디 중복 확인 버튼
   const isUserIdSameButtonHandler = async () => {
     try {
-      await api.post(`/user/signup/idck`, {
+      await axios.post(`${process.env.REACT_APP_QUIZ_URL}/user/signup/idck`, {
         userId: newUsers.userId,
       });
       alert("사용가능한 아이디입니다.");
@@ -89,13 +90,16 @@ const Register = () => {
       setWrongInput("정보를 다 입력해주세요!");
     } else {
       try {
-        const data = await api.post(`/user/signup`, newUsers);
+        const data = await axios.post(
+          `${process.env.REACT_APP_QUIZ_URL}/user/signup`,
+          newUsers
+        );
         alert(data.data.message);
         navigate("/Login");
       } catch (error) {
-        if ((error.response.status = 409)) {
-          alert("아이디와 닉네임을 확인해주세요");
-        } else if ((error.response.status = 500)) {
+        if ((error.response.status === 409)) {
+          alert(error.response.data.errorMessage);
+        } else if ((error.response.status === 500)) {
           alert("서버 에러가 발생했습니다.");
         } else {
           alert("알 수 없는 에러가 발생했습니다.");
