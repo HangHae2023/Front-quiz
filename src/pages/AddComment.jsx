@@ -17,18 +17,15 @@ function AddComment({ param }) {
     quizId: parseInt(param.id),
     content: '',
   });
-  // const [isToken, setIsToken] = useState(false);
 
   const isToken = useSelector((state) => state.quizSlice.istoken);
   const loginck = async () => {
     try {
-      await api.get(`/user/loginck`); // 로그인 유효성검사
-      console.log('로그인 유효');
+      await api.get(`/user/loginck`);
       dispatch(mytoken(true));
     } catch (error) {
       dispatch(mytoken(false));
       cookies.remove('mytoken', { path: '/' });
-      // window.confirm('다시 로그인이 필요합니다.') && navi('/login'); // 유효성검사 구현되면 지우기
     }
   };
 
@@ -37,7 +34,6 @@ function AddComment({ param }) {
       loginck();
     }
   }, [isToken]);
-  // }, []);
 
   const onChangeInputHandler = (e) => setComment({ ...comment, content: e.target.value });
   const submitInputHandler = (e) => {
@@ -49,17 +45,6 @@ function AddComment({ param }) {
       content: '',
     });
   };
-
-  // const clickInputHandler = async () => {
-  //   try {
-  //     // await api.get(`/user/loginck`); // 로그인 유효성검사
-  //     setIsToken(true);
-  //   } catch {
-  //     // cookies.remove('mytoken', { path: '/' });
-  //     // setIsToken(false);
-  //     // window.confirm('다시 로그인이 필요합니다.') && navi('/login'); // 유효성검사 구현되면 지우기
-  //   }
-  // };
 
   const clickPleaseLogin = () => {
     window.confirm('로그인이 필요합니다.') && navi('/login');
