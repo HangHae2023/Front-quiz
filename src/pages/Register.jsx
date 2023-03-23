@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import Layout from "../components/page";
-import { Nav } from "../components/page";
-import { useNavigate } from "react-router-dom";
-import * as style from "../components/style/StyleRegister";
-import { MainButton } from "../components/style/StyleButton";
-import api from "../axios/api";
-import { cookies } from "../shared/cookie";
-import axios from "axios";
+import React, { useEffect, useRef, useState } from 'react';
+import Layout from '../components/page';
+import { Nav } from '../components/page';
+import { useNavigate } from 'react-router-dom';
+import * as style from '../components/style/StyleRegister';
+import { MainButton } from '../components/style/StyleButton';
+import api from '../axios/api';
+import { cookies } from '../shared/cookie';
+import axios from 'axios';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -98,10 +98,10 @@ const Register = () => {
         alert(data.data.message);
         navigate('/Login');
       } catch (error) {
-        if ((error.response.status === 409)) {
+        if (error.response.status === 409) {
           alert(error.response.data.errorMessage);
-        } else if ((error.response.status === 500)) {
-          alert("서버 에러가 발생했습니다.");
+        } else if (error.response.status === 500) {
+          alert('서버 에러가 발생했습니다.');
         } else {
           alert('알 수 없는 에러가 발생했습니다.');
         }
@@ -137,9 +137,9 @@ const Register = () => {
               onChange={onChangeHandler}
               ref={nameInput}
             />
-            <style.StSignupSameButton type="button" onClick={isNicknameSameButtonHandler}>
+            <MainButton onClick={isNicknameSameButtonHandler} type="blue">
               중복확인
-            </style.StSignupSameButton>
+            </MainButton>
             <style.StSignupInput
               type="text"
               name="userId"
@@ -147,9 +147,9 @@ const Register = () => {
               value={newUsers.userId}
               onChange={onChangeHandler}
             />
-            <style.StSignupSameButton type="button" onClick={isUserIdSameButtonHandler}>
+            <MainButton onClick={isUserIdSameButtonHandler} type="blue">
               중복확인
-            </style.StSignupSameButton>
+            </MainButton>
             <style.StSignupInput
               type="password"
               name="password"
@@ -167,18 +167,20 @@ const Register = () => {
             <span style={{ color: 'red', font: 'bold' }}>{wrongInput}</span>
             <MainButton type="login">회원가입하기!</MainButton>
 
-            <style.StSignupButton onClick={() => navigate('/login')}>
+            <style.StSignupButton
+              onClick={() => navigate('/login')}
+              style={{ display: 'flex', alignItems: 'center' }}
+            >
               계정이 이미 있으신가요? &nbsp;
-              <span
+              <MainButton
                 style={{
                   color: 'red',
-                  border: '1px solid red',
-                  borderRadius: '10px',
-                  // fontSize:"15px"
+                  border: '1px solid',
+                  backgroundColor: 'transparent',
                 }}
               >
-                &nbsp;로그인&nbsp;
-              </span>
+                로그인
+              </MainButton>
             </style.StSignupButton>
           </style.StSignUpGroup>
         </style.StSignupForm>

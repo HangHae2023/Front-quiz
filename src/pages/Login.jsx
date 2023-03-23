@@ -1,26 +1,26 @@
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Layout from "../components/page";
-import { Nav } from "../components/page";
-import { MainButton } from "../components/style/StyleButton";
-import * as style from "../components/style/StyleRegister";
-import { cookies } from "../shared/cookie";
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Layout from '../components/page';
+import { Nav } from '../components/page';
+import { MainButton } from '../components/style/StyleButton';
+import * as style from '../components/style/StyleRegister';
+import { cookies } from '../shared/cookie';
 
 const Login = () => {
   const navi = useNavigate();
   const nameInput = useRef();
 
   const [login, setLogin] = useState({
-    userId: "",
-    password: "",
+    userId: '',
+    password: '',
   });
 
   useEffect(() => {
-    const mytoken = cookies.get("mytoken");
+    const mytoken = cookies.get('mytoken');
     if (mytoken) {
       // alert("이미 로그인 하셨습니다!");
-      navi("/");
+      navi('/');
     }
     nameInput.current.focus();
   }, [cookies]);
@@ -29,7 +29,7 @@ const Login = () => {
     const { name, value } = e.target;
     setLogin({
       ...login,
-      [name]: value.replace(/[^a-zA-Z0-9]/gi, "").substring(0, 30),
+      [name]: value.replace(/[^a-zA-Z0-9]/gi, '').substring(0, 30),
     });
   };
 
@@ -40,19 +40,19 @@ const Login = () => {
         `${process.env.REACT_APP_QUIZ_URL}/user/login`,
         login
       );
-      cookies.set("mytoken", data.headers.authorization.split(" ")[1], {
-        path: "/",
+      cookies.set('mytoken', data.headers.authorization.split(' ')[1], {
+        path: '/',
       });
       navi(-1);
     } catch (error) {
       if (error.response.status === 401) {
-        alert("패스워드를 확인해주세요.");
+        alert('패스워드를 확인해주세요.');
       } else if (error.response.status === 404) {
-        alert("존재하지 않는 사용자입니다.");
+        alert('존재하지 않는 사용자입니다.');
       } else if (error.response.status === 500) {
-        alert("서버 에러가 발생했습니다.");
+        alert('서버 에러가 발생했습니다.');
       } else {
-        alert("알 수 없는 에러가 발생했습니다.");
+        alert('알 수 없는 에러가 발생했습니다.');
       }
     }
   };
@@ -60,12 +60,12 @@ const Login = () => {
   return (
     <>
       <Nav />
-      <Layout style={{ maxWidth: "1000px" }}>
+      <Layout style={{ maxWidth: '1000px' }}>
         <h2
           style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "50px",
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '50px',
           }}
         >
           로 그 인
@@ -86,7 +86,6 @@ const Login = () => {
               required
               ref={nameInput}
             />
-            &nbsp;
             <style.StSignupInput
               type="password"
               name="password"
@@ -95,18 +94,22 @@ const Login = () => {
               onChange={changeInputHandler}
               required
             />
+            &nbsp;
             <MainButton type="login">로그인</MainButton>
-            <style.StSignupButton onClick={() => navi("/Register")}>
+            <style.StSignupButton
+              onClick={() => navi('/Register')}
+              style={{ display: 'flex', alignItems: 'center' }}
+            >
               아직 회원이 아니신가요?&nbsp;
-              <span
+              <MainButton
                 style={{
-                  color: "red",
-                  border: "1px solid red",
-                  borderRadius: "10px",
+                  color: 'red',
+                  border: '1px solid',
+                  backgroundColor: 'transparent',
                 }}
               >
-                &nbsp;회원가입&nbsp;
-              </span>
+                회원가입
+              </MainButton>
             </style.StSignupButton>
           </style.StSignUpGroup>
         </style.StSignupForm>

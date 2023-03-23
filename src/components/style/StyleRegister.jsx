@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StSignupForm = styled.form`
   /* background-color: #eee; */
@@ -43,14 +43,6 @@ export const StSignupInput = styled.input`
   border-radius: 12px;
   padding: 0 12px;
   box-sizing: border-box;
-`;
-
-export const StSignupSameButton = styled.button`
-  cursor: pointer;
-  border-radius: 10px;
-  font-weight: 700;
-  border: 1px solid #518edb;
-  color: #518edb;
 `;
 
 export const StSignupButton = styled.div`
